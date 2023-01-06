@@ -1,5 +1,6 @@
 package com.mertoenjosh.triviaquestadmin.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,7 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.mertoenjosh.triviaquestadmin.R
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
+import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.CustomMenuDialog
 import com.mertoenjosh.triviaquestadmin.ui.components.Question
 import com.mertoenjosh.triviaquestadmin.ui.components.TopAppBar
@@ -32,7 +36,7 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
         // TopBar
         topBar = {
             TopAppBar(
-                title = "Trivia Quest",
+                title = R.string.trivia_quest,
                 icon = Icons.Filled.AccountCircle,
                 onIconClick = {
                     showDialogMenu.value = true
@@ -46,7 +50,8 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
         // Content
         content = { padding ->
             Column(
-                modifier = Modifier.padding(padding)
+                modifier = Modifier
+                    .padding(padding)
                     .fillMaxSize()
             ) {
                 if (questionsMock.isNotEmpty()) {
@@ -56,7 +61,14 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
                     )
                 }
                 if (showDialogMenu.value) {
-                    CustomMenuDialog(title = "Trivia Quest") { showDialogMenu.value = !showDialogMenu.value }
+                    CustomMenuDialog(
+                        title = R.string.trivia_quest,
+                        onDismiss =  { showDialogMenu.value = !showDialogMenu.value },
+                        name = "Jordan Park",
+                        email = "hello@jpark.com",
+                        onAccountImageAndEmailClicked = {},
+                        onDialogItemClicked = {}
+                    )
                 }
             }
         },
@@ -67,7 +79,7 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
                 onClick = { },
                 contentColor = MaterialTheme.colors.background,
                 content = {
-                    Icon(imageVector = Icons.Filled.Add, contentDescription = "Add question button")
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                 }
             )
         }
@@ -88,5 +100,33 @@ fun QuestionsList(questions: List<QuestionModel>, onQuestionClick: (QuestionMode
             )
         }
 
+    }
+}
+
+@Preview (
+    showBackground = true,
+    widthDp = 320
+)
+@Composable
+fun QuestionsListPreview() {
+    TriviaQuestAdminTheme {
+        QuestionsList(questions = questions, onQuestionClick = {})
+    }
+}
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark"
+)
+@Preview (
+    showBackground = true,
+    widthDp = 320
+)
+@Composable
+fun QuestionsScreenPreview() {
+    TriviaQuestAdminTheme {
+        // QuestionsScreen(viewModel)
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Quest Provider</string>
+    <string name="trivia_quest">Trivia Quest</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="account_profile_picture">Account Profile Picture</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.mertoenjosh.triviaquestadmin.ui.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,17 +18,116 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.mertoenjosh.triviaquestadmin.R
+import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
+
+@Composable
+fun DialogTitle(
+    icon: ImageVector,
+    @StringRes title: Int,
+    onClick: () -> Unit
+) {
+    // CLose btn and title
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp, bottom = 16.dp)
+    ) {
+        Image(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .clickable { onClick() }
+        )
+
+        Text(
+            text = stringResource(title),
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 16.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun DialogTitlePreview() {
+    TriviaQuestAdminTheme {
+        DialogTitle(
+            icon = Icons.Default.Close,
+            title = R.string.trivia_quest
+        ){}
+    }
+}
+
+@Composable
+fun AccountImageAndEmail(
+    name: String,
+    email: String,
+    onClick: () -> Unit
+) {
+    // Acc Image, Name email, Edit Account(chip)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)
+            .clickable { onClick() }
+    ) {
+        ProfileIcon(
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(start = 10.dp, end = 10.dp),
+            imageIcon = Icons.Filled.AccountCircle,
+            imageColorFilter = ColorFilter.tint(Color.DarkGray),
+            size = 50.dp,
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text(
+                text = name,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Text(
+                text = email,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun AccountImageAndEmailPreview() {
+    TriviaQuestAdminTheme {
+        AccountImageAndEmail(
+            name = "Martin Thuo",
+            email = "mnthuo254@gmail.com"
+        ){}
+    }
+}
 
 @Composable
 fun CustomDialogItem(
     icon: ImageVector,
-    label: String,
+    @StringRes label: Int,
     onClick: ()->Unit
 ) {
     Row(
@@ -40,11 +140,11 @@ fun CustomDialogItem(
     ) {
         Image(
             imageVector = icon,
-            contentDescription = "Menu Item Icon",
+            contentDescription = null,
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
-            text = label,
+            text = stringResource(id = label),
             fontSize = 16.sp,
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Normal,
@@ -54,9 +154,26 @@ fun CustomDialogItem(
     }
 }
 
+@Preview(showBackground = true, widthDp = 320)
 @Composable
-fun CustomMenuDialog(title: String = "Trivia Quest", onDismiss: ()->Unit) {
-    Dialog(onDismissRequest = { onDismiss() },
+fun CustomDialogItemPreview() {
+    TriviaQuestAdminTheme {
+        CustomDialogItem(icon = Icons.Default.Settings, label = R.string.settings){}
+    }
+}
+
+@Composable
+fun CustomMenuDialog(
+    @StringRes title: Int,
+    onDismiss: ()->Unit,
+    name: String = "Martin Thuo",
+    email: String = "martinthuo@gmail.com",
+    onAccountImageAndEmailClicked: () -> Unit,
+    onDialogItemClicked: () -> Unit,
+    dialogTitleIcon: ImageVector = Icons.Default.Close
+) {
+    Dialog(
+        onDismissRequest = onDismiss,
         properties = DialogProperties(dismissOnClickOutside = true)
     ) {
         Card(
@@ -66,68 +183,42 @@ fun CustomMenuDialog(title: String = "Trivia Quest", onDismiss: ()->Unit) {
             elevation = 10.dp
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                // CLose btn and title
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 16.dp)
-                ) {
-                    Image(
-                        imageVector = Icons.Filled.Close,
-                        contentDescription = "Close details menu dialog",
-                        modifier = Modifier
-                            .padding(start = 8.dp)
-                            .clickable { onDismiss() }
-                    )
-                    
-                    Text(
-                        text = title,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth().padding(end = 16.dp)
-                    )
-                }
+                DialogTitle(title = title, icon = dialogTitleIcon) {}
 
-                // Acc Image, Name email, Edit Account(chip)
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-                ) {
-                    ProfileIcon(
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(start = 10.dp, end = 10.dp),
-                        imageIcon = Icons.Filled.AccountCircle,
-                        imageColorFilter = ColorFilter.tint(Color.DarkGray),
-                        contentDescription = "Account Icon",
-                        size = 50.dp,
-                    )
-                    Column(
-                        modifier = Modifier.fillMaxWidth().padding(8.dp)
-                    ){
-                        Text(
-                            text = "Martin Thuo",
-                            textAlign = TextAlign.Start,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        Text(
-                            text = "mnthuo254@gmail.com",
-                            textAlign = TextAlign.Start,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                }
-                // TODO: Create edit account chip
+                AccountImageAndEmail(
+                    onClick = onAccountImageAndEmailClicked,
+                    name = name,
+                    email = email
+                )
 
                 // Line(-----)
                 Divider(color = Color.LightGray, thickness = 1.dp)
 
                 // Menu items: settings, logout
-                CustomDialogItem(icon = Icons.Filled.Settings, label = "Server Stats", onClick = { })
-                CustomDialogItem(icon = Icons.Filled.Settings, label = "Settings", onClick = { })
-                CustomDialogItem(icon = Icons.Filled.Settings, label = "Logout", onClick = { })
+                CustomDialogItem(
+                    icon = Icons.Filled.Settings,
+                    label = R.string.settings,
+                    onClick = onDialogItemClicked
+                )
+                CustomDialogItem(
+                    icon = Icons.Filled.Settings,
+                    label = R.string.logout,
+                    onClick = onDialogItemClicked
+                )
             }
-
         }
+    }
+}
 
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun CustomMenuDialogPreview() {
+    TriviaQuestAdminTheme {
+        CustomMenuDialog(
+            title = R.string.trivia_quest,
+            onDismiss = {},
+            onAccountImageAndEmailClicked = {},
+            onDialogItemClicked = {}
+        )
     }
 }
