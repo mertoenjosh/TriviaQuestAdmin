@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.screens.QuestionsScreen
+import com.mertoenjosh.triviaquestadmin.ui.screens.SignUpScreen
 import com.mertoenjosh.triviaquestadmin.ui.screens.WelcomeScreen
 import com.mertoenjosh.triviaquestadmin.viewmodel.MainViewModel
 
@@ -18,7 +19,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             TriviaQuestAdminTheme {
                 WelcomeScreen()
-//                QuestionsScreen(viewModel)
             }
         }
     }

@@ -19,17 +19,16 @@ import com.mertoenjosh.triviaquestadmin.ui.components.SmallText
 fun WelcomeScreen() {
     Scaffold (
         content = { paddingValues ->
-            Content(modifier = Modifier.padding(paddingValues))
+            WelcomeScreenContent(modifier = Modifier.padding(paddingValues))
         }
     )
 }
 
-
 @Composable
-fun Content(modifier: Modifier = Modifier) {
+fun WelcomeScreenContent(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.fillMaxSize(),
     ) {
         // Welcome heading
         HeadingText(
@@ -49,7 +48,7 @@ fun Content(modifier: Modifier = Modifier) {
         SmallText(text = R.string.terms_of_service, modifier = Modifier.padding(8.dp))
 
         // sign up button
-        MainActionButton(text = R.string.sign_up) {
+        MainActionButton(text = R.string.sign_up, modifier = Modifier.padding(top = 48.dp)) {
             // TODO: onclick sign up
 
         }

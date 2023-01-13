@@ -37,8 +37,8 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
         topBar = {
             TopAppBar(
                 title = R.string.trivia_quest,
-                icon = Icons.Filled.AccountCircle,
-                onIconClick = {
+                profileIcon = Icons.Filled.AccountCircle,
+                onProfileOrBackIconClick = {
                     showDialogMenu.value = true
                 }
             )
