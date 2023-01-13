@@ -158,7 +158,11 @@ fun CustomDialogItem(
 @Composable
 fun CustomDialogItemPreview() {
     TriviaQuestAdminTheme {
-        CustomDialogItem(icon = Icons.Default.Settings, label = R.string.settings){}
+        CustomDialogItem(
+            icon = Icons.Default.Settings,
+            label = R.string.settings,
+            onClick = {}
+        )
     }
 }
 
@@ -183,7 +187,7 @@ fun CustomMenuDialog(
             elevation = 10.dp
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                DialogTitle(title = title, icon = dialogTitleIcon) {}
+                DialogTitle(title = title, icon = dialogTitleIcon, onClick = onDismiss)
 
                 AccountImageAndEmail(
                     onClick = onAccountImageAndEmailClicked,

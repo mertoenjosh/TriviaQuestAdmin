@@ -11,15 +11,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
 import com.mertoenjosh.triviaquestadmin.domain.models.formatCategory
+import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
+import com.mertoenjosh.triviaquestadmin.util.questionList
 
 @Composable
 fun Question(
     question: QuestionModel,
-    onQuestionClick: (QuestionModel) -> Unit = {}
+    onQuestionClick: (QuestionModel) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -49,7 +52,7 @@ fun Question(
                     .padding(4.dp)
             ){
                 Text(
-                    text = question.difficulty,
+                    text = "Easy",
                     fontFamily = FontFamily.SansSerif,
                     fontStyle = FontStyle.Italic,
                     fontSize = 14.sp,
@@ -63,12 +66,20 @@ fun Question(
                 )
 
                 Text(
-                    text = question.author,
+                    text = "Mnt",
                     fontFamily = FontFamily.SansSerif,
                     fontStyle = FontStyle.Italic,
                     fontSize = 14.sp,
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun QuestionPreview() {
+    TriviaQuestAdminTheme {
+        Question(question = questionList[1], onQuestionClick = {})
     }
 }

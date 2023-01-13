@@ -20,13 +20,13 @@ import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.CustomMenuDialog
 import com.mertoenjosh.triviaquestadmin.ui.components.Question
 import com.mertoenjosh.triviaquestadmin.ui.components.TopAppBar
-import com.mertoenjosh.triviaquestadmin.util.questions
+import com.mertoenjosh.triviaquestadmin.util.questionList
 import com.mertoenjosh.triviaquestadmin.viewmodel.MainViewModel
 
 
 @Composable
 fun QuestionsScreen(viewmodel: MainViewModel) {
-    val questionsMock = questions + questions
+//    val questionsMock = questions + questions
     val scaffoldState = rememberScaffoldState()
     val showDialogMenu = remember {
         mutableStateOf(false)
@@ -54,9 +54,9 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
                     .padding(padding)
                     .fillMaxSize()
             ) {
-                if (questionsMock.isNotEmpty()) {
+                if (questionList.isNotEmpty()) {
                     QuestionsList(
-                        questions = questionsMock,
+                        questions = questionList,
                         onQuestionClick = {viewmodel.onQuestionClick(it)}
                     )
                 }
@@ -110,7 +110,7 @@ fun QuestionsList(questions: List<QuestionModel>, onQuestionClick: (QuestionMode
 @Composable
 fun QuestionsListPreview() {
     TriviaQuestAdminTheme {
-        QuestionsList(questions = questions, onQuestionClick = {})
+        QuestionsList(questions = questionList, onQuestionClick = {})
     }
 }
 

@@ -1,13 +1,13 @@
 package com.mertoenjosh.triviaquestadmin.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
+import timber.log.Timber
 
 class MainViewModel(): ViewModel() {
 
     fun onQuestionClick(question: QuestionModel) {
-        Log.d(TAG, "onQuestionClick: ${question.question}")
+        Timber.tag(TAG).d("onQuestionClick: %s", question.question)
     }
 
 

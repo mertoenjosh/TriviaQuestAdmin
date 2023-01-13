@@ -6,17 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.screens.QuestionsScreen
+import com.mertoenjosh.triviaquestadmin.ui.screens.WelcomeScreen
 import com.mertoenjosh.triviaquestadmin.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
-    private lateinit var viewmodel: MainViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewmodel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setContent {
             TriviaQuestAdminTheme {
-                QuestionsScreen(viewmodel)
+                WelcomeScreen()
+//                QuestionsScreen(viewModel)
             }
         }
     }

@@ -4,4 +4,10 @@
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
     <string name="account_profile_picture">Account Profile Picture</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="welcome">Welcome</string>
+    <string name="already_have_an_account">Already have an account? </string>
+    <string name="dont_have_an_account">Don\'t have an account? </string>
+    <string name="terms_of_service">Terms of service </string>
 </resources>
