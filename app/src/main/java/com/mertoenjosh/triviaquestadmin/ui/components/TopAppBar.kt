@@ -1,6 +1,5 @@
 package com.mertoenjosh.triviaquestadmin.ui.components
 
-import com.mertoenjosh.triviaquestadmin.R
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,10 +19,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mertoenjosh.triviaquestadmin.R
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 
 @Composable
-fun TopAppBar(@StringRes title: Int, icon: ImageVector, onIconClick: ()->Unit) {
+fun TopAppBar(
+    @StringRes title: Int,
+    showBackIcon: Boolean = false,
+    profileIcon: ImageVector? = null,
+    onProfileOrBackIconClick: ()->Unit
+) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
@@ -31,6 +36,10 @@ fun TopAppBar(@StringRes title: Int, icon: ImageVector, onIconClick: ()->Unit) {
             .height(56.dp)
             .background(color = MaterialTheme.colors.primarySurface)
     ) {
+        if (showBackIcon) {
+            MyIconButton(onIconClicked = onProfileOrBackIconClick )
+        }
+
         Text(
             text = stringResource(title),
             color = MaterialTheme.colors.onPrimary,
@@ -41,17 +50,22 @@ fun TopAppBar(@StringRes title: Int, icon: ImageVector, onIconClick: ()->Unit) {
             ),
             modifier = Modifier
                 .align(Alignment.CenterVertically)
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = 8.dp, end = 16.dp)
         )
 
-        ProfileIcon(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .clickable { onIconClick() }
-                .padding(10.dp),
-            imageIcon = icon,
-            size = 30.dp,
-        )
+        if (profileIcon != null) {
+            ProfileIcon(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .clickable { onProfileOrBackIconClick() }
+                    .padding(10.dp),
+                imageIcon = profileIcon,
+                size = 30.dp,
+            )
+        } else {
+            // todo: Use constraints to style
+            Text(text = "", modifier = Modifier.padding(16.dp))
+        }
     }
 }
 
@@ -61,8 +75,8 @@ fun TopAppBarPreview() {
     TriviaQuestAdminTheme {
         TopAppBar(
             title = R.string.trivia_quest,
-            icon = Icons.Filled.AccountCircle,
-            onIconClick = { }
+            profileIcon = Icons.Filled.AccountCircle,
+            onProfileOrBackIconClick = { }
         )
     }
 }
