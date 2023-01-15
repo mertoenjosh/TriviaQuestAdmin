@@ -14,8 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.R
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
+import com.mertoenjosh.triviaquestadmin.navigation.Screen
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.CustomMenuDialog
 import com.mertoenjosh.triviaquestadmin.ui.components.Question
@@ -24,7 +27,7 @@ import com.mertoenjosh.triviaquestadmin.util.mockQuestions
 
 
 @Composable
-fun QuestionsScreen( /* viewmodel: MainViewModel */ ) {
+fun QuestionsScreen( navHostController: NavHostController) {
     val questionList = mockQuestions + mockQuestions
     val scaffoldState = rememberScaffoldState()
     val showDialogMenu = remember {
@@ -56,7 +59,10 @@ fun QuestionsScreen( /* viewmodel: MainViewModel */ ) {
                 if (questionList.isNotEmpty()) {
                     QuestionsList(
                         questions = questionList,
-                        onQuestionClick = { /* viewmodel.onQuestionClick(it) */ }
+                        onQuestionClick = {
+                            /* TODO: Handle navigating with question details */
+
+                        }
                     )
                 }
                 if (showDialogMenu.value) {
@@ -75,7 +81,7 @@ fun QuestionsScreen( /* viewmodel: MainViewModel */ ) {
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { },
+                onClick = { navHostController.navigate(Screen.Details.route) },
                 contentColor = MaterialTheme.colors.background,
                 content = {
                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
@@ -126,6 +132,6 @@ fun QuestionsListPreview() {
 @Composable
 fun QuestionsScreenPreview() {
     TriviaQuestAdminTheme {
-         QuestionsScreen()
+         QuestionsScreen(navHostController = rememberNavController())
     }
 }

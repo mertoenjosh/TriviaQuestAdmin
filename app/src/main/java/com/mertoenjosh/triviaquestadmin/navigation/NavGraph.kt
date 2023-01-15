@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mertoenjosh.triviaquestadmin.ui.auth.SignInScreen
 import com.mertoenjosh.triviaquestadmin.ui.auth.SignUpScreen
+import com.mertoenjosh.triviaquestadmin.ui.home.QuestionDetailsScreen
 import com.mertoenjosh.triviaquestadmin.ui.home.QuestionsScreen
 import com.mertoenjosh.triviaquestadmin.ui.onboarding.WelcomeScreen
 
@@ -37,7 +38,13 @@ fun SetupNavGraph(
         composable(
             route = Screen.Home.route
         ) {
-            QuestionsScreen()
+            QuestionsScreen(navHostController = navHostController)
+        }
+
+        composable(
+            route = Screen.Details.route
+        ) {
+            QuestionDetailsScreen(navHostController = navHostController)
         }
     }
 }

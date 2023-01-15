@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.navigation.SetupNavGraph
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
+import com.mertoenjosh.triviaquestadmin.ui.home.QuestionDetailsScreen
 import com.mertoenjosh.triviaquestadmin.ui.onboarding.WelcomeScreen
 import com.mertoenjosh.triviaquestadmin.viewmodel.MainViewModel
 
