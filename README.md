@@ -5,4 +5,4 @@ The app uses a modern android UI kit known as Jetpack Compose.
 
 
 
-[https://www.twitter.com/mertoenjosh] *Martin Thuo*
+[*Martin Thuo*](https://www.twitter.com/mertoenjosh)
