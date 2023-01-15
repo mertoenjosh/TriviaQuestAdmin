@@ -22,7 +22,7 @@ fun MainActionButton(@StringRes text: Int, modifier: Modifier = Modifier, onClic
     Button(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp, 8.dp),
+            .padding(8.dp),
         onClick = onClick
     ) {
        Text(

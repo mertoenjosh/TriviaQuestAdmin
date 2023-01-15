@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +23,7 @@ import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 @Composable
 fun MyOutlinedTextField(
     modifier: Modifier = Modifier,
-    @StringRes label: Int = R.string.password,
+    @StringRes label: Int,
     leadingIcon: @Composable (() -> Unit)? = null,
     isPassword: Boolean = false,
     type: KeyboardType = KeyboardType.Text
@@ -47,9 +47,9 @@ fun MyOutlinedTextField(
                 IconButton(onClick = { showPassword.value = !showPassword.value }) {
                     Icon(
                         imageVector = if (showPassword.value)
-                            Icons.Default.VisibilityOff
+                            Icons.Outlined.VisibilityOff
                         else
-                            Icons.Default.Visibility,
+                            Icons.Outlined.Visibility,
                         contentDescription = if (showPassword.value)
                             stringResource(id = R.string.show_password)
                         else
@@ -79,7 +79,7 @@ fun MyOutlinedTextField(
 @Composable
 fun MyTextFieldPreview() {
     TriviaQuestAdminTheme {
-        MyOutlinedTextField()
+        MyOutlinedTextField(label = R.string.first_name)
     }
 }
 

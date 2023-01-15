@@ -21,10 +21,10 @@ data class QuestionModel(
     val correctAnswer: String,
     @SerializedName("incorrectAnswers")
     val choices: List<String>,
-//    val difficulty: String,
+    val difficulty: String = "Easy",
     val category: String,
     val tags: List<String>?,
-    val type: String
+    val author: String = "mertoenjosh"
 ): Serializable
 
 fun QuestionModel.formatCategory(): String = this.category

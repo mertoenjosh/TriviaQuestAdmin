@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
 import com.mertoenjosh.triviaquestadmin.domain.models.formatCategory
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
-import com.mertoenjosh.triviaquestadmin.util.questionList
+import com.mertoenjosh.triviaquestadmin.util.mockQuestions
 
 @Composable
 fun Question(
@@ -80,6 +80,6 @@ fun Question(
 @Composable
 fun QuestionPreview() {
     TriviaQuestAdminTheme {
-        Question(question = questionList[1], onQuestionClick = {})
+        Question(question = mockQuestions[1], onQuestionClick = {})
     }
 }

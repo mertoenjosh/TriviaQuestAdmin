@@ -1,4 +1,4 @@
-package com.mertoenjosh.triviaquestadmin.ui.screens
+package com.mertoenjosh.triviaquestadmin.ui.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -20,13 +20,12 @@ import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.CustomMenuDialog
 import com.mertoenjosh.triviaquestadmin.ui.components.Question
 import com.mertoenjosh.triviaquestadmin.ui.components.TopAppBar
-import com.mertoenjosh.triviaquestadmin.util.questionList
-import com.mertoenjosh.triviaquestadmin.viewmodel.MainViewModel
+import com.mertoenjosh.triviaquestadmin.util.mockQuestions
 
 
 @Composable
-fun QuestionsScreen(viewmodel: MainViewModel) {
-//    val questionsMock = questions + questions
+fun QuestionsScreen( /* viewmodel: MainViewModel */ ) {
+    val questionList = mockQuestions + mockQuestions
     val scaffoldState = rememberScaffoldState()
     val showDialogMenu = remember {
         mutableStateOf(false)
@@ -57,7 +56,7 @@ fun QuestionsScreen(viewmodel: MainViewModel) {
                 if (questionList.isNotEmpty()) {
                     QuestionsList(
                         questions = questionList,
-                        onQuestionClick = {viewmodel.onQuestionClick(it)}
+                        onQuestionClick = { /* viewmodel.onQuestionClick(it) */ }
                     )
                 }
                 if (showDialogMenu.value) {
@@ -110,7 +109,7 @@ fun QuestionsList(questions: List<QuestionModel>, onQuestionClick: (QuestionMode
 @Composable
 fun QuestionsListPreview() {
     TriviaQuestAdminTheme {
-        QuestionsList(questions = questionList, onQuestionClick = {})
+        QuestionsList(questions = mockQuestions, onQuestionClick = {})
     }
 }
 
@@ -127,6 +126,6 @@ fun QuestionsListPreview() {
 @Composable
 fun QuestionsScreenPreview() {
     TriviaQuestAdminTheme {
-        // QuestionsScreen(viewModel)
+         QuestionsScreen()
     }
 }

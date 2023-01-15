@@ -55,6 +55,8 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation 'androidx.compose.material:material:1.3.1'
     implementation "androidx.navigation:navigation-compose:2.5.3"
+    // Compose navigation
+    implementation "androidx.navigation:navigation-compose:$nav_version"
     // Compose icons extended
     implementation "androidx.compose.material:material-icons-extended:1.3.1"
     // Timber
@@ -64,6 +66,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' // retrofit
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0' // retrofit->gson
     implementation "com.squareup.okhttp3:logging-interceptor:4.10.0" // logging
+    // testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
