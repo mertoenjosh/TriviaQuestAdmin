@@ -81,7 +81,10 @@ fun QuestionsScreen( navHostController: NavHostController) {
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navHostController.navigate(Screen.Details.route) },
+                onClick = {
+                    /* TODO: Navigate to new question's page */
+                    navHostController.navigate(Screen.Details.route)
+                },
                 contentColor = MaterialTheme.colors.background,
                 content = {
                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
