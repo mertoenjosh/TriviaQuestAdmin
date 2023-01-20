@@ -1,8 +1,9 @@
 package com.mertoenjosh.triviaquestadmin.domain.models
 
-import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Question(
     val id: String,
     val question: String,
@@ -11,21 +12,21 @@ data class Question(
     val category: String,
     val tags: List<String>,
     val type: String
-): Serializable
+)
 
 
-
+@Serializable
 data class QuestionModel(
     val id: String,
     val question: String,
     val correctAnswer: String,
-    @SerializedName("incorrectAnswers")
+    @SerialName("incorrectAnswers")
     val choices: List<String>,
     val difficulty: String = "Easy",
     val category: String,
     val tags: List<String>?,
     val author: String = "mertoenjosh"
-): Serializable
+)
 
 fun QuestionModel.formatCategory(): String = this.category
     .split("_")

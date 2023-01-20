@@ -1,4 +1,4 @@
-package com.mertoenjosh.triviaquestadmin.services
+package com.mertoenjosh.triviaquestadmin.data.network.util
 
 import com.mertoenjosh.triviaquestadmin.util.Constants.BASE_URL
 import retrofit2.Retrofit

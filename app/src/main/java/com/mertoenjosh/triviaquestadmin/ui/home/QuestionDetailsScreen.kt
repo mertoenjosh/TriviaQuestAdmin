@@ -12,10 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.R
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
-import com.mertoenjosh.triviaquestadmin.ui.components.MainActionButton
-import com.mertoenjosh.triviaquestadmin.ui.components.MyRadioGroup
-import com.mertoenjosh.triviaquestadmin.ui.components.MyTextField
-import com.mertoenjosh.triviaquestadmin.ui.components.TopAppBar
+import com.mertoenjosh.triviaquestadmin.ui.components.*
 import timber.log.Timber
 
 @Composable
@@ -41,14 +38,14 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         // Question
         Text(
             text = stringResource(id = R.string.question)
         )
 
-        MyTextField(modifier = Modifier.fillMaxWidth())
+        MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.question)
 
         // Category spinner
         Row {
@@ -56,6 +53,16 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
                 text = stringResource(id = R.string.category)
             )
             // Todo: Spinner
+            val categories = listOf("Science", "General Knowledge", "Film", "Fashion")
+            MySpinnerDropdown(
+                modifier = Modifier.padding(8.dp),
+                title = R.string.category,
+                list = categories,
+                onSelectionChanged = { selected ->
+                    Timber.i("Selected item: %s", selected)
+
+                }
+            )
         }
         // Correct answer
 
@@ -63,7 +70,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(id = R.string.correct_answer)
             )
-            MyTextField()
+            MyOutlinedTextField(label = R.string.correct_answer)
         }
 
         // Wrong 1
@@ -71,7 +78,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(id = R.string.wrong_choice_one)
             )
-            MyTextField()
+            MyOutlinedTextField(label = R.string.wrong_choice_one)
         }
 
         // Wrong 2
@@ -79,7 +86,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(id = R.string.wrong_choice_two)
             )
-            MyTextField()
+            MyOutlinedTextField(label = R.string.wrong_choice_two)
         }
 
         // Wrong 3
@@ -87,7 +94,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(id = R.string.wrong_choice_three)
             )
-            MyTextField()
+            MyOutlinedTextField(label = R.string.wrong_choice_three)
         }
 
         // Difficulty radio group

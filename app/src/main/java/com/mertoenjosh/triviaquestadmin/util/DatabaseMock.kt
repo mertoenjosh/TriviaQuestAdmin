@@ -1,12 +1,6 @@
 package com.mertoenjosh.triviaquestadmin.util
 
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
-import com.mertoenjosh.triviaquestadmin.services.QuestionService
-import com.mertoenjosh.triviaquestadmin.services.ServiceBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
 
 //fun getQuestions(): List<QuestionModel> {
 //    val service: QuestionService = ServiceBuilder.buildService(QuestionService::class.java)

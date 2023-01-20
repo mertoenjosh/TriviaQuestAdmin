@@ -1,10 +1,10 @@
-package com.mertoenjosh.triviaquestadmin.services
+package com.mertoenjosh.triviaquestadmin.data.network.apis
 
 import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface QuestionService {
+interface QuestionApi {
     @GET("questions")
-    fun getQuestions(): Call<List<QuestionModel>>
+    suspend fun getQuestions(): Call<List<QuestionModel>>
 }
