@@ -1,22 +1,15 @@
-package com.mertoenjosh.triviaquestadmin.domain.models
+package com.mertoenjosh.triviaquestadmin.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.mertoenjosh.triviaquestadmin.util.Constants
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity(tableName = Constants.QUESTIONS_TABLE)
 data class Question(
-    val id: String,
-    val question: String,
-    val incorrectAnswers: List<String>,
-    val correctAnswer: String,
-    val category: String,
-    val tags: List<String>,
-    val type: String
-)
-
-
-@Serializable
-data class QuestionModel(
+    @PrimaryKey(autoGenerate = false)
     val id: String,
     val question: String,
     val correctAnswer: String,
@@ -28,11 +21,9 @@ data class QuestionModel(
     val author: String = "mertoenjosh"
 )
 
-fun QuestionModel.formatCategory(): String = this.category
+fun Question.formatCategory(): String = this.category
     .split("_")
     .joinToString(" ") { el -> el[0].uppercase() + el.slice(1 until el.length) }
-
-// [general, category]
 
 /*
 {
@@ -51,4 +42,25 @@ fun QuestionModel.formatCategory(): String = this.category
         "difficulty": "easy",
         "author": "mertoenjosh"
       },
+ */
+
+/*
+    {
+        "category": "Science",
+        "id": "622a1c377cc59eab6f9504fa",
+        "correctAnswer": "methods",
+        "incorrectAnswers": [
+            "dreams",
+            "the therapeutic use of plants",
+            "a branch of theology concerned with the final events in the history of the world or of mankind"
+        ],
+        "question": "What is Methodology the study of?",
+        "tags": [
+            "science"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "easy",
+        "regions": [],
+        "isNiche": false
+    },
  */

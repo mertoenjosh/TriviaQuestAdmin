@@ -9,8 +9,10 @@ import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.navigation.SetupNavGraph
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var viewModel: MainViewModel
 

@@ -1,31 +1,9 @@
-package com.mertoenjosh.triviaquestadmin.util
+package com.mertoenjosh.triviaquestadmin.data.db
 
-import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
-
-//fun getQuestions(): List<QuestionModel> {
-//    val service: QuestionService = ServiceBuilder.buildService(QuestionService::class.java)
-//    val serviceTask = service.getQuestions()
-//    var res = listOf<QuestionModel>()
-//
-//    serviceTask.enqueue( object: Callback<List<QuestionModel>> {
-//        override fun onResponse(
-//            request: Call<List<QuestionModel>>,
-//            response: Response<List<QuestionModel>>
-//        ) {
-//            Timber.tag("QUESTIONS...").d("onResponse: %s", response.body())
-//            res = response.body()!!
-//        }
-//
-//        override fun onFailure(response: Call<List<QuestionModel>>, t: Throwable) {
-//            Timber.tag("QUESTIONS...").e(t, "onFailure: %s", response)
-//        }
-//
-//    })
-//    return res
-//}
+import com.mertoenjosh.triviaquestadmin.data.models.Question
 
 val mockQuestions = listOf(
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),
@@ -34,7 +12,7 @@ val mockQuestions = listOf(
         category = "general_knowledge",
         tags = listOf("general_knowledge"),
     ),
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),
@@ -44,7 +22,7 @@ val mockQuestions = listOf(
         tags = listOf("general_knowledge"),
         author = "mertoenjosh"
     ),
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),
@@ -54,7 +32,7 @@ val mockQuestions = listOf(
         tags = listOf("general_knowledge"),
         author = "mertoenjosh"
     ),
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),
@@ -64,7 +42,7 @@ val mockQuestions = listOf(
         tags = listOf("general_knowledge"),
         author = "mertoenjosh"
     ),
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),
@@ -74,7 +52,7 @@ val mockQuestions = listOf(
         tags = listOf("general_knowledge"),
         author = "mertoenjosh"
     ),
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),
@@ -84,7 +62,7 @@ val mockQuestions = listOf(
         tags = listOf("general_knowledge"),
         author = "mertoenjosh"
     ),
-    QuestionModel(
+    Question(
         id = "6343dbbaad6ccece95fedc30",
         question = "Who is the richest man on earth (2022)?",
         choices = listOf("Bill Gates", "Mark Zucherburg", "Jeff Bezos"),

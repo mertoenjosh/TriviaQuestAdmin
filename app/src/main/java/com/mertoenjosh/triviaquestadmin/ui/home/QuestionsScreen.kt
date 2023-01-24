@@ -17,13 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.R
-import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
+import com.mertoenjosh.triviaquestadmin.data.models.Question
 import com.mertoenjosh.triviaquestadmin.navigation.Screen
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.CustomMenuDialog
 import com.mertoenjosh.triviaquestadmin.ui.components.Question
 import com.mertoenjosh.triviaquestadmin.ui.components.TopAppBar
-import com.mertoenjosh.triviaquestadmin.util.mockQuestions
+import com.mertoenjosh.triviaquestadmin.data.db.mockQuestions
 
 
 @Composable
@@ -96,7 +96,7 @@ fun QuestionsScreen( navHostController: NavHostController) {
 }
 
 @Composable
-fun QuestionsList(questions: List<QuestionModel>, onQuestionClick: (QuestionModel)->Unit) {
+fun QuestionsList(questions: List<Question>, onQuestionClick: (Question)->Unit) {
     LazyColumn{
 
         items(questions.size) { questionIndex ->

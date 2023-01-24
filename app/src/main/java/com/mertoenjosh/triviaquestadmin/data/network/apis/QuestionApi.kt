@@ -1,10 +1,13 @@
 package com.mertoenjosh.triviaquestadmin.data.network.apis
 
-import com.mertoenjosh.triviaquestadmin.domain.models.QuestionModel
-import retrofit2.Call
+import com.mertoenjosh.triviaquestadmin.data.models.Question
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface QuestionApi {
-    @GET("questions")
-    suspend fun getQuestions(): Call<List<QuestionModel>>
+    @GET("/questions")
+    suspend fun getAllQuestions(
+        @Query("page") page: Int,
+        @Query("limit") perPage: Int
+    ): List<Question>
 }

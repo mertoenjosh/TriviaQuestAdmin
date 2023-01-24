@@ -3,10 +3,7 @@ package com.mertoenjosh.triviaquestadmin.ui.components
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
@@ -36,6 +33,7 @@ fun MySpinnerDropdown(
     Box (modifier = modifier) {
         Column {
             OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = selected.value,
                 onValueChange = {},
                 label = { Text(text = stringResource(title)) },
