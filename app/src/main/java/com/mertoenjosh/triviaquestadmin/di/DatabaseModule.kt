@@ -2,7 +2,7 @@ package com.mertoenjosh.triviaquestadmin.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mertoenjosh.triviaquestadmin.data.db.QuestProviderDatabase
+import com.mertoenjosh.triviaquestadmin.data.local.QuestionsDatabase
 import com.mertoenjosh.triviaquestadmin.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -16,10 +16,10 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): QuestProviderDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): QuestionsDatabase {
         return Room.databaseBuilder(
             context,
-            QuestProviderDatabase::class.java,
+            QuestionsDatabase::class.java,
             Constants.QUEST_PROVIDER_DATABASE
         ).build()
     }

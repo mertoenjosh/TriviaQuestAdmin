@@ -14,21 +14,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.mertoenjosh.triviaquestadmin.R
-import com.mertoenjosh.triviaquestadmin.data.models.Question
+import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestion
 import com.mertoenjosh.triviaquestadmin.navigation.Screen
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.CustomMenuDialog
 import com.mertoenjosh.triviaquestadmin.ui.components.Question
 import com.mertoenjosh.triviaquestadmin.ui.components.TopAppBar
-import com.mertoenjosh.triviaquestadmin.data.db.mockQuestions
+import com.mertoenjosh.triviaquestadmin.viewmodel.HomeViewModel
+import timber.log.Timber
 
 
+@OptIn(ExperimentalPagingApi::class)
 @Composable
-fun QuestionsScreen( navHostController: NavHostController) {
-    val questionList = mockQuestions + mockQuestions
+fun QuestionsScreen(
+    navHostController: NavHostController,
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+
+    val getAllQuestions = homeViewModel.getAllQuestion.collectAsLazyPagingItems()
+
     val scaffoldState = rememberScaffoldState()
     val showDialogMenu = remember {
         mutableStateOf(false)
@@ -56,15 +68,13 @@ fun QuestionsScreen( navHostController: NavHostController) {
                     .padding(padding)
                     .fillMaxSize()
             ) {
-                if (questionList.isNotEmpty()) {
-                    QuestionsList(
-                        questions = questionList,
-                        onQuestionClick = {
-                            /* TODO: Handle navigating with question details */
+                QuestionsList(
+                    questions = getAllQuestions,
+                    onQuestionClick = { question ->
+                        homeViewModel.onQuestionClick(question)
+                    }
+                )
 
-                        }
-                    )
-                }
                 if (showDialogMenu.value) {
                     CustomMenuDialog(
                         title = R.string.trivia_quest,
@@ -96,18 +106,19 @@ fun QuestionsScreen( navHostController: NavHostController) {
 }
 
 @Composable
-fun QuestionsList(questions: List<Question>, onQuestionClick: (Question)->Unit) {
+fun QuestionsList(questions: LazyPagingItems<TriviaQuestion>, onQuestionClick: (TriviaQuestion)->Unit) {
+
     LazyColumn{
+        items(items = questions, key = { question -> question.id}) { question ->
+            question?.let {
+                Timber.i("Question: %s", it)
 
-        items(questions.size) { questionIndex ->
-            val question = questions[questionIndex]
-
-            Question(
-                question = question,
-                onQuestionClick = onQuestionClick
-            )
+                Question(
+                    question = it,
+                    onQuestionClick = { onQuestionClick(question) }
+                )
+            }
         }
-
     }
 }
 
@@ -118,10 +129,11 @@ fun QuestionsList(questions: List<Question>, onQuestionClick: (Question)->Unit) 
 @Composable
 fun QuestionsListPreview() {
     TriviaQuestAdminTheme {
-        QuestionsList(questions = mockQuestions, onQuestionClick = {})
+//        QuestionsList(questions = mockQuestions, onQuestionClick = {})
     }
 }
 
+@OptIn(ExperimentalPagingApi::class)
 @Preview(
     showBackground = true,
     widthDp = 320,

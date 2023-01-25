@@ -14,15 +14,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mertoenjosh.triviaquestadmin.data.models.Question
+import com.mertoenjosh.triviaquestadmin.data.local.mockQuestions
+import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestion
 import com.mertoenjosh.triviaquestadmin.data.models.formatCategory
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
-import com.mertoenjosh.triviaquestadmin.data.db.mockQuestions
 
 @Composable
 fun Question(
-    question: Question,
-    onQuestionClick: (Question) -> Unit
+    question: TriviaQuestion,
+    onQuestionClick: (TriviaQuestion) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -66,7 +66,7 @@ fun Question(
                 )
 
                 Text(
-                    text = "Mnt",
+                    text = question.author,
                     fontFamily = FontFamily.SansSerif,
                     fontStyle = FontStyle.Italic,
                     fontSize = 14.sp,

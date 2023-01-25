@@ -4,12 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.paging.ExperimentalPagingApi
 import com.mertoenjosh.triviaquestadmin.ui.auth.SignInScreen
 import com.mertoenjosh.triviaquestadmin.ui.auth.SignUpScreen
 import com.mertoenjosh.triviaquestadmin.ui.home.QuestionDetailsScreen
 import com.mertoenjosh.triviaquestadmin.ui.home.QuestionsScreen
 import com.mertoenjosh.triviaquestadmin.ui.onboarding.WelcomeScreen
 
+@OptIn(ExperimentalPagingApi::class)
 @Composable
 fun SetupNavGraph(
     navHostController: NavHostController

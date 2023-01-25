@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Entity(tableName = Constants.REMOTE_KEYS_TABLE)
-data class QuestProviderRemoteKeys(
+data class TriviaQuestionRemoteKeys(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val prevPage: Int?,

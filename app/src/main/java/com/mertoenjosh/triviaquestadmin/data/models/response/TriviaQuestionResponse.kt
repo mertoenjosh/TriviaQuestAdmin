@@ -1,29 +1,35 @@
-package com.mertoenjosh.triviaquestadmin.data.models
+package com.mertoenjosh.triviaquestadmin.data.models.response
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.mertoenjosh.triviaquestadmin.util.Constants
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName = Constants.QUESTIONS_TABLE)
-data class Question(
-    @PrimaryKey(autoGenerate = false)
+data class TriviaQuestionResponse(
+    val status: String,
+    val results: Int,
+    val requestedAt: String,
+    val data: Data
+)
+
+@Serializable
+data class Data(
+    @SerialName("questions")
+    val questions: List<QuestionDTO>
+)
+
+@Serializable
+data class QuestionDTO(
+    @SerialName("_id")
     val id: String,
     val question: String,
     val correctAnswer: String,
-    @SerialName("incorrectAnswers")
     val choices: List<String>,
     val difficulty: String = "Easy",
     val category: String,
     val tags: List<String>?,
-    val author: String = "mertoenjosh"
+    val author: String
 )
 
-fun Question.formatCategory(): String = this.category
-    .split("_")
-    .joinToString(" ") { el -> el[0].uppercase() + el.slice(1 until el.length) }
 
 /*
 {
