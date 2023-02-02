@@ -1,4 +1,4 @@
-package com.mertoenjosh.triviaquestadmin.data.local.dao
+package com.mertoenjosh.triviaquestadmin.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -9,7 +9,7 @@ import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestionRemoteKeys
 
 @Dao
 interface QuestProviderRemoteKeysDao {
-    @Query("SELECT * FROM remote_keys_table WHERE id =:id")
+    @Query("SELECT * FROM remote_keys_table WHERE id = :id")
     suspend fun getRemoteKeys(id: String): TriviaQuestionRemoteKeys
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

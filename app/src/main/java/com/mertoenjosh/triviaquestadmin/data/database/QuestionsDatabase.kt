@@ -1,10 +1,10 @@
-package com.mertoenjosh.triviaquestadmin.data.local
+package com.mertoenjosh.triviaquestadmin.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.mertoenjosh.triviaquestadmin.data.local.dao.QuestionDao
-import com.mertoenjosh.triviaquestadmin.data.local.dao.QuestProviderRemoteKeysDao
+import com.mertoenjosh.triviaquestadmin.data.database.dao.QuestionDao
+import com.mertoenjosh.triviaquestadmin.data.database.dao.QuestProviderRemoteKeysDao
 import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestion
 import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestionRemoteKeys
 import com.mertoenjosh.triviaquestadmin.data.models.StringListConverters

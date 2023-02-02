@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.mertoenjosh.triviaquestadmin.data.local.QuestionsDatabase
+import com.mertoenjosh.triviaquestadmin.data.database.QuestionsDatabase
 import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestion
 import com.mertoenjosh.triviaquestadmin.data.network.apis.QuestionApi
 import com.mertoenjosh.triviaquestadmin.data.paging.QuestProviderRemoteMediator

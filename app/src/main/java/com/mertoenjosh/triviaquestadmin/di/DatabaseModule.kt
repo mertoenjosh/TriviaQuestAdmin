@@ -2,7 +2,7 @@ package com.mertoenjosh.triviaquestadmin.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mertoenjosh.triviaquestadmin.data.local.QuestionsDatabase
+import com.mertoenjosh.triviaquestadmin.data.database.QuestionsDatabase
 import com.mertoenjosh.triviaquestadmin.util.Constants
 import dagger.Module
 import dagger.Provides

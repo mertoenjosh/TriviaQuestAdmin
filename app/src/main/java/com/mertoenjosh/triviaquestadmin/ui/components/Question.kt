@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mertoenjosh.triviaquestadmin.data.local.mockQuestions
 import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestion
 import com.mertoenjosh.triviaquestadmin.data.models.formatCategory
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
@@ -52,7 +51,7 @@ fun Question(
                     .padding(4.dp)
             ){
                 Text(
-                    text = "Easy",
+                    text = question.difficulty,
                     fontFamily = FontFamily.SansSerif,
                     fontStyle = FontStyle.Italic,
                     fontSize = 14.sp,
@@ -79,7 +78,22 @@ fun Question(
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun QuestionPreview() {
+    val question = TriviaQuestion(
+        id = "6343dbbaad6ccece95fedc30",
+        choices = listOf(
+            "Bill Gates",
+            "Mark Zucherburg",
+            "Jeff Bezos"
+        ),
+        tags = listOf("general_knowledge"),
+        category =  "general_knowledge",
+        question = "Who is the richest man on earth (2022)?",
+        correctAnswer = "Elon Musk",
+        difficulty = "easy",
+        author = "mertoenjosh"
+    )
+
     TriviaQuestAdminTheme {
-        Question(question = mockQuestions[1], onQuestionClick = {})
+        Question(question = question, onQuestionClick = {})
     }
 }

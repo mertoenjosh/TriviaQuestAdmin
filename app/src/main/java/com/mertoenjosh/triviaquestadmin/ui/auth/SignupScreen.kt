@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,30 +19,48 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.R
 import com.mertoenjosh.triviaquestadmin.navigation.Screen
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.*
+import com.mertoenjosh.triviaquestadmin.viewmodel.AuthViewModel
+import timber.log.Timber
 
 @Composable
 fun SignUpScreen(navHostController: NavHostController) {
     Scaffold(
         content = { paddingValues ->
-            SignUpScreenContent(modifier = Modifier.padding(paddingValues), navHostController)
+            SignUpScreenContent(
+                modifier = Modifier.padding(paddingValues),
+                navHostController,
+                authViewModel = hiltViewModel()
+            )
         }
     ) 
 }
 
 @Composable
-fun SignUpScreenContent(modifier: Modifier = Modifier, navHostController: NavHostController) {
+fun SignUpScreenContent(
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController,
+    authViewModel: AuthViewModel
+) {
     Column (
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+        val firstName = remember { mutableStateOf("") }
+        val lastName = remember { mutableStateOf("") }
+        val email = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
+        val confirmPassword = remember { mutableStateOf("") }
+
+
         // Back icon
         MyIconButton(
             modifier = Modifier.align(Alignment.Start),
@@ -64,12 +84,18 @@ fun SignUpScreenContent(modifier: Modifier = Modifier, navHostController: NavHos
             MyOutlinedTextField(
                 modifier = Modifier.weight(.1f),
                 label = R.string.first_name
-            )
+            ){
+                Timber.d("FirstName: %s", it)
+                firstName.value = it
+            }
 
             MyOutlinedTextField(
                 modifier = Modifier.weight(.1f),
                 label = R.string.last_name
-            )
+            ){
+                Timber.d("LastName: %s", it)
+                lastName.value = it
+            }
         }
 
         // Email
@@ -86,7 +112,10 @@ fun SignUpScreenContent(modifier: Modifier = Modifier, navHostController: NavHos
             },
             label = R.string.email,
             type = KeyboardType.Email
-        )
+        ){
+            Timber.d("InputEmail: %s", it)
+            email.value = it
+        }
         // Password
         MyOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -102,7 +131,10 @@ fun SignUpScreenContent(modifier: Modifier = Modifier, navHostController: NavHos
             label = R.string.password,
             isPassword = true,
             type = KeyboardType.Password
-        )
+        ){
+            Timber.d("Password: %s", it)
+            password.value = it
+        }
         // Confirm Password
         MyOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -118,11 +150,24 @@ fun SignUpScreenContent(modifier: Modifier = Modifier, navHostController: NavHos
             label = R.string.confirm_password,
             isPassword = true,
             type = KeyboardType.Password
-        )
+        ){
+            Timber.tag("Input").d("Confirm password: %s", it)
+            confirmPassword.value = it
+        }
         // Btn
         MainActionButton(text = R.string.sign_up) {
-            // TODO: validate info then sign up
-            navHostController.navigate(route = Screen.Home.route)
+            if (
+                authViewModel.registerUser(
+                    firstName = firstName.value,
+                    lastName = lastName.value, email = email.value,
+                    password = password.value,
+                    confirmPassword = confirmPassword.value)
+            ) {
+                navHostController.navigate(route = Screen.Home.route)
+            } else {
+                Timber.e("Signup Errors: %s", authViewModel.errors)
+            }
+            authViewModel.errors.clear()
         }
         // Google icon
         Image(

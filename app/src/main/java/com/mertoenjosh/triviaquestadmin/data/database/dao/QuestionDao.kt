@@ -1,4 +1,4 @@
-package com.mertoenjosh.triviaquestadmin.data.local.dao
+package com.mertoenjosh.triviaquestadmin.data.database.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

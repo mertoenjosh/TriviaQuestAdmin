@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,31 +19,48 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.triviaquestadmin.R
 import com.mertoenjosh.triviaquestadmin.navigation.Screen
 import com.mertoenjosh.triviaquestadmin.theme.TriviaQuestAdminTheme
 import com.mertoenjosh.triviaquestadmin.ui.components.*
+import com.mertoenjosh.triviaquestadmin.viewmodel.AuthViewModel
+import timber.log.Timber
 
 @Composable
-fun SignInScreen(navHostController: NavHostController) {
+fun SignInScreen(
+    navHostController: NavHostController,
+    authViewModel: AuthViewModel = hiltViewModel()
+) {
     
     Scaffold (
         content = { paddingValues -> 
-            SignInScreenContent(modifier = Modifier.padding(paddingValues), navHostController)
+            SignInScreenContent(
+                modifier = Modifier.padding(paddingValues),
+                navHostController,
+                authViewModel
+            )
         }
     )
 }
 
 @Composable
-fun SignInScreenContent(modifier: Modifier = Modifier, navHostController: NavHostController) {
+fun SignInScreenContent(
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController,
+    authViewModel: AuthViewModel
+) {
     Column (
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+        val email = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
+
         // Back icon
         MyIconButton(
             modifier = Modifier.align(Alignment.Start),
@@ -76,7 +95,10 @@ fun SignInScreenContent(modifier: Modifier = Modifier, navHostController: NavHos
             },
             label = R.string.email,
             type = KeyboardType.Email
-        )
+        ){
+            Timber.tag("Input").d("InputEmail: %s", it)
+            email.value = it
+        }
         // Password
         MyOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -92,12 +114,19 @@ fun SignInScreenContent(modifier: Modifier = Modifier, navHostController: NavHos
             label = R.string.password,
             isPassword = true,
             type = KeyboardType.Password
-        )
+        ) {
+            Timber.tag("Input").d("Password: %s", it)
+            password.value = it
+        }
 
         // Btn
         MainActionButton(text = R.string.sign_in) {
-            // TODO: onclick sign in
-            navHostController.navigate(route = Screen.Home.route)
+            if (authViewModel.loginUser(email = email.value, password = password.value)) {
+                navHostController.navigate(route = Screen.Home.route)
+            } else {
+                Timber.e("Login errors: %s", authViewModel.errors)
+            }
+            authViewModel.errors.clear()
         }
         // Google icon
         Image(

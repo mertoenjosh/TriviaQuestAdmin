@@ -27,7 +27,8 @@ fun MyOutlinedTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     isPassword: Boolean = false,
-    type: KeyboardType = KeyboardType.Text
+    type: KeyboardType = KeyboardType.Text,
+    onInputText: (String)->Unit
 ) {
     val textValue = remember {
         mutableStateOf("")
@@ -40,7 +41,10 @@ fun MyOutlinedTextField(
     OutlinedTextField(
         modifier = modifier.padding(8.dp),
         value = textValue.value,
-        onValueChange = {textValue.value = it },
+        onValueChange = {
+            textValue.value = it
+            onInputText(it)
+         },
         label = { Text(text = stringResource(label)) },
         leadingIcon = leadingIcon,
         trailingIcon = if (isPassword) {
@@ -80,6 +84,6 @@ fun MyOutlinedTextField(
 @Composable
 fun MyOutlinedTextFieldPreview() {
     TriviaQuestAdminTheme {
-        MyOutlinedTextField(label = R.string.first_name)
+        MyOutlinedTextField(label = R.string.first_name){}
     }
 }

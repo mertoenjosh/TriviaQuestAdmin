@@ -5,16 +5,15 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.mertoenjosh.triviaquestadmin.data.local.QuestionsDatabase
+import com.mertoenjosh.triviaquestadmin.data.database.QuestionsDatabase
 import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestion
 import com.mertoenjosh.triviaquestadmin.data.models.TriviaQuestionRemoteKeys
 import com.mertoenjosh.triviaquestadmin.data.network.apis.QuestionApi
 import com.mertoenjosh.triviaquestadmin.data.repos.mappers.toEntity
 import com.mertoenjosh.triviaquestadmin.util.Constants.QUESTIONS_PER_PAGE
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class QuestProviderRemoteMediator @Inject constructor(
+class QuestProviderRemoteMediator (
     private val questionApi: QuestionApi,
     private val questProviderDatabase: QuestionsDatabase
 ): RemoteMediator<Int, TriviaQuestion>() {
@@ -50,6 +49,7 @@ class QuestProviderRemoteMediator @Inject constructor(
 
             val response = questionApi.getAllQuestions(page = currentPage, perPage = QUESTIONS_PER_PAGE)
             val endOfPaginationReached = response.data.questions.isEmpty()
+//            val endPages = response.data.questions.size < state.config.pageSize
 
             val prevPage = if (currentPage == 1) null else currentPage - 1
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
@@ -67,11 +67,9 @@ class QuestProviderRemoteMediator @Inject constructor(
                         nextPage = nextPage
                     )
                 }
-                val questions = mutableListOf<TriviaQuestion>()
 
-                response.data.questions.forEach { data ->
-                    val question = data.toEntity()
-                    questions.add(question)
+                val questions = response.data.questions.map { data ->
+                    data.toEntity()
                 }
 
                 questProviderRemoteKeysDao.addAllRemoteKeys(remoteKeys = keys)
