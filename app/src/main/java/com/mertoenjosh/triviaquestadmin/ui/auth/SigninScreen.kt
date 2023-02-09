@@ -121,12 +121,11 @@ fun SignInScreenContent(
 
         // Btn
         MainActionButton(text = R.string.sign_in) {
-            if (authViewModel.loginUser(email = email.value, password = password.value)) {
-                navHostController.navigate(route = Screen.Home.route)
-            } else {
-                Timber.e("Login errors: %s", authViewModel.errors)
-            }
-            authViewModel.errors.clear()
+            Timber.d("Fetching user------->")
+            authViewModel.loginUser(email = email.value, password = password.value)
+            // navHostController.navigate(route = Screen.Home.route)
+            // authViewModel.errors.clear()
+            Timber.d("Fetched------->")
         }
         // Google icon
         Image(

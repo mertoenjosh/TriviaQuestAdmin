@@ -1,6 +1,7 @@
 package com.mertoenjosh.triviaquestadmin.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.mertoenjosh.triviaquestadmin.data.network.apis.AuthApi
 import com.mertoenjosh.triviaquestadmin.data.network.apis.QuestionApi
 import com.mertoenjosh.triviaquestadmin.util.Constants
 import dagger.Module
@@ -53,5 +54,11 @@ class NetworkModule {
     @Singleton
     fun provideQuestionApi(retrofit: Retrofit): QuestionApi {
         return retrofit.create(QuestionApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(retrofit: Retrofit) : AuthApi {
+        return retrofit.create(AuthApi::class.java)
     }
 }

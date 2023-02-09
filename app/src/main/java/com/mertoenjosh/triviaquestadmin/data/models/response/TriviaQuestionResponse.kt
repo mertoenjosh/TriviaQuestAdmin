@@ -9,13 +9,13 @@ data class TriviaQuestionResponse(
     val results: Int,
     val requestedAt: String,
     val data: Data
-)
-
-@Serializable
-data class Data(
-    @SerialName("questions")
-    val questions: List<QuestionDTO>
-)
+) {
+    @Serializable
+    data class Data(
+        @SerialName("questions")
+        val questions: List<QuestionDTO>
+    )
+}
 
 @Serializable
 data class QuestionDTO(
@@ -24,8 +24,8 @@ data class QuestionDTO(
     val question: String,
     val correctAnswer: String,
     val choices: List<String>,
-    val difficulty: String = "Easy",
+    val difficulty: String,
     val category: String,
-    val tags: List<String>?,
+    val tags: List<String>? = listOf(),
     val author: String
 )
