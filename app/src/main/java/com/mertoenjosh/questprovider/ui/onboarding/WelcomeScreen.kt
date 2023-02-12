@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.theme.QuestProviderTheme
@@ -42,8 +43,8 @@ fun WelcomeScreenContent(modifier: Modifier = Modifier, navHostController: NavHo
         )
 
         // Image slot
-        Image(
-            painter = painterResource(R.drawable.abc),
+        AsyncImage(
+            model = R.drawable.abc,
             modifier = Modifier.padding(8.dp),
             contentDescription = null
         )
