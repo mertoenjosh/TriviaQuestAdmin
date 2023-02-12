@@ -39,5 +39,10 @@
     <!--  App Static Text  -->
     <string name="welcome">Welcome</string>
 
+    <!--  Validation Errors  -->
+    <string name="email_cannot_be_blank">Email cannot be blank</string>
+    <string name="enter_valid_email">Enter a valid email</string>
+    <string name="password_length_should_be_more_than_5">Password length should be more than 5</string>
+
 
 </resources>
