@@ -48,7 +48,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
 
          */
 
-        MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.question){}
+//        MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.question){}
 
         // Category spinner
         Row {
@@ -80,7 +80,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             )
 
              */
-            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.correct_answer){}
+//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.correct_answer){}
         }
 
         // Wrong 1
@@ -91,7 +91,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             )
 
              */
-            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_one){}
+//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_one){}
         }
 
         // Wrong 2
@@ -102,7 +102,7 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             )
 
              */
-            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_two){}
+//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_two){}
         }
 
         // Wrong 3
@@ -113,9 +113,9 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
             )
 
              */
-            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_three) {
-
-            }
+//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_three) {
+//
+//            }
         }
 
         // Difficulty radio group

@@ -12,6 +12,9 @@ object Constants {
     const val QUEST_PROVIDER_DATABASE = "quest_provider_database"
     const val QUESTIONS_PER_PAGE = 10
 
+    const val FIRST_NAME = "firstName"
+    const val LAST_NAME = "lastName"
     const val EMAIL = "email"
     const val PASSWORD = "password"
+    const val CONFIRM_PASSWORD = "confirmPassword"
 }

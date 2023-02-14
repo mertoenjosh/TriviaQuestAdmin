@@ -36,13 +36,19 @@
     <!--  Menus  -->
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
-    <!--  App Static Text  -->
-    <string name="welcome">Welcome</string>
 
     <!--  Validation Errors  -->
+    <string name="name_cannot_be_blank">Name cannot be blank</string>
+    <string name="name_cannot_have_special_characters">Name cannot contain special characters</string>
     <string name="email_cannot_be_blank">Email cannot be blank</string>
     <string name="enter_valid_email">Enter a valid email</string>
-    <string name="password_length_should_be_more_than_5">Password length should be more than 5</string>
+    <string name="password_is_too_short">Password is too short</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+
+    <!--  App Static Text  -->
+    <string name="welcome">Welcome</string>
+    <string name="success">Success</string>
+    <string name="validation_error">Validation Error</string>
 
 
 </resources>

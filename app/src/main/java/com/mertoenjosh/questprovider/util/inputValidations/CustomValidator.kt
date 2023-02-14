@@ -5,34 +5,13 @@ import java.util.regex.Pattern
 
 
 object CustomValidator {
-    val errors = mutableListOf<String>()
-
-    fun isInputValid(email: String, password: String): Boolean {
-//        return isEmailValid(email) &&
-//                isPasswordValid(password)
-        return false
-    }
-
-    fun isInputValid(firstName: String, lastName: String,email: String, password: String, passwordConfirm: String): Boolean {
-//        return isNameValid(firstName) &&
-//                isNameValid(lastName) &&
-//                isEmailValid(email) &&
-//                isPasswordValid(passwordConfirm) &&
-//                isPasswordConfirmValid(password, passwordConfirm)
-        return false
-    }
-
-    private fun isNameValid(name: String): Boolean {
+    fun isNameValid(name: String): Int? {
         val special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]")
 
-        return if (name.trim().isEmpty()) {
-            errors.add("Name cannot be blank")
-            false
-        } else if (special.matcher(name).find()) {
-            errors.add("Name cannot contain special characters")
-            false
-        } else {
-            true
+        return when {
+            (name.trim().isEmpty()) -> R.string.name_cannot_be_blank
+            (special.matcher(name).find()) -> R.string.name_cannot_have_special_characters
+            else -> null
         }
     }
 
@@ -41,27 +20,23 @@ object CustomValidator {
 
         return when {
             email.isEmpty() -> R.string.email_cannot_be_blank
-
             !(emailRegex.toRegex().matches(email)) -> R.string.enter_valid_email
-
             else -> null
         }
     }
 
     fun isPasswordValid(password: String): Int? {
-
         return when {
-            password.length < 5 -> R.string.password_length_should_be_more_than_5
-
+            password.length < 5 -> R.string.password_is_too_short
             else -> null
         }
     }
 
-    private fun isPasswordConfirmValid(password: String, confirmPassword: String): Boolean {
-        if (password != confirmPassword) {
-            errors.add("Passwords do not match")
-            return false
+    fun isPasswordConfirmValid(confirmPassword: String, password: String): Int? {
+        return when {
+            (confirmPassword.length <= 5) -> R.string.password_is_too_short
+            (password != confirmPassword) -> R.string.passwords_do_not_match
+            else -> null
         }
-        return true
     }
 }

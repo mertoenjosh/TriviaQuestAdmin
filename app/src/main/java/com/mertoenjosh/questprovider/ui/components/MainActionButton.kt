@@ -18,12 +18,13 @@ import com.mertoenjosh.questprovider.theme.QuestProviderTheme
 import java.util.*
 
 @Composable
-fun MainActionButton(@StringRes text: Int, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun MainActionButton(modifier: Modifier = Modifier, @StringRes text: Int, enabled: Boolean = false, onClick: () -> Unit) {
     Button(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
-        onClick = onClick
+        onClick = onClick,
+        enabled = enabled
     ) {
        Text(
            text = stringResource(id = text).replaceFirstChar {

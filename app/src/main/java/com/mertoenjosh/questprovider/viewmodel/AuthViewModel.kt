@@ -14,21 +14,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    val errors = CustomValidator.errors
-
     // test@mnt.dev pass1234
     fun loginUser(email: String, password: String) {
-        if (CustomValidator.isInputValid(email, password)) {
-            val loginObj = LoginRequest(email = email, password = password)
 
-            Timber.d("Login: %s", loginObj)
+        val loginObj = LoginRequest(email = email, password = password)
 
-            viewModelScope.launch(Dispatchers.Main) {
-                val loginResponse = repository.loginUser(loginObj)
+        Timber.d("Login: %s", loginObj)
 
-                loginResponse.let {
-                    Timber.d("User %s", it)
-                }
+        viewModelScope.launch(Dispatchers.Main) {
+            val loginResponse = repository.loginUser(loginObj)
+
+            loginResponse.let {
+                Timber.d("User %s", it)
             }
         }
     }
@@ -39,21 +36,15 @@ class AuthViewModel @Inject constructor(private val repository: Repository) : Vi
         email: String,
         password: String,
         confirmPassword: String
-    ): Boolean {
-        return if (!CustomValidator.isInputValid(firstName, lastName, email, password,confirmPassword)) {
-            val userObj = UserRequest(
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                password = password,
-                confirmPassword = confirmPassword
-            )
+    ) {
+        val userObj = UserRequest(
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            password = password,
+            confirmPassword = confirmPassword
+        )
 
-            Timber.d("User: %s", userObj)
-
-            true
-        } else {
-            false
-        }
+        // TODO: Register user
     }
 }

@@ -53,7 +53,7 @@ fun WelcomeScreenContent(modifier: Modifier = Modifier, navHostController: NavHo
         SmallText(text = R.string.terms_of_service, modifier = Modifier.padding(8.dp))
 
         // sign up button
-        MainActionButton(text = R.string.sign_up, modifier = Modifier.padding(top = 48.dp)) {
+        MainActionButton(text = R.string.sign_up, modifier = Modifier.padding(top = 48.dp), enabled = true) {
             // TODO: Sign up first
             navHostController.navigate(route = Screen.SignUp.route)
         }
