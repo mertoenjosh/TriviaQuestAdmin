@@ -35,29 +35,32 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
+import com.mertoenjosh.questprovider.data.models.request.LoginRequest
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.*
-import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.ScreenEvent
+import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.toast
 import com.mertoenjosh.questprovider.viewmodel.AuthViewModel
+import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
 import com.mertoenjosh.questprovider.viewmodel.InputValidationViewModel
 
 @Composable
 fun SignInScreen(
     navHostController: NavHostController,
     authViewModel: AuthViewModel = hiltViewModel(),
-    inputValidationViewModel: InputValidationViewModel = hiltViewModel()
+    inputValidationViewModel: InputValidationViewModel = hiltViewModel(),
+    commonViewModel: CommonViewModel = hiltViewModel()
 ) {
-    
     Scaffold (
-        content = { paddingValues -> 
+        content = { paddingValues ->
             SignInScreenContent(
                 modifier = Modifier.padding(paddingValues),
                 navHostController,
                 authViewModel,
-                inputValidationViewModel
+                inputValidationViewModel,
+                commonViewModel
             )
         }
     )
@@ -69,7 +72,8 @@ fun SignInScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     authViewModel: AuthViewModel,
-    inputValidationViewModel: InputValidationViewModel
+    inputValidationViewModel: InputValidationViewModel,
+    commonViewModel: CommonViewModel
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -87,7 +91,21 @@ fun SignInScreenContent(
     val areInputsValid by inputValidationViewModel.areSignInInputsValid.collectAsStateWithLifecycle()
     val emailFocusRequester = remember { FocusRequester() }
     val passwordFocusRequester = remember { FocusRequester() }
-    
+
+    val openDialog by commonViewModel.openDialog.collectAsState()
+
+    authViewModel.loginLiveData.observe(lifecycleOwner) { data ->
+        data?.let {
+            commonViewModel.closeDialog()
+            if (data.status == "success") {
+                navHostController.navigate(Screen.Home.route)
+            } else {
+                data.message?.let { it1 -> context.toast(it1) }
+            }
+        }
+
+    }
+
     LaunchedEffect(Unit) {
         events.collect{ event ->
             when(event) {
@@ -104,9 +122,9 @@ fun SignInScreenContent(
                 }
                 is ScreenEvent.MoveFocus -> focusManager.moveFocus(event.direction)
                 is ScreenEvent.ShowToast -> context.toast(event.message)
-                is ScreenEvent.Navigate -> {
-                    navHostController.navigate(event.destination)
-                }
+                is ScreenEvent.Navigate -> navHostController.navigate(event.destination)
+
+                else -> {}
             }
         }
     }
@@ -130,6 +148,10 @@ fun SignInScreenContent(
             }
         )
 
+        if (openDialog) {
+            DialogBoxLoading()
+        }
+
         // Sign up heading
         HeadingText(
             text = R.string.sign_in,
@@ -139,7 +161,8 @@ fun SignInScreenContent(
 
         // Email
         MyOutlinedTextField(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .focusRequester(emailFocusRequester)
                 .onFocusChanged { focusState ->
                     inputValidationViewModel.onTextFieldFocusChanged(
@@ -164,7 +187,8 @@ fun SignInScreenContent(
         )
         // Password
         MyOutlinedTextField(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .focusRequester(passwordFocusRequester)
                 .onFocusChanged { focusState ->
                     inputValidationViewModel.onTextFieldFocusChanged(
@@ -190,7 +214,16 @@ fun SignInScreenContent(
             onImeKeyAction = inputValidationViewModel::onContinueClick
         )
         // Btn
-        MainActionButton(text = R.string.sign_in, enabled = areInputsValid, onClick = inputValidationViewModel::onContinueClick)
+        MainActionButton(
+            text = R.string.sign_in,
+            enabled = areInputsValid,
+            onClick = {
+                inputValidationViewModel.onContinueClick()
+                commonViewModel.openDialog()
+                val userLogin = LoginRequest(email = email.value, password = password.value)
+                authViewModel.loginUser(userLogin)
+            }
+        )
 
         // Google icon
         Image(

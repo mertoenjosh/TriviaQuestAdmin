@@ -12,6 +12,7 @@ import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.paging.QuestProviderRemoteMediator
 import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
+import com.mertoenjosh.questprovider.util.Utils.getErrorBody
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,12 +25,21 @@ class Repository @Inject constructor(
     suspend fun loginUser(loginRequest: LoginRequest): UserResponse {
         val user: UserResponse
         val response = authApi.login(loginRequest)
-        user =  if (response.isSuccessful) {
-            Timber.d("RESPONSE SUCCESS-------> %s", response.body()!!)
-            response.body()!!
-        } else {
-            Timber.d("RESPONSE FAIL ---------> %s",response.body()!!)
-            response.body()!!
+        if (response.isSuccessful) {
+            Timber.d("RESPONSE SUCCESS-------> %s", response.body())
+
+            user = response.body()!!
+        }else {
+            val errorRes = getErrorBody(response.errorBody())
+
+            Timber.d("RESPONSE FAIL ---------> %s", errorRes.message)
+
+            user = UserResponse(
+                status = errorRes.status,
+                message = errorRes.message,
+                token = null,
+                data = null
+            )
         }
 
         return user

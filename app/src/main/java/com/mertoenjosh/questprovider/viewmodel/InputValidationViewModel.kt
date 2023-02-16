@@ -3,7 +3,6 @@ package com.mertoenjosh.questprovider.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.util.Constants.CONFIRM_PASSWORD
 import com.mertoenjosh.questprovider.util.Constants.EMAIL
 import com.mertoenjosh.questprovider.util.Constants.FIRST_NAME
@@ -54,7 +53,7 @@ class InputValidationViewModel @Inject constructor(
     private val _events = Channel<ScreenEvent>()
     val events = _events.receiveAsFlow()
 
-    private var focusedTextField = handle.get("focusedTextField") ?: FocusedTextFieldKey.FIRST_NAME
+    private var focusedTextField = handle["focusedTextField"] ?: FocusedTextFieldKey.FIRST_NAME
         set(value) {
             field = value
             handle["focusedTextField"] = value
@@ -100,17 +99,17 @@ class InputValidationViewModel @Inject constructor(
 
     fun onContinueClick() {
         viewModelScope.launch(Dispatchers.Default) {
-            when (val inputErrors = getInputErrorsOrNull()) {
+            when (val inputErrors = getSignUpInputErrorsOrNull()) {
                 null -> {
                     clearFocusAndHideKeyboard()
-                    _events.send(ScreenEvent.Navigate(Screen.Home.route))
+//                    _events.send(ScreenEvent.Navigate(Screen.Home.route))
                 }
-                else -> displayInputErrors(inputErrors)
+                else -> displaySignUpInputErrors(inputErrors)
             }
         }
     }
 
-    private fun displayInputErrors(inputErrors: InputErrors) {
+    private fun displaySignUpInputErrors(inputErrors: InputErrors) {
         handle[FIRST_NAME] = firstName.value.copy(errorId = inputErrors.firstNameError)
         handle[LAST_NAME] = lastName.value.copy(errorId = inputErrors.lastNameError)
         handle[EMAIL] = email.value.copy(errorId = inputErrors.emailErrorId)
@@ -118,7 +117,7 @@ class InputValidationViewModel @Inject constructor(
         handle[CONFIRM_PASSWORD] = password.value.copy(errorId = inputErrors.confirmPasswordErrorId)
     }
 
-    private fun getInputErrorsOrNull(): InputErrors? {
+    private fun getSignUpInputErrorsOrNull(): InputErrors? {
         val firstNameErrorId = CustomValidator.isNameValid(firstName.value.value)
         val lastNameErrorId = CustomValidator.isNameValid(lastName.value.value)
         val emailErrorId = CustomValidator.isEmailValid(email.value.value)

@@ -41,6 +41,7 @@ import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.toast
 import com.mertoenjosh.questprovider.viewmodel.AuthViewModel
+import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
 import com.mertoenjosh.questprovider.viewmodel.InputValidationViewModel
 
 @Composable
@@ -51,7 +52,8 @@ fun SignUpScreen(navHostController: NavHostController) {
                 modifier = Modifier.padding(paddingValues),
                 navHostController,
                 authViewModel = hiltViewModel(),
-                inputValidationViewModel = hiltViewModel()
+                inputValidationViewModel = hiltViewModel(),
+                commonViewModel = hiltViewModel()
             )
         }
     )
@@ -63,7 +65,9 @@ fun SignUpScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     authViewModel: AuthViewModel,
-    inputValidationViewModel: InputValidationViewModel
+    inputValidationViewModel: InputValidationViewModel,
+    commonViewModel: CommonViewModel
+
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -109,7 +113,7 @@ fun SignUpScreenContent(
 
                         FocusedTextFieldKey.PASSWORD_CONFIRM -> confirmPasswordFocusRequester.requestFocus()
 
-                        else -> {}
+                        FocusedTextFieldKey.NONE -> {}
                     }
                 }
 
@@ -120,6 +124,7 @@ fun SignUpScreenContent(
                 is ScreenEvent.Navigate -> {
                     navHostController.navigate(event.destination)
                 }
+                else -> {}
             }
         }
     }
@@ -214,7 +219,8 @@ fun SignUpScreenContent(
         )
         // Password
         MyOutlinedTextField(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .focusRequester(confirmPasswordFocusRequester)
                 .onFocusChanged { focusState ->
                     inputValidationViewModel.onTextFieldFocusChanged(
@@ -240,7 +246,8 @@ fun SignUpScreenContent(
         )
         // Confirm Password
         MyOutlinedTextField(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .focusRequester(confirmPasswordFocusRequester)
                 .onFocusChanged { focusState ->
                     inputValidationViewModel.onTextFieldFocusChanged(
@@ -265,7 +272,10 @@ fun SignUpScreenContent(
             onImeKeyAction = inputValidationViewModel::onContinueClick
         )
         // Btn
-        MainActionButton(text = R.string.sign_up, enabled = areInputsValid, onClick = inputValidationViewModel::onContinueClick)
+        MainActionButton(
+            text = R.string.sign_up,
+            enabled = areInputsValid,
+            onClick = inputValidationViewModel::onContinueClick)
         // Google icon
         Image(
             painter = painterResource(id = R.drawable.google_icon),

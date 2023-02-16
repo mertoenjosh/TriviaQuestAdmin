@@ -8,9 +8,11 @@ data class UserResponse(
     @SerialName("status")
     val status: String, // success
     @SerialName("token")
-    val token: String, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2M4MmE1MjA2NGQ1NTQ2ZWQxZWUyZSIsImlhdCI6MTY3NTkxMzEwMiwiZXhwIjoxNjgzNjg5MTAyfQ.N9bbw4Z_QC334o706tuMBf8QJtb8KahsMy0XJiLnHas
+    val token: String?, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2M4MmE1MjA2NGQ1NTQ2ZWQxZWUyZSIsImlhdCI6MTY3NTkxMzEwMiwiZXhwIjoxNjgzNjg5MTAyfQ.N9bbw4Z_QC334o706tuMBf8QJtb8KahsMy0XJiLnHas
     @SerialName("data")
-    val `data`: Data
+    val `data`: Data?,
+    @SerialName("message")
+    val message: String? = null
 ) {
     @Serializable
     data class Data(

@@ -49,6 +49,7 @@
     <string name="welcome">Welcome</string>
     <string name="success">Success</string>
     <string name="validation_error">Validation Error</string>
+    <string name="please_wait">Please wait…</string>
 
 
 </resources>
