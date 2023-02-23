@@ -55,8 +55,7 @@ fun WelcomeScreenContent(modifier: Modifier = Modifier, navHostController: NavHo
         // sign up button
         MainActionButton(text = R.string.sign_up, modifier = Modifier.padding(top = 48.dp), enabled = true) {
             // TODO: Sign up first
-//            navHostController.navigate(route = Screen.SignUp.route)
-             throw RuntimeException("Test crash")
+            navHostController.navigate(route = Screen.SignUp.route)
         }
 
         // google icon
