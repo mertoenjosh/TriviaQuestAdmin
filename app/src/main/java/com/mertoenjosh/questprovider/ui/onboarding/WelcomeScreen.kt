@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.HeadingText
 import com.mertoenjosh.questprovider.ui.components.MainActionButton
 import com.mertoenjosh.questprovider.ui.components.SmallText

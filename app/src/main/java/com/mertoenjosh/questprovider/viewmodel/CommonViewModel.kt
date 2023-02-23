@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @HiltViewModel
 class CommonViewModel @Inject constructor(): ViewModel() {
     private var _openDialog = MutableStateFlow(false)

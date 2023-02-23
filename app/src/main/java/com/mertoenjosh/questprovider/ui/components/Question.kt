@@ -14,14 +14,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mertoenjosh.questprovider.data.models.TriviaQuestion
-import com.mertoenjosh.questprovider.data.models.formatCategory
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.domain.models.Question
+import com.mertoenjosh.questprovider.domain.models.formatCategory
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 
 @Composable
 fun Question(
-    question: TriviaQuestion,
-    onQuestionClick: (TriviaQuestion) -> Unit
+    question: Question,
+    onQuestionClick: (Question) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -78,8 +78,8 @@ fun Question(
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun QuestionPreview() {
-    val question = TriviaQuestion(
-        id = "6343dbbaad6ccece95fedc30",
+    val question = Question(
+        id = "2929292",
         choices = listOf(
             "Bill Gates",
             "Mark Zucherburg",

@@ -4,17 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mertoenjosh.questprovider.data.models.TriviaQuestionRemoteKeys
+import com.mertoenjosh.questprovider.data.database.models.QuestionRemoteKeysEntity
 
 
 @Dao
 interface QuestProviderRemoteKeysDao {
-    @Query("SELECT * FROM remote_keys_table WHERE id = :id")
-    suspend fun getRemoteKeys(id: String): TriviaQuestionRemoteKeys
+    @Query("SELECT * FROM tbl_remote_keys WHERE id = :id")
+    suspend fun getRemoteKeys(id: String): QuestionRemoteKeysEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAllRemoteKeys(remoteKeys: List<TriviaQuestionRemoteKeys>)
+    suspend fun addAllRemoteKeys(remoteKeys: List<QuestionRemoteKeysEntity>)
 
-    @Query("DELETE FROM remote_keys_table")
+    @Query("DELETE FROM tbl_remote_keys")
     suspend fun deleteAllRemoteKeys()
 }

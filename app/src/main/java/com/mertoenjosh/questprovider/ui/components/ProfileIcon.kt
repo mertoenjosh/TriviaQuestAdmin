@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 
 @Composable
 fun ProfileIcon(

@@ -157,7 +157,7 @@ fun CustomDialogItem(
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun CustomDialogItemPreview() {
-    com.mertoenjosh.questprovider.theme.QuestProviderTheme() {
+    QuestProviderTheme() {
         CustomDialogItem(
             icon = Icons.Default.Settings,
             label = R.string.settings,

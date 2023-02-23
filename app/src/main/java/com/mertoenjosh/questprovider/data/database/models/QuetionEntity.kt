@@ -1,10 +1,10 @@
-package com.mertoenjosh.questprovider.data.models
+package com.mertoenjosh.questprovider.data.database.models
 
 import androidx.room.*
 import com.mertoenjosh.questprovider.util.Constants
 
 @Entity(tableName = Constants.QUESTIONS_TABLE)
-data class TriviaQuestion(
+data class QuestionEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     @ColumnInfo
@@ -32,7 +32,3 @@ class StringListConverters {
     @TypeConverter
     fun stringToList(string: String): List<String> = string.split(";")
 }
-
-fun TriviaQuestion.formatCategory(): String = this.category
-    .split("_")
-    .joinToString(" ") { el -> el[0].uppercase() + el.slice(1 until el.length) }

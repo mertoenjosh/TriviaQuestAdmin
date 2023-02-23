@@ -1,7 +1,10 @@
-package com.mertoenjosh.questprovider.data.network.util
+package com.mertoenjosh.questprovider.util
+
+import com.mertoenjosh.questprovider.util.Constants.BASE_URL
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ServiceBuilder {
-    /*
     companion object {
         private val builder: Retrofit.Builder = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -13,6 +16,4 @@ class ServiceBuilder {
             return retrofit.create(serviceType)
         }
     }
-
-     */
 }

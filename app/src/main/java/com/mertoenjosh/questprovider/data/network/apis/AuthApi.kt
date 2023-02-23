@@ -1,8 +1,8 @@
 package com.mertoenjosh.questprovider.data.network.apis
 
-import com.mertoenjosh.questprovider.data.models.request.LoginRequest
-import com.mertoenjosh.questprovider.data.models.request.UserRequest
-import com.mertoenjosh.questprovider.data.models.response.UserResponse
+import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
+import com.mertoenjosh.questprovider.data.network.models.request.UserRequest
+import com.mertoenjosh.questprovider.data.network.models.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

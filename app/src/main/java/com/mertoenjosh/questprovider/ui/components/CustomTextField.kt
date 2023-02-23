@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.util.OnImeKeyAction
 import com.mertoenjosh.questprovider.util.OnValueChange
 import com.mertoenjosh.questprovider.util.inputValidations.InputWrapper

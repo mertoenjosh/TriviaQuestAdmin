@@ -35,12 +35,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.*
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.toast
-import com.mertoenjosh.questprovider.viewmodel.AuthViewModel
 import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
 import com.mertoenjosh.questprovider.viewmodel.InputValidationViewModel
 

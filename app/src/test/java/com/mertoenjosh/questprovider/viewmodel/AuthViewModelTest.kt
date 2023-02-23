@@ -1,5 +1,6 @@
 package com.mertoenjosh.questprovider.viewmodel
 
+import com.mertoenjosh.questprovider.ui.auth.AuthViewModel
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith

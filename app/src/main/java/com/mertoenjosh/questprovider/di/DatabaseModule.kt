@@ -2,7 +2,7 @@ package com.mertoenjosh.questprovider.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mertoenjosh.questprovider.data.database.QuestionsDatabase
+import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -16,10 +16,10 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): QuestionsDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): QpDatabase {
         return Room.databaseBuilder(
             context,
-            QuestionsDatabase::class.java,
+            QpDatabase::class.java,
             Constants.QUEST_PROVIDER_DATABASE
         ).build()
     }

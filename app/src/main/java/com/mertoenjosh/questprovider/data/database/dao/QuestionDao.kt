@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mertoenjosh.questprovider.data.models.TriviaQuestion
+import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 
 @Dao
 interface QuestionDao {
-    @Query("SELECT * FROM questions_table")
-    fun getAllQuestions(): PagingSource<Int, TriviaQuestion>
+    @Query("SELECT * FROM tbl_questions")
+    fun getAllQuestions(): PagingSource<Int, QuestionEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addQuestions(questions: List<TriviaQuestion>)
+    suspend fun addQuestions(questions: List<QuestionEntity>)
 
-    @Query("DELETE FROM questions_table")
+    @Query("DELETE FROM tbl_questions")
     suspend fun deleteAllQuestions()
 }

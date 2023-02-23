@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.data.models.response
+package com.mertoenjosh.questprovider.data.network.models.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

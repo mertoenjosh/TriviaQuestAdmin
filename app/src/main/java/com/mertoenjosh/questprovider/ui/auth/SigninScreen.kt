@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
@@ -35,14 +32,13 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.data.models.request.LoginRequest
+import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.*
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.toast
-import com.mertoenjosh.questprovider.viewmodel.AuthViewModel
 import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
 import com.mertoenjosh.questprovider.viewmodel.InputValidationViewModel
 
@@ -97,10 +93,10 @@ fun SignInScreenContent(
     authViewModel.loginLiveData.observe(lifecycleOwner) { data ->
         data?.let {
             commonViewModel.closeDialog()
-            if (data.status == "success") {
+            if (!data.token.isNullOrBlank()) {
                 navHostController.navigate(Screen.Home.route)
             } else {
-                data.message?.let { it1 -> context.toast(it1) }
+                data.message?.let { message -> context.toast(message) }
             }
         }
 
@@ -123,6 +119,13 @@ fun SignInScreenContent(
                 is ScreenEvent.MoveFocus -> focusManager.moveFocus(event.direction)
                 is ScreenEvent.ShowToast -> context.toast(event.message)
                 is ScreenEvent.Navigate -> navHostController.navigate(event.destination)
+                is ScreenEvent.ShowSnackBar -> {
+                    /*
+                    Snackbar {
+                        Text(text = event.message)
+                    }
+                    */
+                }
 
                 else -> {}
             }

@@ -22,13 +22,14 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.data.models.TriviaQuestion
+import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
+import com.mertoenjosh.questprovider.data.mappers.toDomain
+import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.CustomMenuDialog
 import com.mertoenjosh.questprovider.ui.components.Question
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
-import com.mertoenjosh.questprovider.viewmodel.HomeViewModel
 import timber.log.Timber
 
 
@@ -106,7 +107,7 @@ fun QuestionsScreen(
 }
 
 @Composable
-fun QuestionsList(questions: LazyPagingItems<TriviaQuestion>, onQuestionClick: (TriviaQuestion)->Unit) {
+fun QuestionsList(questions: LazyPagingItems<QuestionEntity>, onQuestionClick: (Question)->Unit) {
 
     LazyColumn{
         items(items = questions, key = { question -> question.id}) { question ->
@@ -114,8 +115,8 @@ fun QuestionsList(questions: LazyPagingItems<TriviaQuestion>, onQuestionClick: (
                 Timber.i("Question: %s", it)
 
                 Question(
-                    question = it,
-                    onQuestionClick = { onQuestionClick(question) }
+                    question = it.toDomain(),
+                    onQuestionClick = { onQuestionClick(question.toDomain()) }
                 )
             }
         }

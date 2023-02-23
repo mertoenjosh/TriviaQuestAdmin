@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.data.models
+package com.mertoenjosh.questprovider.data.database.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Entity(tableName = Constants.REMOTE_KEYS_TABLE)
-data class TriviaQuestionRemoteKeys(
+data class QuestionRemoteKeysEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val prevPage: Int?,

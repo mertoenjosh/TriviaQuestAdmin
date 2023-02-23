@@ -1,6 +1,6 @@
 package com.mertoenjosh.questprovider.data.network.apis
 
-import com.mertoenjosh.questprovider.data.models.response.TriviaQuestionResponse
+import com.mertoenjosh.questprovider.data.network.models.response.TriviaQuestionResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

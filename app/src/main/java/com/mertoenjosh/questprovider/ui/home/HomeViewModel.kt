@@ -1,9 +1,9 @@
-package com.mertoenjosh.questprovider.viewmodel
+package com.mertoenjosh.questprovider.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.ExperimentalPagingApi
-import com.mertoenjosh.questprovider.data.models.TriviaQuestion
-import com.mertoenjosh.questprovider.data.repos.Repository
+import com.mertoenjosh.questprovider.domain.models.Question
+import com.mertoenjosh.questprovider.domain.repositories.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
     val getAllQuestion = repository.getAllQuestions()
 
-    fun onQuestionClick(question: TriviaQuestion) {
+    fun onQuestionClick(question: Question) {
         // TODO: Navigate to question details' screen
         Timber.d("MainViewModelTAG: %s", question)
     }

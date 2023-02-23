@@ -5,23 +5,23 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.mertoenjosh.questprovider.data.database.QuestionsDatabase
-import com.mertoenjosh.questprovider.data.models.TriviaQuestion
-import com.mertoenjosh.questprovider.data.models.TriviaQuestionRemoteKeys
+import com.mertoenjosh.questprovider.data.database.QpDatabase
+import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
+import com.mertoenjosh.questprovider.data.database.models.QuestionRemoteKeysEntity
+import com.mertoenjosh.questprovider.data.mappers.toEntity
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
-import com.mertoenjosh.questprovider.data.repos.mappers.toEntity
 import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
 
 @OptIn(ExperimentalPagingApi::class)
 class QuestProviderRemoteMediator (
     private val questionApi: QuestionApi,
-    private val questProviderDatabase: QuestionsDatabase
-): RemoteMediator<Int, TriviaQuestion>() {
-    private val questionDao = questProviderDatabase.questionDao()
-    private val questProviderRemoteKeysDao = questProviderDatabase.remoteKeysDao()
+    private val qpDatabase: QpDatabase
+): RemoteMediator<Int, QuestionEntity>() {
+    private val questionDao = qpDatabase.questionDao()
+    private val questProviderRemoteKeysDao = qpDatabase.remoteKeysDao()
 
     override suspend fun load(
-        loadType: LoadType, state: PagingState<Int, TriviaQuestion>
+        loadType: LoadType, state: PagingState<Int, QuestionEntity>
     ): MediatorResult {
         return try {
             val currentPage = when(loadType) {
@@ -54,14 +54,14 @@ class QuestProviderRemoteMediator (
             val prevPage = if (currentPage == 1) null else currentPage - 1
             val nextPage = if (endOfPaginationReached) null else currentPage + 1
 
-            questProviderDatabase.withTransaction {
+            qpDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     questionDao.deleteAllQuestions()
                     questProviderRemoteKeysDao.deleteAllRemoteKeys()
                 }
 
                 val keys = response.data.questions.map { question ->
-                    TriviaQuestionRemoteKeys(
+                    QuestionRemoteKeysEntity(
                         id = question.id,
                         prevPage = prevPage,
                         nextPage = nextPage
@@ -82,8 +82,8 @@ class QuestProviderRemoteMediator (
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, TriviaQuestion>
-    ): TriviaQuestionRemoteKeys? {
+        state: PagingState<Int, QuestionEntity>
+    ): QuestionRemoteKeysEntity? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
                 questProviderRemoteKeysDao.getRemoteKeys(id = id)
@@ -92,8 +92,8 @@ class QuestProviderRemoteMediator (
     }
 
     private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, TriviaQuestion>
-    ): TriviaQuestionRemoteKeys? {
+        state: PagingState<Int, QuestionEntity>
+    ): QuestionRemoteKeysEntity? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { question ->
                 questProviderRemoteKeysDao.getRemoteKeys(id = question.id)
@@ -101,8 +101,8 @@ class QuestProviderRemoteMediator (
     }
 
     private suspend fun getRemoteKeysForLastItem(
-        state: PagingState<Int, TriviaQuestion>
-    ): TriviaQuestionRemoteKeys? {
+        state: PagingState<Int, QuestionEntity>
+    ): QuestionRemoteKeysEntity? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { question ->
                 questProviderRemoteKeysDao.getRemoteKeys(id = question.id)
