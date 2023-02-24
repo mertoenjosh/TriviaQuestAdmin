@@ -35,13 +35,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.*
-import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.util.ScreenEvent
+import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.toast
 import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
-import com.mertoenjosh.questprovider.viewmodel.InputValidationViewModel
 
 @Composable
 fun SignUpScreen(navHostController: NavHostController) {
@@ -51,8 +50,6 @@ fun SignUpScreen(navHostController: NavHostController) {
                 modifier = Modifier.padding(paddingValues),
                 navHostController,
                 authViewModel = hiltViewModel(),
-                inputValidationViewModel = hiltViewModel(),
-                commonViewModel = hiltViewModel()
             )
         }
     )
@@ -64,8 +61,6 @@ fun SignUpScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     authViewModel: AuthViewModel,
-    inputValidationViewModel: InputValidationViewModel,
-    commonViewModel: CommonViewModel
 
 ) {
     val context = LocalContext.current
@@ -73,19 +68,19 @@ fun SignUpScreenContent(
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val events = remember(inputValidationViewModel.events, lifecycleOwner) {
-        inputValidationViewModel.events.flowWithLifecycle(
+    val events = remember(authViewModel.events, lifecycleOwner) {
+        authViewModel.events.flowWithLifecycle(
             lifecycleOwner.lifecycle,
             Lifecycle.State.STARTED
         )
     }
 
-    val firstName by inputValidationViewModel.firstName.collectAsStateWithLifecycle()
-    val lastName by inputValidationViewModel.lastName.collectAsStateWithLifecycle()
-    val email by inputValidationViewModel.email.collectAsStateWithLifecycle()
-    val password by inputValidationViewModel.password.collectAsStateWithLifecycle()
-    val confirmPassword by inputValidationViewModel.confirmPassword.collectAsStateWithLifecycle()
-    val areInputsValid by inputValidationViewModel.areSignUpInputsValid.collectAsStateWithLifecycle()
+    val firstName by authViewModel.firstName.collectAsStateWithLifecycle()
+    val lastName by authViewModel.lastName.collectAsStateWithLifecycle()
+    val email by authViewModel.email.collectAsStateWithLifecycle()
+    val password by authViewModel.password.collectAsStateWithLifecycle()
+    val confirmPassword by authViewModel.confirmPassword.collectAsStateWithLifecycle()
+    val areInputsValid by authViewModel.areSignUpInputsValid.collectAsStateWithLifecycle()
 
     val firstNameFocusRequester = remember { FocusRequester() }
     val lastNameFocusRequester = remember { FocusRequester() }
@@ -159,7 +154,7 @@ fun SignUpScreenContent(
                     .weight(.1f)
                     .focusRequester(firstNameFocusRequester)
                     .onFocusChanged { focusState ->
-                        inputValidationViewModel.onTextFieldFocusChanged(
+                        authViewModel.onTextFieldFocusChanged(
                             key = FocusedTextFieldKey.FIRST_NAME,
                             isFocused = focusState.isFocused
                         )
@@ -167,8 +162,8 @@ fun SignUpScreenContent(
                 label = R.string.first_name,
                 inputWrapper = firstName,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                onValueChange = inputValidationViewModel::onFirstNameEntered,
-                onImeKeyAction = inputValidationViewModel::onNameImeActionClick
+                onValueChange = authViewModel::onFirstNameEntered,
+                onImeKeyAction = authViewModel::onNameImeActionClick
             )
 
             MyOutlinedTextField(
@@ -176,7 +171,7 @@ fun SignUpScreenContent(
                     .weight(.1f)
                     .focusRequester(lastNameFocusRequester)
                     .onFocusChanged { focusState ->
-                        inputValidationViewModel.onTextFieldFocusChanged(
+                        authViewModel.onTextFieldFocusChanged(
                             key = FocusedTextFieldKey.LAST_NAME,
                             isFocused = focusState.isFocused
                         )
@@ -184,8 +179,8 @@ fun SignUpScreenContent(
                 label = R.string.last_name,
                 inputWrapper = lastName,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                onValueChange = inputValidationViewModel::onLastNameEntered,
-                onImeKeyAction = inputValidationViewModel::onNameImeActionClick
+                onValueChange = authViewModel::onLastNameEntered,
+                onImeKeyAction = authViewModel::onNameImeActionClick
             )
 
         }
@@ -196,7 +191,7 @@ fun SignUpScreenContent(
                 .fillMaxWidth()
                 .focusRequester(emailFocusRequester)
                 .onFocusChanged { focusState ->
-                    inputValidationViewModel.onTextFieldFocusChanged(
+                    authViewModel.onTextFieldFocusChanged(
                         key = FocusedTextFieldKey.EMAIL,
                         isFocused = focusState.isFocused
                     )
@@ -213,8 +208,8 @@ fun SignUpScreenContent(
             label = R.string.email,
             inputWrapper = email,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-            onValueChange = inputValidationViewModel::onEmailEntered,
-            onImeKeyAction = inputValidationViewModel::onNameImeActionClick
+            onValueChange = authViewModel::onEmailEntered,
+            onImeKeyAction = authViewModel::onNameImeActionClick
         )
         // Password
         MyOutlinedTextField(
@@ -222,7 +217,7 @@ fun SignUpScreenContent(
                 .fillMaxWidth()
                 .focusRequester(confirmPasswordFocusRequester)
                 .onFocusChanged { focusState ->
-                    inputValidationViewModel.onTextFieldFocusChanged(
+                    authViewModel.onTextFieldFocusChanged(
                         key = FocusedTextFieldKey.PASSWORD,
                         isFocused = focusState.isFocused
                     )
@@ -240,8 +235,8 @@ fun SignUpScreenContent(
             inputWrapper = password,
             isPassword = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-            onValueChange = inputValidationViewModel::onPasswordEntered,
-            onImeKeyAction = inputValidationViewModel::onNameImeActionClick
+            onValueChange = authViewModel::onPasswordEntered,
+            onImeKeyAction = authViewModel::onNameImeActionClick
         )
         // Confirm Password
         MyOutlinedTextField(
@@ -249,7 +244,7 @@ fun SignUpScreenContent(
                 .fillMaxWidth()
                 .focusRequester(confirmPasswordFocusRequester)
                 .onFocusChanged { focusState ->
-                    inputValidationViewModel.onTextFieldFocusChanged(
+                    authViewModel.onTextFieldFocusChanged(
                         key = FocusedTextFieldKey.PASSWORD_CONFIRM,
                         isFocused = focusState.isFocused
                     )
@@ -267,14 +262,14 @@ fun SignUpScreenContent(
             inputWrapper = confirmPassword,
             isPassword = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-            onValueChange = { inputValidationViewModel.onConfirmPasswordEntered(it, password.value) },
-            onImeKeyAction = inputValidationViewModel::onContinueClick
+            onValueChange = { authViewModel.onConfirmPasswordEntered(it, password.value) },
+            onImeKeyAction = authViewModel::onContinueClick
         )
         // Btn
         MainActionButton(
             text = R.string.sign_up,
             enabled = areInputsValid,
-            onClick = inputValidationViewModel::onContinueClick)
+            onClick = authViewModel::onContinueClick)
         // Google icon
         Image(
             painter = painterResource(id = R.drawable.google_icon),

@@ -34,19 +34,17 @@ import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.*
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.toast
 import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
-import com.mertoenjosh.questprovider.viewmodel.InputValidationViewModel
 
 @Composable
 fun SignInScreen(
     navHostController: NavHostController,
     authViewModel: AuthViewModel = hiltViewModel(),
-    inputValidationViewModel: InputValidationViewModel = hiltViewModel(),
     commonViewModel: CommonViewModel = hiltViewModel()
 ) {
     Scaffold (
@@ -55,7 +53,6 @@ fun SignInScreen(
                 modifier = Modifier.padding(paddingValues),
                 navHostController,
                 authViewModel,
-                inputValidationViewModel,
                 commonViewModel
             )
         }
@@ -68,7 +65,6 @@ fun SignInScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     authViewModel: AuthViewModel,
-    inputValidationViewModel: InputValidationViewModel,
     commonViewModel: CommonViewModel
 ) {
     val context = LocalContext.current
@@ -76,15 +72,15 @@ fun SignInScreenContent(
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val events = remember(inputValidationViewModel.events, lifecycleOwner) {
-        inputValidationViewModel.events.flowWithLifecycle(
+    val events = remember(authViewModel.events, lifecycleOwner) {
+        authViewModel.events.flowWithLifecycle(
             lifecycleOwner.lifecycle,
             Lifecycle.State.STARTED
         )
     }
-    val email by inputValidationViewModel.email.collectAsStateWithLifecycle()
-    val password by inputValidationViewModel.password.collectAsStateWithLifecycle()
-    val areInputsValid by inputValidationViewModel.areSignInInputsValid.collectAsStateWithLifecycle()
+    val email by authViewModel.email.collectAsStateWithLifecycle()
+    val password by authViewModel.password.collectAsStateWithLifecycle()
+    val areInputsValid by authViewModel.areSignInInputsValid.collectAsStateWithLifecycle()
     val emailFocusRequester = remember { FocusRequester() }
     val passwordFocusRequester = remember { FocusRequester() }
 
@@ -168,7 +164,7 @@ fun SignInScreenContent(
                 .fillMaxWidth()
                 .focusRequester(emailFocusRequester)
                 .onFocusChanged { focusState ->
-                    inputValidationViewModel.onTextFieldFocusChanged(
+                    authViewModel.onTextFieldFocusChanged(
                         key = FocusedTextFieldKey.EMAIL,
                         isFocused = focusState.isFocused
                     )
@@ -185,8 +181,8 @@ fun SignInScreenContent(
             label = R.string.email,
             inputWrapper = email,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-            onValueChange = inputValidationViewModel::onEmailEntered,
-            onImeKeyAction = inputValidationViewModel::onContinueClick
+            onValueChange = authViewModel::onEmailEntered,
+            onImeKeyAction = authViewModel::onContinueClick
         )
         // Password
         MyOutlinedTextField(
@@ -194,7 +190,7 @@ fun SignInScreenContent(
                 .fillMaxWidth()
                 .focusRequester(passwordFocusRequester)
                 .onFocusChanged { focusState ->
-                    inputValidationViewModel.onTextFieldFocusChanged(
+                    authViewModel.onTextFieldFocusChanged(
                         key = FocusedTextFieldKey.PASSWORD,
                         isFocused = focusState.isFocused
                     )
@@ -213,15 +209,15 @@ fun SignInScreenContent(
             visualTransformation = PasswordVisualTransformation(),
             inputWrapper = password,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-            onValueChange = inputValidationViewModel::onPasswordEntered,
-            onImeKeyAction = inputValidationViewModel::onContinueClick
+            onValueChange = authViewModel::onPasswordEntered,
+            onImeKeyAction = authViewModel::onContinueClick
         )
         // Btn
         MainActionButton(
             text = R.string.sign_in,
             enabled = areInputsValid,
             onClick = {
-                inputValidationViewModel.onContinueClick()
+                authViewModel.onContinueClick()
                 commonViewModel.openDialog()
                 val userLogin = LoginRequest(email = email.value, password = password.value)
                 authViewModel.loginUser(userLogin)
