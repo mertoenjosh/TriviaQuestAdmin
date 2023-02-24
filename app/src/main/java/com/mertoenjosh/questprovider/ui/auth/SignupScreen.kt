@@ -40,7 +40,6 @@ import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.toast
-import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
 
 @Composable
 fun SignUpScreen(navHostController: NavHostController) {

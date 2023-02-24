@@ -39,13 +39,11 @@ import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.toast
-import com.mertoenjosh.questprovider.viewmodel.CommonViewModel
 
 @Composable
 fun SignInScreen(
     navHostController: NavHostController,
     authViewModel: AuthViewModel = hiltViewModel(),
-    commonViewModel: CommonViewModel = hiltViewModel()
 ) {
     Scaffold (
         content = { paddingValues ->
@@ -53,7 +51,6 @@ fun SignInScreen(
                 modifier = Modifier.padding(paddingValues),
                 navHostController,
                 authViewModel,
-                commonViewModel
             )
         }
     )
@@ -65,7 +62,6 @@ fun SignInScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     authViewModel: AuthViewModel,
-    commonViewModel: CommonViewModel
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -83,19 +79,11 @@ fun SignInScreenContent(
     val areInputsValid by authViewModel.areSignInInputsValid.collectAsStateWithLifecycle()
     val emailFocusRequester = remember { FocusRequester() }
     val passwordFocusRequester = remember { FocusRequester() }
-
-    val openDialog by commonViewModel.openDialog.collectAsState()
-
-    authViewModel.loginLiveData.observe(lifecycleOwner) { data ->
-        data?.let {
-            commonViewModel.closeDialog()
-            if (!data.token.isNullOrBlank()) {
-                navHostController.navigate(Screen.Home.route)
-            } else {
-                data.message?.let { message -> context.toast(message) }
-            }
-        }
-
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
+    var snackBarMessage by remember {
+        mutableStateOf("")
     }
 
     LaunchedEffect(Unit) {
@@ -115,14 +103,10 @@ fun SignInScreenContent(
                 is ScreenEvent.MoveFocus -> focusManager.moveFocus(event.direction)
                 is ScreenEvent.ShowToast -> context.toast(event.message)
                 is ScreenEvent.Navigate -> navHostController.navigate(event.destination)
+                is ScreenEvent.ShowLoader -> isLoading = event.isLoading
                 is ScreenEvent.ShowSnackBar -> {
-                    /*
-                    Snackbar {
-                        Text(text = event.message)
-                    }
-                    */
+                    snackBarMessage = event.message
                 }
-
                 else -> {}
             }
         }
@@ -147,9 +131,10 @@ fun SignInScreenContent(
             }
         )
 
-        if (openDialog) {
+        if (isLoading) {
             DialogBoxLoading()
         }
+
 
         // Sign up heading
         HeadingText(
@@ -218,7 +203,6 @@ fun SignInScreenContent(
             enabled = areInputsValid,
             onClick = {
                 authViewModel.onContinueClick()
-                commonViewModel.openDialog()
                 val userLogin = LoginRequest(email = email.value, password = password.value)
                 authViewModel.loginUser(userLogin)
             }

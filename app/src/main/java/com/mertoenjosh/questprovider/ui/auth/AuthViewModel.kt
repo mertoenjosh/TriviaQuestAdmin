@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
 import com.mertoenjosh.questprovider.data.network.models.response.UserResponse
 import com.mertoenjosh.questprovider.domain.repositories.Repository
+import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.util.Constants
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import com.mertoenjosh.questprovider.util.Utils.handler
@@ -11,14 +12,12 @@ import com.mertoenjosh.questprovider.util.inputValidations.CustomValidator
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.inputValidations.InputErrors
 import com.mertoenjosh.questprovider.util.inputValidations.InputWrapper
+import com.mertoenjosh.questprovider.util.toast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -72,11 +71,19 @@ class AuthViewModel @Inject constructor(
     fun loginUser(loginObj: LoginRequest) {
         _loginLiveData.value = null
         viewModelScope.launch(handler) {
+            _events.send(ScreenEvent.ShowLoader(true))
             val loginResponse = repository.loginUser(loginObj)
-            loginResponse.let {
-                Timber.d("User %s", it)
+            loginResponse.let { data->
+                Timber.d("User %s", data)
 
-                _loginLiveData.value = it
+                _events.send(ScreenEvent.ShowLoader(false))
+                _loginLiveData.value = data
+
+                if (!data.token.isNullOrBlank()) {
+                    _events.send(ScreenEvent.Navigate(Screen.Home.route))
+                } else {
+                    _events.send(ScreenEvent.ShowToast("${data.message}"))
+                }
             }
         }
     }
