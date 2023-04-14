@@ -5,7 +5,7 @@ import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 
 sealed class ScreenEvent {
     class ShowToast(val message: String) : ScreenEvent()
-    class ShowSnackBar(val message: String) : ScreenEvent()
+    class ShowSnackBar(val show: Boolean, val message: String) : ScreenEvent()
     class UpdateKeyboard(val show: Boolean) : ScreenEvent()
     class RequestFocus(val textFieldKey: FocusedTextFieldKey) : ScreenEvent()
     object ClearFocus : ScreenEvent()

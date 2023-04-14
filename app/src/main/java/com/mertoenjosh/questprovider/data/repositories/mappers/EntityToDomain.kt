@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.data.mappers
+package com.mertoenjosh.questprovider.data.repositories.mappers
 
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.domain.models.Question

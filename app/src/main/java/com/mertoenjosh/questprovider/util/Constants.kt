@@ -18,4 +18,12 @@ object Constants {
     const val EMAIL = "email"
     const val PASSWORD = "password"
     const val CONFIRM_PASSWORD = "confirmPassword"
+
+    const val QUESTION = "question"
+    const val CATEGORY = "categories"
+    const val CORRECT_ANSWER = "correct_answer"
+    const val CHOICE_ONE = "choice_one"
+    const val CHOICE_TWO = "choice_two"
+    const val CHOICE_THREE = "choice_three"
+    const val DIFFICULTY = "difficulty"
 }

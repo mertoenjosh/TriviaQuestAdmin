@@ -2,8 +2,7 @@ package com.mertoenjosh.questprovider.ui.auth
 
 import androidx.lifecycle.*
 import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
-import com.mertoenjosh.questprovider.data.network.models.response.UserResponse
-import com.mertoenjosh.questprovider.domain.repositories.Repository
+import com.mertoenjosh.questprovider.data.repositories.RepositoryImpl
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.util.Constants
 import com.mertoenjosh.questprovider.util.ScreenEvent
@@ -12,7 +11,6 @@ import com.mertoenjosh.questprovider.util.inputValidations.CustomValidator
 import com.mertoenjosh.questprovider.util.inputValidations.FocusedTextFieldKey
 import com.mertoenjosh.questprovider.util.inputValidations.InputErrors
 import com.mertoenjosh.questprovider.util.inputValidations.InputWrapper
-import com.mertoenjosh.questprovider.util.toast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -24,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repository: Repository,
+    private val repository: RepositoryImpl,
     private val handle: SavedStateHandle
 ) : ViewModel() {
     val firstName = handle.getStateFlow(Constants.FIRST_NAME, InputWrapper())
@@ -54,9 +52,6 @@ class AuthViewModel @Inject constructor(
     private val _events = Channel<ScreenEvent>()
     val events = _events.receiveAsFlow()
 
-    private val _loginLiveData = MutableLiveData<UserResponse>(null)
-    val loginLiveData = _loginLiveData as LiveData<UserResponse>
-
     private var focusedTextField = handle["focusedTextField"] ?: FocusedTextFieldKey.FIRST_NAME
         set(value) {
             field = value
@@ -69,7 +64,6 @@ class AuthViewModel @Inject constructor(
 
     // test@mnt.dev pass1234
     fun loginUser(loginObj: LoginRequest) {
-        _loginLiveData.value = null
         viewModelScope.launch(handler) {
             _events.send(ScreenEvent.ShowLoader(true))
             val loginResponse = repository.loginUser(loginObj)
@@ -77,7 +71,6 @@ class AuthViewModel @Inject constructor(
                 Timber.d("User %s", data)
 
                 _events.send(ScreenEvent.ShowLoader(false))
-                _loginLiveData.value = data
 
                 if (!data.token.isNullOrBlank()) {
                     _events.send(ScreenEvent.Navigate(Screen.Home.route))
@@ -118,7 +111,6 @@ class AuthViewModel @Inject constructor(
             when (val inputErrors = getSignUpInputErrorsOrNull()) {
                 null -> {
                     clearFocusAndHideKeyboard()
-//                    _events.send(ScreenEvent.Navigate(Screen.Home.route))
                 }
                 else -> displaySignUpInputErrors(inputErrors)
             }

@@ -1,13 +1,16 @@
-package com.mertoenjosh.questprovider.ui.home
+package com.mertoenjosh.questprovider.ui.details
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
@@ -28,38 +31,43 @@ fun QuestionDetailsScreen(navHostController: NavHostController) {
             )
         },
         content = { paddingValues ->
-            QuestionDetailsScreenContent(modifier = Modifier.padding(paddingValues))
+            QuestionDetailsScreenContent(
+                modifier = Modifier.padding(paddingValues),
+                detailsViewModel = hiltViewModel()
+            )
         }
     )
 }
 
 @Composable
-fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
+fun QuestionDetailsScreenContent(
+    modifier: Modifier = Modifier,
+    detailsViewModel: DetailsViewModel
+) {
+    val question by detailsViewModel.question.collectAsStateWithLifecycle()
+    val correctAnswer by detailsViewModel.correctAnswer.collectAsStateWithLifecycle()
+    val choiceOne by detailsViewModel.choiceOne.collectAsStateWithLifecycle()
+    val choiceTwo by detailsViewModel.choiceTwo.collectAsStateWithLifecycle()
+    val choiceThree by detailsViewModel.choiceThree.collectAsStateWithLifecycle()
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
     ) {
         // Question
-        /*
-        Text(
-            text = stringResource(id = R.string.question)
+        MyOutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = R.string.question,
+            inputWrapper = question,
+            onValueChange = {}, // todo
+            onImeKeyAction = {}
         )
-
-         */
-
-//        MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.question){}
 
         // Category spinner
         Row {
-            /*
-            Text(
-                text = stringResource(id = R.string.category)
-            )
-
-             */
-            // Todo: Spinner
-            val categories = listOf("Science", "General Knowledge", "Film", "Fashion")
+            // Todo: Spinner validation
+            val categories = listOf("Science", "General Knowledge", "Film", "Fashion") // FIXME: Cache
             MySpinnerDropdown(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,48 +82,46 @@ fun QuestionDetailsScreenContent(modifier: Modifier = Modifier) {
         // Correct answer
 
         Row {
-            /*
-            Text(
-                text = stringResource(id = R.string.correct_answer)
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.correct_answer,
+                inputWrapper = correctAnswer,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
             )
-
-             */
-//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.correct_answer){}
         }
 
         // Wrong 1
         Row {
-            /*
-            Text(
-                text = stringResource(id = R.string.wrong_choice_one)
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.wrong_choice_one,
+                inputWrapper = choiceOne,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
             )
-
-             */
-//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_one){}
         }
 
         // Wrong 2
         Row {
-            /*
-            Text(
-                text = stringResource(id = R.string.wrong_choice_two)
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.wrong_choice_two,
+                inputWrapper = choiceTwo,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
             )
-
-             */
-//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_two){}
         }
 
         // Wrong 3
         Row {
-            /*
-            Text(
-                text = stringResource(id = R.string.wrong_choice_three)
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.wrong_choice_three,
+                inputWrapper = choiceThree,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
             )
-
-             */
-//            MyOutlinedTextField(modifier = Modifier.fillMaxWidth(), label = R.string.wrong_choice_three) {
-//
-//            }
         }
 
         // Difficulty radio group

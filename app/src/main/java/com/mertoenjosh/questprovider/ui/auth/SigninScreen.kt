@@ -43,14 +43,13 @@ import com.mertoenjosh.questprovider.util.toast
 @Composable
 fun SignInScreen(
     navHostController: NavHostController,
-    authViewModel: AuthViewModel = hiltViewModel(),
 ) {
     Scaffold (
         content = { paddingValues ->
             SignInScreenContent(
                 modifier = Modifier.padding(paddingValues),
                 navHostController,
-                authViewModel,
+                authViewModel = hiltViewModel(),
             )
         }
     )
@@ -82,10 +81,6 @@ fun SignInScreenContent(
     var isLoading by remember {
         mutableStateOf(false)
     }
-    var snackBarMessage by remember {
-        mutableStateOf("")
-    }
-
     LaunchedEffect(Unit) {
         events.collect{ event ->
             when(event) {
@@ -105,7 +100,8 @@ fun SignInScreenContent(
                 is ScreenEvent.Navigate -> navHostController.navigate(event.destination)
                 is ScreenEvent.ShowLoader -> isLoading = event.isLoading
                 is ScreenEvent.ShowSnackBar -> {
-                    snackBarMessage = event.message
+//                    showSnackBar = event.show
+//                    snackBarMessage = event.message
                 }
                 else -> {}
             }
@@ -134,7 +130,6 @@ fun SignInScreenContent(
         if (isLoading) {
             DialogBoxLoading()
         }
-
 
         // Sign up heading
         HeadingText(

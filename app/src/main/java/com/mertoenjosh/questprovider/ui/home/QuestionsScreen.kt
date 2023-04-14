@@ -23,7 +23,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
-import com.mertoenjosh.questprovider.data.mappers.toDomain
+import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
 import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme

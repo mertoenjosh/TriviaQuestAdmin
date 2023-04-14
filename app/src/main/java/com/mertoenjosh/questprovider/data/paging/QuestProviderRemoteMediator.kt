@@ -8,7 +8,7 @@ import androidx.room.withTransaction
 import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.database.models.QuestionRemoteKeysEntity
-import com.mertoenjosh.questprovider.data.mappers.toEntity
+import com.mertoenjosh.questprovider.data.repositories.mappers.toEntity
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
 

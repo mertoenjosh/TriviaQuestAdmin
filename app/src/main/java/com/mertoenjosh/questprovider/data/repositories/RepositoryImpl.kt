@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.domain.repositories
+package com.mertoenjosh.questprovider.data.repositories
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
-import com.mertoenjosh.questprovider.data.mappers.toEntity
+import com.mertoenjosh.questprovider.data.repositories.mappers.toEntity
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject
 
-class Repository @Inject constructor(
+class RepositoryImpl @Inject constructor(
     private val questionApi: QuestionApi,
     private val authApi: AuthApi,
     private val qpDatabase: QpDatabase,
