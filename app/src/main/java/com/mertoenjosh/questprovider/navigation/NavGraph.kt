@@ -16,7 +16,8 @@ import com.mertoenjosh.questprovider.ui.onboarding.WelcomeScreen
 fun SetupNavGraph(
     navHostController: NavHostController
 ) {
-    NavHost(navController = navHostController,
+    NavHost(
+        navController = navHostController,
         startDestination = Screen.Welcome.route
     ) {
         composable(
