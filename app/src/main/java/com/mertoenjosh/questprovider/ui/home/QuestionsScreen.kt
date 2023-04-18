@@ -10,11 +10,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.ExperimentalPagingApi
@@ -30,6 +34,7 @@ import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.CustomMenuDialog
 import com.mertoenjosh.questprovider.ui.components.Question
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
+import com.mertoenjosh.questprovider.util.ScreenEvent
 import timber.log.Timber
 
 
@@ -39,12 +44,25 @@ fun QuestionsScreen(
     navHostController: NavHostController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
-
     val getAllQuestions = homeViewModel.getAllQuestion.collectAsLazyPagingItems()
-
     val scaffoldState = rememberScaffoldState()
-    val showDialogMenu = remember {
-        mutableStateOf(false)
+    val showDialogMenu = remember { mutableStateOf(false) }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val events = remember(homeViewModel.events) {
+        homeViewModel.events.flowWithLifecycle(
+            lifecycleOwner.lifecycle,
+            Lifecycle.State.STARTED
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        events.collect {event ->
+            when (event) {
+                is ScreenEvent.Navigate -> navHostController.navigate(event.destination)
+
+                else -> {}
+            }
+        }
     }
 
     Scaffold(
@@ -93,7 +111,6 @@ fun QuestionsScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    /* TODO: Navigate to new question's page */
                     navHostController.navigate(Screen.Details.route)
                 },
                 contentColor = MaterialTheme.colors.background,
@@ -103,17 +120,16 @@ fun QuestionsScreen(
             )
         }
     )
-
 }
 
 @Composable
-fun QuestionsList(questions: LazyPagingItems<QuestionEntity>, onQuestionClick: (Question)->Unit) {
-
+fun QuestionsList(
+    questions: LazyPagingItems<QuestionEntity>,
+    onQuestionClick: (Question)->Unit
+) {
     LazyColumn{
         items(items = questions, key = { question -> question.id}) { question ->
             question?.let {
-                Timber.i("Question: %s", it)
-
                 Question(
                     question = it.toDomain(),
                     onQuestionClick = { onQuestionClick(question.toDomain()) }

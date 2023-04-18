@@ -1,5 +1,8 @@
 package com.mertoenjosh.questprovider.domain.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Question (
     val id: String,
     val question: String,
