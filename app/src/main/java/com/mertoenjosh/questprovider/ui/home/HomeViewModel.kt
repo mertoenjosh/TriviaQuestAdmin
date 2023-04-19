@@ -11,9 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
-import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -29,9 +26,7 @@ class HomeViewModel @Inject constructor(
     fun onQuestionClick(question: Question) {
         viewModelScope.launch {
             // TODO: Navigate to question details' screen
-            val questionJsonElement = Json.encodeToJsonElement(question)
-            Timber.d("MainViewModelTAG: %s", questionJsonElement)
-            _events.send(ScreenEvent.Navigate(Screen.Details.route))
+            _events.send(ScreenEvent.Navigate(Screen.Details.passQuestion(questionId = question.id)))
         }
     }
 }

@@ -1,6 +1,10 @@
 package com.mertoenjosh.questprovider.ui.details
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +18,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.ui.components.*
+import com.mertoenjosh.questprovider.ui.components.MainActionButton
+import com.mertoenjosh.questprovider.ui.components.MyOutlinedTextField
+import com.mertoenjosh.questprovider.ui.components.MyRadioGroup
+import com.mertoenjosh.questprovider.ui.components.MySpinnerDropdown
+import com.mertoenjosh.questprovider.ui.components.TopAppBar
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import timber.log.Timber
 
@@ -49,6 +57,8 @@ fun QuestionDetailsScreenContent(
     val choiceOne by detailsViewModel.choiceOne.collectAsStateWithLifecycle()
     val choiceTwo by detailsViewModel.choiceTwo.collectAsStateWithLifecycle()
     val choiceThree by detailsViewModel.choiceThree.collectAsStateWithLifecycle()
+
+    detailsViewModel.logger()
 
     Column(
         modifier = modifier

@@ -2,14 +2,17 @@ package com.mertoenjosh.questprovider.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.paging.ExperimentalPagingApi
 import com.mertoenjosh.questprovider.ui.auth.SignInScreen
 import com.mertoenjosh.questprovider.ui.auth.SignUpScreen
 import com.mertoenjosh.questprovider.ui.details.QuestionDetailsScreen
 import com.mertoenjosh.questprovider.ui.home.QuestionsScreen
 import com.mertoenjosh.questprovider.ui.onboarding.WelcomeScreen
+import com.mertoenjosh.questprovider.util.Constants.ARG_QUESTION_ID
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
@@ -45,7 +48,10 @@ fun SetupNavGraph(
         }
 
         composable(
-            route = Screen.Details.route
+            route = Screen.Details.route,
+            arguments = listOf(navArgument(ARG_QUESTION_ID) {
+                type = NavType.StringType
+            })
         ) {
             QuestionDetailsScreen(navHostController = navHostController)
         }
