@@ -57,8 +57,7 @@ fun QuestionDetailsScreenContent(
     val choiceOne by detailsViewModel.choiceOne.collectAsStateWithLifecycle()
     val choiceTwo by detailsViewModel.choiceTwo.collectAsStateWithLifecycle()
     val choiceThree by detailsViewModel.choiceThree.collectAsStateWithLifecycle()
-
-    detailsViewModel.logger()
+    val questionId by detailsViewModel.questionId.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier

@@ -1,8 +1,11 @@
 package com.mertoenjosh.questprovider.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
+import com.mertoenjosh.questprovider.data.repositories.RepositoryImpl
+import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -60,5 +63,15 @@ class NetworkModule {
     @Singleton
     fun provideAuthApi(retrofit: Retrofit) : AuthApi {
         return retrofit.create(AuthApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesRepo(
+        questionApi: QuestionApi,
+        authApi: AuthApi,
+        qpDatabase: QpDatabase
+    ): Repository {
+        return RepositoryImpl(questionApi, authApi, qpDatabase)
     }
 }

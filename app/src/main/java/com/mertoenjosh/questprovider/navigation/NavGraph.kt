@@ -21,7 +21,7 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.Welcome.route
+        startDestination = Screen.Home.route // TODO: Fix this
     ) {
         composable(
             route = Screen.Welcome.route
@@ -51,6 +51,7 @@ fun SetupNavGraph(
             route = Screen.Details.route,
             arguments = listOf(navArgument(ARG_QUESTION_ID) {
                 type = NavType.StringType
+                defaultValue = ""
             })
         ) {
             QuestionDetailsScreen(navHostController = navHostController)

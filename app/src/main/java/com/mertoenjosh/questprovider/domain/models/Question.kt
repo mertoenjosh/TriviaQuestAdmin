@@ -4,14 +4,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Question (
-    val id: String,
-    val question: String,
-    val correctAnswer: String,
-    val choices: List<String>,
-    val difficulty: String,
-    val category: String,
-    val tags: List<String>?,
-    val author: String
+    val id: String = "",
+    val question: String = "",
+    val correctAnswer: String = "",
+    val choices: List<String> = listOf(),
+    val difficulty: String = "",
+    val category: String = "",
+    val tags: List<String>? = null,
+    val author: String = ""
 )
 
 fun Question.formatCategory(): String = this.category

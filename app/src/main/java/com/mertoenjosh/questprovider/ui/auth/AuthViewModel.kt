@@ -2,7 +2,7 @@ package com.mertoenjosh.questprovider.ui.auth
 
 import androidx.lifecycle.*
 import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
-import com.mertoenjosh.questprovider.data.repositories.RepositoryImpl
+import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.util.Constants
 import com.mertoenjosh.questprovider.util.ScreenEvent
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repository: RepositoryImpl,
+    private val repository: Repository,
     private val handle: SavedStateHandle
 ) : ViewModel() {
     val firstName = handle.getStateFlow(Constants.FIRST_NAME, InputWrapper())
