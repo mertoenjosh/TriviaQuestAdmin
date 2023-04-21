@@ -13,7 +13,7 @@ interface QuestionDao {
     @Query("SELECT * FROM tbl_questions")
     fun getAllQuestions(): PagingSource<Int, QuestionEntity>
     @Query("SELECT * FROM tbl_questions WHERE id = :id")
-    fun getQuestionById(id: String): Flow<QuestionEntity>
+    suspend fun getQuestionById(id: String): QuestionEntity
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addQuestions(questions: List<QuestionEntity>)
     @Query("DELETE FROM tbl_questions")

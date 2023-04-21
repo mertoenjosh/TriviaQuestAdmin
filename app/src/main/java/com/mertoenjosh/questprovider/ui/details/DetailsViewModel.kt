@@ -1,19 +1,22 @@
 package com.mertoenjosh.questprovider.ui.details
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.util.Constants
 import com.mertoenjosh.questprovider.util.inputValidations.InputWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val handle: SavedStateHandle,
+    handle: SavedStateHandle,
     private val repository: Repository
 ) : ViewModel() {
     val question = handle.getStateFlow(Constants.QUESTION, InputWrapper())
@@ -22,10 +25,13 @@ class DetailsViewModel @Inject constructor(
     val choiceTwo = handle.getStateFlow(Constants.CHOICE_TWO, InputWrapper())
     val choiceThree = handle.getStateFlow(Constants.CHOICE_THREE, InputWrapper())
     val questionId = handle.getStateFlow(Constants.ARG_QUESTION_ID, "")
+    var quiz = Question()
 
     fun fetchQuestion(id: String) {
-        val res = repository.getQuestionById(id)
 
-        Timber.d("Quiz: %s", res)
+        viewModelScope.launch(Dispatchers.IO) {
+            quiz = repository.getQuestionById(id)
+            Timber.e("QUIZ:--- > %s", quiz)
+        }
     }
 }

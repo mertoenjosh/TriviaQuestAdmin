@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
 interface Repository {
     suspend fun loginUser(loginRequest: LoginRequest): UserResponse
     fun getAllQuestions(): Flow<PagingData<QuestionEntity>>
-    fun getQuestionById(id: String): Flow<Question>
+    suspend fun getQuestionById(id: String): Question
 }

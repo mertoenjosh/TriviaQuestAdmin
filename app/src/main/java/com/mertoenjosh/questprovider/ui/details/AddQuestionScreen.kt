@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,23 +25,23 @@ import com.mertoenjosh.questprovider.ui.components.MyRadioGroup
 import com.mertoenjosh.questprovider.ui.components.MySpinnerDropdown
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import com.mertoenjosh.questprovider.util.capitalize
 import timber.log.Timber
 
+
 @Composable
-fun QuestionDetailsScreen(navHostController: NavHostController) {
+fun AddQuestionScreen(navHostController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 showBackIcon = true,
-                title = R.string.question_details,
+                title = R.string.add_question,
                 onProfileOrBackIconClick = {
                     navHostController.popBackStack()
                 }
             )
         },
         content = { paddingValues ->
-            QuestionDetailsScreenContent(
+            AddQuestionScreenContent(
                 modifier = Modifier.padding(paddingValues),
                 detailsViewModel = hiltViewModel()
             )
@@ -51,12 +50,17 @@ fun QuestionDetailsScreen(navHostController: NavHostController) {
 }
 
 @Composable
-fun QuestionDetailsScreenContent(
+fun AddQuestionScreenContent(
     modifier: Modifier = Modifier,
     detailsViewModel: DetailsViewModel
 ) {
+    val question by detailsViewModel.question.collectAsStateWithLifecycle()
+    val correctAnswer by detailsViewModel.correctAnswer.collectAsStateWithLifecycle()
+    val choiceOne by detailsViewModel.choiceOne.collectAsStateWithLifecycle()
+    val choiceTwo by detailsViewModel.choiceTwo.collectAsStateWithLifecycle()
+    val choiceThree by detailsViewModel.choiceThree.collectAsStateWithLifecycle()
     val questionId by detailsViewModel.questionId.collectAsStateWithLifecycle()
-    detailsViewModel.fetchQuestion(questionId)
+//    val quiz by detailsViewModel.fetchQuestion(questionId).collectAsStateWithLifecycle(Question())
 
     Column(
         modifier = modifier
@@ -64,12 +68,12 @@ fun QuestionDetailsScreenContent(
             .padding(16.dp),
     ) {
         // Question
-        Text(text = stringResource(R.string.question))
-        Text(
-            text = detailsViewModel.quiz.question,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
+        MyOutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = R.string.question,
+            inputWrapper = question,
+            onValueChange = {}, // todo
+            onImeKeyAction = {}
         )
 
         // Category spinner
@@ -87,48 +91,64 @@ fun QuestionDetailsScreenContent(
                 }
             )
         }
-
         // Correct answer
-        Text(text = stringResource(R.string.correct_answer))
-        Text(
-            text = detailsViewModel.quiz.correctAnswer,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-        )
-        // Wrong 1
-        Text(text = stringResource(R.string.wrong_choice_one))
 
-        Text(
-            text = detailsViewModel.quiz.choices[0],
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-        )
+        Row {
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.correct_answer,
+                inputWrapper = correctAnswer,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
+            )
+        }
+
+        // Wrong 1
+        Row {
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.wrong_choice_one,
+                inputWrapper = choiceOne,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
+            )
+        }
 
         // Wrong 2
-        Text(text = stringResource(R.string.wrong_choice_two))
-        Text(
-            text = detailsViewModel.quiz.choices[1],
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-        )
+        Row {
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.wrong_choice_two,
+                inputWrapper = choiceTwo,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
+            )
+        }
 
         // Wrong 3
-        Text(text = stringResource(R.string.wrong_choice_three))
-        Text(
-            text = detailsViewModel.quiz.choices[2],
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-        )
+        Row {
+            MyOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = R.string.wrong_choice_three,
+                inputWrapper = choiceThree,
+                onValueChange = {}, // todo
+                onImeKeyAction = {}
+            )
+        }
 
         // Difficulty radio group
+
         Text(
             text = stringResource(id = R.string.difficulty)
         )
-        MyRadioGroup(selected = detailsViewModel.quiz.difficulty)
+        MyRadioGroup()
+
+        // Save Button
+        MainActionButton(text = R.string.save) {
+            // Save or edit
+            Timber.tag("SaveButton").i("Save Clicked")
+        }
+
     }
 }
 
@@ -137,7 +157,7 @@ fun QuestionDetailsScreenContent(
     name = "Question details screen"
 )
 @Composable
-fun QuestionDetailsScreenPreview() {
+fun AddQuestionScreenPreview() {
     QuestProviderTheme {
         QuestionDetailsScreen(navHostController = rememberNavController())
     }

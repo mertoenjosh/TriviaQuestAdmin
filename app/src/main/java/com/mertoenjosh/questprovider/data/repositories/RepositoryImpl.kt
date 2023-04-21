@@ -18,8 +18,8 @@ import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
 import com.mertoenjosh.questprovider.util.Utils.getErrorResponse
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -35,13 +35,10 @@ class RepositoryImpl @Inject constructor(
         val response = authApi.login(loginRequest)
 
         if (response.isSuccessful) {
-            Timber.i("RESPONSE SUCCESS-------> %s", response.body())
             user = response.body()!!
             userDao.insertUser(user.data?.user?.toEntity()!!)
         } else {
             val errorResponse = getErrorResponse(response.errorBody())
-            Timber.e("RESPONSE FAIL ---------> %s", errorResponse.message)
-
             user = UserResponse(
                 status = errorResponse.status,
                 message = errorResponse.message,
@@ -66,7 +63,9 @@ class RepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override fun getQuestionById(id: String): Flow<Question> {
-        return questionDao.getQuestionById(id).map { it.toDomain() }
+    override suspend fun getQuestionById(id: String): Question {
+        return if (id != "")
+            questionDao.getQuestionById(id).toDomain()
+        else Question()
     }
 }

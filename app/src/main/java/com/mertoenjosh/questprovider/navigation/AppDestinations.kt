@@ -10,4 +10,5 @@ sealed class Screen(val route: String) {
     object Details: Screen(route = "question_details_screen?id={$ARG_QUESTION_ID}") {
         fun passQuestion(questionId: String): String = "question_details_screen?id=$questionId"
     }
+    object AddQuestion: Screen(route = "add_new_question_screen")
 }

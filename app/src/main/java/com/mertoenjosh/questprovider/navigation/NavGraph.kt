@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import androidx.paging.ExperimentalPagingApi
 import com.mertoenjosh.questprovider.ui.auth.SignInScreen
 import com.mertoenjosh.questprovider.ui.auth.SignUpScreen
+import com.mertoenjosh.questprovider.ui.details.AddQuestionScreen
 import com.mertoenjosh.questprovider.ui.details.QuestionDetailsScreen
 import com.mertoenjosh.questprovider.ui.home.QuestionsScreen
 import com.mertoenjosh.questprovider.ui.onboarding.WelcomeScreen
@@ -56,5 +57,12 @@ fun SetupNavGraph(
         ) {
             QuestionDetailsScreen(navHostController = navHostController)
         }
+
+        composable(
+            route = Screen.AddQuestion.route
+        ) {
+            AddQuestionScreen(navHostController = navHostController)
+        }
+
     }
 }

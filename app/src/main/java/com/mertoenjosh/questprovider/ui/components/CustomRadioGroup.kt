@@ -17,18 +17,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import timber.log.Timber
+import com.mertoenjosh.questprovider.util.capitalize
 
 @Composable
 fun MyRadioGroup(
     modifier: Modifier = Modifier,
-    options: List<String> = listOf("Easy", "Medium", "Hard")
+    options: Array<String> = arrayOf("Easy","Medium","Hard"),
+    selected: String = options.first(),
 ) {
-
     val selectedOption  = remember {
-        mutableStateOf(options.first())
+        mutableStateOf(selected.capitalize())
     }
-
     Row (
         modifier = modifier,
         horizontalArrangement = Arrangement.Center,
@@ -55,8 +54,6 @@ fun MyRadioGroup(
                     colors = colors,
                     onClick = {
                         selectedOption.value = text
-
-                        Timber.d("Button: %s : %s clicked", selectedOption.value, text)
                     }
                 )
 

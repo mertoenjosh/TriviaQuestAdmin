@@ -111,7 +111,7 @@ fun QuestionsScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navHostController.navigate(Screen.Details.route)
+                    navHostController.navigate(Screen.AddQuestion.route)
                 },
                 contentColor = MaterialTheme.colors.background,
                 content = {
