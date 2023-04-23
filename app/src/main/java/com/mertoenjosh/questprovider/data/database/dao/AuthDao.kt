@@ -7,13 +7,11 @@ import androidx.room.Query
 import com.mertoenjosh.questprovider.data.database.models.UserEntity
 
 @Dao
-interface UserDao {
-    @Query("SELECT * FROM tbl_users")
-    fun getUser(): UserEntity?
-
+interface AuthDao {
+    @Query("SELECT * FROM tbl_users WHERE id = :id")
+    fun getUserWithId(id: String): UserEntity?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity)
-
     @Query("DELETE FROM tbl_users")
-    suspend fun deleteAll()
+    suspend fun deleteUser()
 }

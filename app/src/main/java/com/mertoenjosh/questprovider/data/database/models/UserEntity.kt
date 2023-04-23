@@ -11,5 +11,5 @@ class UserEntity (
     val token: String,
     val email: String, // test@mnt.dev
     val name: String, // test
-    val role: String? = null, // user
+    val role: String, // user
 )

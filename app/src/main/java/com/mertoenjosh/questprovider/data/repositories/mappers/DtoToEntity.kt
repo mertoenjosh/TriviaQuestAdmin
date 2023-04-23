@@ -21,5 +21,5 @@ fun UserDTO.toEntity() = UserEntity(
     email = email,
     name = name,
     role = role,
-    token = "null"
+    token = token
 )

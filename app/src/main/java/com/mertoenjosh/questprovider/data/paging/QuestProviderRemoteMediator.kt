@@ -48,7 +48,7 @@ class QuestProviderRemoteMediator (
             }
 
             val response = questionApi.getAllQuestions(page = currentPage, perPage = QUESTIONS_PER_PAGE)
-            val endOfPaginationReached = response.data.questions.isEmpty()
+            val endOfPaginationReached = response.data.isEmpty()
 //            val endPages = response.data.questions.size < state.config.pageSize
 
             val prevPage = if (currentPage == 1) null else currentPage - 1
@@ -60,7 +60,7 @@ class QuestProviderRemoteMediator (
                     questProviderRemoteKeysDao.deleteAllRemoteKeys()
                 }
 
-                val keys = response.data.questions.map { question ->
+                val keys = response.data.map { question ->
                     QuestionRemoteKeysEntity(
                         id = question.id,
                         prevPage = prevPage,
@@ -68,7 +68,7 @@ class QuestProviderRemoteMediator (
                     )
                 }
 
-                val questions = response.data.questions.map { data ->
+                val questions = response.data.map { data ->
                     data.toEntity()
                 }
 

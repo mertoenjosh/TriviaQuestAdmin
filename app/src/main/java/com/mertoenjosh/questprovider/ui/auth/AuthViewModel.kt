@@ -72,10 +72,10 @@ class AuthViewModel @Inject constructor(
 
                 _events.send(ScreenEvent.ShowLoader(false))
 
-                if (!data.token.isNullOrBlank()) {
-                    _events.send(ScreenEvent.Navigate(Screen.Home.route))
+                if (data.error) {
+                    _events.send(ScreenEvent.ShowToast(data.message))
                 } else {
-                    _events.send(ScreenEvent.ShowToast("${data.message}"))
+                    _events.send(ScreenEvent.Navigate(Screen.Home.route))
                 }
             }
         }

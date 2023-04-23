@@ -6,20 +6,20 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
+import com.mertoenjosh.questprovider.data.database.models.UserEntity
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
-import com.mertoenjosh.questprovider.data.network.models.response.UserResponse
 import com.mertoenjosh.questprovider.data.paging.QuestProviderRemoteMediator
 import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
 import com.mertoenjosh.questprovider.data.repositories.mappers.toEntity
+import com.mertoenjosh.questprovider.domain.models.BaseDomainModel
 import com.mertoenjosh.questprovider.domain.models.Question
+import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
 import com.mertoenjosh.questprovider.util.Utils.getErrorResponse
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -27,27 +27,34 @@ class RepositoryImpl @Inject constructor(
     private val authApi: AuthApi,
     private val qpDatabase: QpDatabase,
 ): Repository {
-    private val userDao = qpDatabase.userDao()
+    private val authDao = qpDatabase.authDao()
     private val questionDao = qpDatabase.questionDao()
 
-    override suspend fun loginUser(loginRequest: LoginRequest): UserResponse {
-        val user: UserResponse
+    override suspend fun loginUser(loginRequest: LoginRequest): BaseDomainModel<User> {
         val response = authApi.login(loginRequest)
 
-        if (response.isSuccessful) {
-            user = response.body()!!
-            userDao.insertUser(user.data?.user?.toEntity()!!)
+        return if (response.isSuccessful) {
+            val user = response.body()!!
+            cacheUser(user.data.toEntity())
+
+            BaseDomainModel(
+                error = false,
+                message = "",
+                data = user.data.toDomain()
+            )
         } else {
             val errorResponse = getErrorResponse(response.errorBody())
-            user = UserResponse(
-                status = errorResponse.status,
+
+            BaseDomainModel(
+                error = true,
                 message = errorResponse.message,
-                token = null,
                 data = null
             )
         }
+    }
 
-        return user
+    override suspend fun cacheUser(userEntity: UserEntity) {
+        authDao.insertUser(userEntity)
     }
 
     @OptIn(ExperimentalPagingApi::class)
