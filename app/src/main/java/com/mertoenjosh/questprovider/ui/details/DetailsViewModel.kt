@@ -1,6 +1,5 @@
 package com.mertoenjosh.questprovider.ui.details
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +10,7 @@ import com.mertoenjosh.questprovider.util.inputValidations.InputWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -29,8 +29,10 @@ class DetailsViewModel @Inject constructor(
 
     fun fetchQuestion(id: String) {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            quiz = repository.getQuestionById(id)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                quiz = repository.getQuestionById(id)
+            }
             Timber.e("QUIZ:--- > %s", quiz)
         }
     }
