@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "QuestProvider"
-include ':app'
+include(":app")
