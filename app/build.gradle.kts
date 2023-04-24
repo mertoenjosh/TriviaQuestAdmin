@@ -11,12 +11,12 @@ plugins {
 
 android {
     namespace = "com.mertoenjosh.questprovider"
-    compileSdkVersion(33)
+    compileSdk= 33
 
     defaultConfig {
         applicationId = "com.mertoenjosh.questprovider"
-        minSdkVersion(24)
-        targetSdkVersion(33)
+        minSdk = 24
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -27,7 +27,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
