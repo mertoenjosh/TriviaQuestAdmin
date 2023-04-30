@@ -1,5 +1,6 @@
 package com.mertoenjosh.questprovider.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -100,6 +101,12 @@ fun Question(
     }
 }
 
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    widthDp = 320
+)
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun QuestionPreview() {

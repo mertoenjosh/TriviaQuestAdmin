@@ -1,5 +1,6 @@
 package com.mertoenjosh.questprovider.ui.components
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,7 +35,7 @@ fun TopAppBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(color = MaterialTheme.colors.primarySurface)
+            .background(color = MaterialTheme.colors.primary)
     ) {
         if (showBackIcon) {
             MyIconButton(onIconClicked = onProfileOrBackIconClick )
@@ -69,7 +70,12 @@ fun TopAppBar(
     }
 }
 
-@Preview(showBackground = true, widthDp = 320)
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+
+)
+@Preview(showBackground = true)
 @Composable
 fun TopAppBarPreview() {
     QuestProviderTheme {
