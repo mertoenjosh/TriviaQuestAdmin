@@ -59,8 +59,6 @@ fun AddQuestionScreenContent(
     val choiceOne by detailsViewModel.choiceOne.collectAsStateWithLifecycle()
     val choiceTwo by detailsViewModel.choiceTwo.collectAsStateWithLifecycle()
     val choiceThree by detailsViewModel.choiceThree.collectAsStateWithLifecycle()
-    val questionId by detailsViewModel.questionId.collectAsStateWithLifecycle()
-//    val quiz by detailsViewModel.fetchQuestion(questionId).collectAsStateWithLifecycle(Question())
 
     Column(
         modifier = modifier
