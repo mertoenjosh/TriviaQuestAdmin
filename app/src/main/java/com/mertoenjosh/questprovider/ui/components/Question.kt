@@ -1,7 +1,15 @@
 package com.mertoenjosh.questprovider.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.domain.models.formatCategory
+import com.mertoenjosh.questprovider.ui.theme.EasyGreen
+import com.mertoenjosh.questprovider.ui.theme.HardRed
+import com.mertoenjosh.questprovider.ui.theme.MediumOrange
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 
 @Composable
@@ -30,48 +41,62 @@ fun Question(
             .clickable { onQuestionClick(question) },
         elevation = 10.dp
     ) {
-        Column (
+        Column(
             modifier = Modifier
-                .padding(8.dp)
+                .background(if (question.difficulty.lowercase() == "easy") {
+                    EasyGreen
+                } else if (question.difficulty.lowercase() == "medium") {
+                    MediumOrange
+                } else {
+                    HardRed
+                })
         ) {
-            Text(
-                text = question.question,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Black
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row (
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+            Column (
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-            ){
+                    .padding(start = 8.dp)
+                    .background(Color.White)
+                    .padding(8.dp)
+            ) {
                 Text(
-                    text = question.difficulty,
-                    fontFamily = FontFamily.SansSerif,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 14.sp,
+                    text = question.question,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black
                 )
 
-                Text(
-                    text = question.formatCategory(),
-                    fontFamily = FontFamily.SansSerif,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 14.sp,
-                )
+                Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    text = question.author,
-                    fontFamily = FontFamily.SansSerif,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 14.sp,
-                )
+                Row (
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp)
+                ){
+                    Text(
+                        text = question.difficulty,
+                        fontFamily = FontFamily.SansSerif,
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 14.sp,
+                    )
+
+                    Text(
+                        text = question.formatCategory(),
+                        fontFamily = FontFamily.SansSerif,
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 14.sp,
+                    )
+
+                    Text(
+                        text = question.author,
+                        fontFamily = FontFamily.SansSerif,
+                        fontStyle = FontStyle.Italic,
+                        fontSize = 14.sp,
+                    )
+                }
             }
         }
+
     }
 }
 

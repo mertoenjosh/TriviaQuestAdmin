@@ -28,7 +28,6 @@ class DetailsViewModel @Inject constructor(
     var quiz = Question()
 
     fun fetchQuestion(id: String) {
-
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 quiz = repository.getQuestionById(id)
