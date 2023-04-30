@@ -113,7 +113,7 @@ fun QuestionsScreen(
                 onClick = {
                     navHostController.navigate(Screen.AddQuestion.route)
                 },
-                contentColor = MaterialTheme.colors.background,
+                contentColor = MaterialTheme.colors.onSecondary,
                 content = {
                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                 }

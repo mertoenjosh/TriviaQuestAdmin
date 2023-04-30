@@ -2,11 +2,14 @@ package com.mertoenjosh.questprovider.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val BlueValVariant = Color(0xFF296E85) // variant
-val BlueValPrimary = Color(0xFF338BA8) // primary
-val BlueValDark = Color(0xFF1E5162) // primary dark
+val White = Color(0xFFFFFFFF)
+val Black = Color(0xFF000000)
+val BlackPale = Color(0xFF4D4D4D)
+val BlueVariant = Color(0xFF296E85) // variant
+val BluePrimary = Color(0xFF338BA8) // primary
+val BlueDark = Color(0xFF1E5162) // primary dark
 
-val BrightBlue = Color(0xFF002AFF)
+val BlueBright = Color(0xFF002AFF)
 
 val EasyGreen = Color(0xFF77DD77)
 val MediumOrange = Color(0xFFF1B04C)

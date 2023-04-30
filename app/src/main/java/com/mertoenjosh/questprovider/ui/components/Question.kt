@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -55,14 +56,16 @@ fun Question(
             Column (
                 modifier = Modifier
                     .padding(start = 8.dp)
-                    .background(Color.White)
+                    .background(
+                        color = MaterialTheme.colors.surface
+                    )
                     .padding(8.dp)
             ) {
                 Text(
                     text = question.question,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Color.Black
+                    color = MaterialTheme.colors.onSurface
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -79,6 +82,7 @@ fun Question(
                         fontFamily = FontFamily.SansSerif,
                         fontStyle = FontStyle.Italic,
                         fontSize = 14.sp,
+                        color = MaterialTheme.colors.onSurface
                     )
 
                     Text(
@@ -86,6 +90,7 @@ fun Question(
                         fontFamily = FontFamily.SansSerif,
                         fontStyle = FontStyle.Italic,
                         fontSize = 14.sp,
+                        color = MaterialTheme.colors.onSurface
                     )
 
                     Text(
@@ -93,6 +98,7 @@ fun Question(
                         fontFamily = FontFamily.SansSerif,
                         fontStyle = FontStyle.Italic,
                         fontSize = 14.sp,
+                        color = MaterialTheme.colors.onSurface
                     )
                 }
             }

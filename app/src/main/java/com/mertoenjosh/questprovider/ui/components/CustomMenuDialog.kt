@@ -1,7 +1,9 @@
 package com.mertoenjosh.questprovider.ui.components
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -40,6 +42,7 @@ fun DialogTitle(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
+            .background(color = MaterialTheme.colors.background)
             .padding(top = 16.dp, bottom = 16.dp)
     ) {
         Image(
@@ -47,7 +50,10 @@ fun DialogTitle(
             contentDescription = null,
             modifier = Modifier
                 .padding(start = 8.dp)
-                .clickable { onClick() }
+                .clickable { onClick() },
+            colorFilter = ColorFilter.tint(
+                MaterialTheme.colors.onBackground
+            )
         )
 
         Text(
@@ -55,11 +61,18 @@ fun DialogTitle(
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = 16.dp)
+                .padding(end = 16.dp),
+            color = MaterialTheme.colors.onBackground
         )
     }
 }
 
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    widthDp = 320
+)
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DialogTitlePreview() {
@@ -82,15 +95,16 @@ fun AccountImageAndEmail(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 8.dp)
             .clickable { onClick() }
+            .background(MaterialTheme.colors.background)
+            .padding(bottom = 8.dp)
     ) {
         ProfileIcon(
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 10.dp, end = 10.dp),
             imageIcon = Icons.Filled.AccountCircle,
-            imageColorFilter = ColorFilter.tint(Color.DarkGray),
+            imageColorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
             size = 50.dp,
         )
         Column(
@@ -101,18 +115,25 @@ fun AccountImageAndEmail(
             Text(
                 text = name,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colors.onBackground
             )
 
             Text(
                 text = email,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colors.onBackground
             )
         }
     }
 }
-
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    widthDp = 320
+)
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun AccountImageAndEmailPreview() {
@@ -136,11 +157,13 @@ fun CustomDialogItem(
         modifier = Modifier
             .clickable(onClick = onClick)
             .fillMaxWidth()
+            .background(MaterialTheme.colors.background)
             .padding(10.dp)
     ) {
         Image(
             imageVector = icon,
             contentDescription = null,
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground)
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
@@ -148,12 +171,17 @@ fun CustomDialogItem(
             fontSize = 16.sp,
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Normal,
-            color = Color.Black,
+            color = MaterialTheme.colors.onBackground,
             modifier = Modifier.fillMaxWidth()
         )
     }
 }
-
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    widthDp = 320
+)
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun CustomDialogItemPreview() {
@@ -213,7 +241,12 @@ fun CustomMenuDialog(
         }
     }
 }
-
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    widthDp = 320
+)
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun CustomMenuDialogPreview() {
