@@ -224,7 +224,7 @@ fun CustomMenuDialog(
                 )
 
                 // Line(-----)
-                Divider(color = Color.LightGray, thickness = 1.dp)
+                Divider(color = MaterialTheme.colors.onSurface, thickness = 1.dp)
 
                 // Menu items: settings, logout
                 CustomDialogItem(

@@ -39,7 +39,7 @@ fun Question(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(2.dp)
+            .padding(4.dp)
             .clickable { onQuestionClick(question) },
         elevation = 10.dp
     ) {
