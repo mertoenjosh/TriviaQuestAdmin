@@ -7,9 +7,9 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
-val BlueVal1 = Color(0xFF296E85) // primary
-val BlueVal2 = Color(0xFF338BA8) // secondary
-val BlueVal3 = Color(0xFF1E5162) // primary dark
+val BlueValVariant = Color(0xFF296E85) // variant
+val BlueValPrimary = Color(0xFF338BA8) // primary
+val BlueValDark = Color(0xFF1E5162) // primary dark
 
 val BrightBlue = Color(0xFF002AFF)
 

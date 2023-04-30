@@ -2,6 +2,6 @@
 <resources>
 
     <style name="Theme.QuestProvider" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/blue_val_2</item>
+        <item name="android:statusBarColor">@color/blue_val_dark</item>
     </style>
 </resources>

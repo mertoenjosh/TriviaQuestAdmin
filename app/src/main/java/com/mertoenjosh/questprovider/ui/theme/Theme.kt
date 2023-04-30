@@ -13,9 +13,9 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = BlueVal1, // 700
-    primaryVariant = BlueVal3, // 500
-    secondary = BlueVal2
+    primary = BlueValPrimary, // 700
+    primaryVariant = BlueValVariant, // 500
+    secondary = BlueValDark
 
     /* Other default colors to override
     background = Color.White,
