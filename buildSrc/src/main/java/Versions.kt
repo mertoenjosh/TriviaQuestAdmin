@@ -1,0 +1,23 @@
+object Versions {
+    val lifecycle = "2.6.1"
+    val navigation = "2.5.3"
+    val coil = "2.2.2"
+    val timber = "5.0.1"
+    val kotlin = "1.10.0"
+    val compose = "1.4.2"
+    val composeActivity = "1.7.1"
+    val composePaging = "1.0.0-alpha18"
+    val daggerHilt = "2.45"
+    val hiltCompiler = "1.0.0"
+    val hiltNavigation = "1.1.0-alpha01"
+    val room = "2.5.0"
+    val coroutines = "1.6.4"
+    val retrofit = "2.9.0"
+    val kotlinSerialization = "1.4.1"
+    val kotlinSerializationConverter = "0.8.0"
+    val firebase = "31.2.2"
+    // testing
+    val jUnit = "4.13.2"
+    val jUnitExt = "1.1.5"
+    val espresso = "3.5.1"
+}

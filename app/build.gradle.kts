@@ -55,60 +55,48 @@ android {
 }
 
 dependencies {
-    val nav_version = "2.5.3"
-    val compose_ui_version = "1.4.0"
-    val dagger_hilt = "2.45"
-    val room_version = "2.5.0"
-
-    implementation("androidx.core:core-ktx:1.10.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-compose:1.7.0")
-    implementation("androidx.compose.ui:ui:$compose_ui_version")
-    implementation("androidx.compose.ui:ui-tooling-preview:$compose_ui_version")
-    implementation("androidx.compose.material:material:$compose_ui_version")
-    // Kotlin coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    // Coil image loading
-    implementation("io.coil-kt:coil-compose:2.2.2")
-    // Compose lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.4.0")
-    // Compose navigation
-    implementation("androidx.navigation:navigation-compose:$nav_version")
-    // Compose icons extended
-    implementation("androidx.compose.material:material-icons-extended:1.4.0")
-    // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    // Kotlin serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-    // Retrofit & GSON
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0") // retrofit
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0") // retrofit->gson
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0") // logging
-    // Paging
-    implementation("androidx.paging:paging-compose:1.0.0-alpha18")
-    // Room
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    implementation("androidx.room:room-paging:$room_version")
+    implementation(Dependencies.androidCore)
+    implementation(Dependencies.lifecycleRuntime)
+    implementation(Dependencies.timber)
+    // compose
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeActivity)
+    implementation(Dependencies.composeUiToolingPreview)
+    implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.composeMaterialIcons)
+    implementation(Dependencies.composeRuntimeLivecycle)
+    implementation(Dependencies.composeRuntimeLivedata)
+    implementation(Dependencies.composePaging)
+    implementation(Dependencies.navigation)
+    // kotlin
+    implementation(Dependencies.kotlinCoroutines)
+    implementation(Dependencies.kotlinSerialization)
+    implementation(Dependencies.kotlinSerializationConverter)
+    implementation(Dependencies.coil)
+    // retrofit
+    implementation (Dependencies.retrofit) // retrofit
+    implementation(Dependencies.gsonConverter) // retrofit->gson
+    implementation(Dependencies.okHttp) // logging
+    // room
+    implementation(Dependencies.roomRuntime)
+    kapt(Dependencies.roomCompiler)
+    implementation(Dependencies.roomKtx)
+    implementation(Dependencies.roomPaging)
     // Dagger - hilt
-    implementation("com.google.dagger:hilt-android:$dagger_hilt")
-    kapt("com.google.dagger:hilt-compiler:$dagger_hilt") // checkout this
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    implementation(Dependencies.daggerHilt)
+    kapt(Dependencies.daggerCompiler) // checkout this
+    kapt(Dependencies.hiltCompiler)
+    implementation(Dependencies.hiltNavigation)
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:31.2.2"))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
-
+    implementation(platform(Dependencies.firebaseBOM))
+    implementation(Dependencies.crashlitics)
+    implementation(Dependencies.crashlitics)
     // testing
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_ui_version")
-    debugImplementation("androidx.compose.ui:ui-tooling:$compose_ui_version")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_ui_version")
-    testImplementation("androidx.room:room-testing:$room_version")
+    testImplementation(Dependencies.jUnit)
+    androidTestImplementation(Dependencies.jUnitExt)
+    androidTestImplementation(Dependencies.espresso)
+    androidTestImplementation(Dependencies.composeUiTest)
+    debugImplementation(Dependencies.composeUiTestTooling)
+    debugImplementation(Dependencies.composeUiTestManifest)
+    testImplementation(Dependencies.roomTesting)
 }
