@@ -162,7 +162,7 @@ fun SignUpScreenContent(
                 inputWrapper = firstName,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
                 onValueChange = authViewModel::onFirstNameEntered,
-                onImeKeyAction = authViewModel::onNameImeActionClick
+                onImeKeyAction = authViewModel::onImeActionClick
             )
 
             MyOutlinedTextField(
@@ -179,7 +179,7 @@ fun SignUpScreenContent(
                 inputWrapper = lastName,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
                 onValueChange = authViewModel::onLastNameEntered,
-                onImeKeyAction = authViewModel::onNameImeActionClick
+                onImeKeyAction = authViewModel::onImeActionClick
             )
 
         }
@@ -208,7 +208,7 @@ fun SignUpScreenContent(
             inputWrapper = email,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
             onValueChange = authViewModel::onEmailEntered,
-            onImeKeyAction = authViewModel::onNameImeActionClick
+            onImeKeyAction = authViewModel::onImeActionClick
         )
         // Password
         MyOutlinedTextField(
@@ -235,7 +235,7 @@ fun SignUpScreenContent(
             isPassword = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
             onValueChange = authViewModel::onPasswordEntered,
-            onImeKeyAction = authViewModel::onNameImeActionClick
+            onImeKeyAction = authViewModel::onImeActionClick
         )
         // Confirm Password
         MyOutlinedTextField(

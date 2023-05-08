@@ -1,4 +1,3 @@
-
 object Dependencies {
     val androidCore by lazy {"androidx.core:core-ktx:${Versions.kotlin}"}
     val lifecycleRuntime by lazy {"androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"}

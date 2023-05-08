@@ -162,7 +162,7 @@ fun SignInScreenContent(
             inputWrapper = email,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
             onValueChange = authViewModel::onEmailEntered,
-            onImeKeyAction = authViewModel::onContinueClick
+            onImeKeyAction = authViewModel::onImeActionClick
         )
         // Password
         MyOutlinedTextField(
@@ -190,7 +190,7 @@ fun SignInScreenContent(
             inputWrapper = password,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
             onValueChange = authViewModel::onPasswordEntered,
-            onImeKeyAction = authViewModel::onContinueClick
+            onImeKeyAction = authViewModel::onImeActionClick
         )
         // Btn
         MainActionButton(

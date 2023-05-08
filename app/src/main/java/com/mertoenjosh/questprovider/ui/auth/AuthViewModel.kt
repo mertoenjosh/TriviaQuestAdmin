@@ -103,7 +103,7 @@ class AuthViewModel @Inject constructor(
     fun onTextFieldFocusChanged(key: FocusedTextFieldKey, isFocused: Boolean) {
         focusedTextField = if (isFocused) key else FocusedTextFieldKey.NONE
     }
-    fun onNameImeActionClick() {
+    fun onImeActionClick() {
         _events.trySend(ScreenEvent.MoveFocus())
     }
     fun onContinueClick() {
