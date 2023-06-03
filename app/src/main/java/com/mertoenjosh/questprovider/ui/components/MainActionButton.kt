@@ -15,10 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import java.util.*
+import java.util.Locale
 
 @Composable
-fun MainActionButton(modifier: Modifier = Modifier, @StringRes text: Int, enabled: Boolean = false, onClick: () -> Unit) {
+fun MainActionButton(
+    modifier: Modifier = Modifier,
+    @StringRes text: Int,
+    enabled: Boolean = false,
+    onClick: () -> Unit
+) {
     Button(
         modifier = modifier
             .fillMaxWidth()
@@ -26,18 +31,18 @@ fun MainActionButton(modifier: Modifier = Modifier, @StringRes text: Int, enable
         onClick = onClick,
         enabled = enabled
     ) {
-       Text(
-           text = stringResource(id = text).replaceFirstChar {
-               if (it.isLowerCase()) it.titlecase(
-                   locale = Locale.getDefault()
-               ) else it.toString()
-           },
-           style = MaterialTheme.typography.button.copy(
-               fontSize = 18.sp
-           ),
-           modifier = Modifier
-               .paddingFromBaseline(top = 24.dp, bottom = 8.dp)
-       )
+        Text(
+            text = stringResource(id = text).replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    locale = Locale.getDefault()
+                ) else it.toString()
+            },
+            style = MaterialTheme.typography.button.copy(
+                fontSize = 18.sp
+            ),
+            modifier = Modifier
+                .paddingFromBaseline(top = 24.dp, bottom = 8.dp)
+        )
     }
 }
 

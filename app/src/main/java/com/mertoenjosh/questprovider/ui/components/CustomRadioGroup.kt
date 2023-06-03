@@ -22,13 +22,13 @@ import com.mertoenjosh.questprovider.util.capitalize
 @Composable
 fun MyRadioGroup(
     modifier: Modifier = Modifier,
-    options: Array<String> = arrayOf("Easy","Medium","Hard"),
+    options: Array<String> = arrayOf("Easy", "Medium", "Hard"),
     selected: String = options.first(),
 ) {
-    val selectedOption  = remember {
+    val selectedOption = remember {
         mutableStateOf(selected.capitalize())
     }
-    Row (
+    Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically

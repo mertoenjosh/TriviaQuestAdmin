@@ -8,58 +8,40 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.ui.components.MainActionButton
 import com.mertoenjosh.questprovider.ui.components.MyOutlinedTextField
 import com.mertoenjosh.questprovider.ui.components.MyRadioGroup
 import com.mertoenjosh.questprovider.ui.components.MySpinnerDropdown
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.util.InputWrapper
 import timber.log.Timber
 
 
 @Composable
 fun AddQuestionScreen(navHostController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                showBackIcon = true,
-                title = R.string.add_question,
-                onProfileOrBackIconClick = {
-                    navHostController.popBackStack()
-                }
-            )
-        },
-        content = { paddingValues ->
-            AddQuestionScreenContent(
-                modifier = Modifier.padding(paddingValues),
-                detailsViewModel = hiltViewModel()
-            )
-        }
-    )
+    Scaffold(topBar = {
+        TopAppBar(showBackIcon = true, title = R.string.add_question, onProfileOrBackIconClick = {
+            navHostController.popBackStack()
+        })
+    }, content = { paddingValues ->
+        AddQuestionScreenContent(
+            modifier = Modifier.padding(paddingValues),
+        )
+    })
 }
 
 @Composable
 fun AddQuestionScreenContent(
     modifier: Modifier = Modifier,
-    detailsViewModel: DetailsViewModel
 ) {
-    val question by detailsViewModel.question.collectAsStateWithLifecycle()
-    val correctAnswer by detailsViewModel.correctAnswer.collectAsStateWithLifecycle()
-    val choiceOne by detailsViewModel.choiceOne.collectAsStateWithLifecycle()
-    val choiceTwo by detailsViewModel.choiceTwo.collectAsStateWithLifecycle()
-    val choiceThree by detailsViewModel.choiceThree.collectAsStateWithLifecycle()
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -68,36 +50,33 @@ fun AddQuestionScreenContent(
         // Question
         MyOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
+            value = InputWrapper(),
             label = R.string.question,
-            inputWrapper = question,
             onValueChange = {}, // todo
-            onImeKeyAction = {}
         )
 
         // Category spinner
         Row {
             // Todo: Spinner validation
-            val categories = listOf("Science", "General Knowledge", "Film", "Fashion") // FIXME: Cache
-            MySpinnerDropdown(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+            val categories =
+                listOf("Science", "General Knowledge", "Film", "Fashion") // FIXME: Cache
+            MySpinnerDropdown(modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
                 title = R.string.category,
                 list = categories,
                 onSelectionChanged = { selected ->
                     Timber.i("Selected item: %s", selected)
-                }
-            )
+                })
         }
         // Correct answer
 
         Row {
             MyOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
+                value = InputWrapper(),
                 label = R.string.correct_answer,
-                inputWrapper = correctAnswer,
                 onValueChange = {}, // todo
-                onImeKeyAction = {}
             )
         }
 
@@ -105,10 +84,9 @@ fun AddQuestionScreenContent(
         Row {
             MyOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
+                value = InputWrapper(),
                 label = R.string.wrong_choice_one,
-                inputWrapper = choiceOne,
                 onValueChange = {}, // todo
-                onImeKeyAction = {}
             )
         }
 
@@ -116,10 +94,9 @@ fun AddQuestionScreenContent(
         Row {
             MyOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
+                value = InputWrapper(),
                 label = R.string.wrong_choice_two,
-                inputWrapper = choiceTwo,
                 onValueChange = {}, // todo
-                onImeKeyAction = {}
             )
         }
 
@@ -127,10 +104,9 @@ fun AddQuestionScreenContent(
         Row {
             MyOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
+                value = InputWrapper(),
                 label = R.string.wrong_choice_three,
-                inputWrapper = choiceThree,
                 onValueChange = {}, // todo
-                onImeKeyAction = {}
             )
         }
 
@@ -151,8 +127,7 @@ fun AddQuestionScreenContent(
 }
 
 @Preview(
-    showBackground = true,
-    name = "Question details screen"
+    showBackground = true, name = "Question details screen"
 )
 @Composable
 fun AddQuestionScreenPreview() {

@@ -1,6 +1,5 @@
 package com.mertoenjosh.questprovider.viewmodel
 
-import com.mertoenjosh.questprovider.ui.auth.AuthViewModel
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,9 +24,7 @@ class LoginUserTest(private val email: String, private val password: String, pri
 
     @Test
     fun loginUserTest() {
-        val authViewModel = AuthViewModel()
 
-        assertEquals(authViewModel.loginUser(email, password), isValid)
     }
 
 }

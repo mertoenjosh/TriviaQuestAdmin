@@ -4,12 +4,15 @@ import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +31,7 @@ fun TopAppBar(
     @StringRes title: Int,
     showBackIcon: Boolean = false,
     profileIcon: ImageVector? = null,
-    onProfileOrBackIconClick: ()->Unit
+    onProfileOrBackIconClick: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -38,7 +41,7 @@ fun TopAppBar(
             .background(color = MaterialTheme.colors.primary)
     ) {
         if (showBackIcon) {
-            MyIconButton(onIconClicked = onProfileOrBackIconClick )
+            MyIconButton(onIconClicked = onProfileOrBackIconClick)
         }
 
         Text(

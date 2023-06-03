@@ -20,12 +20,9 @@ fun SmallText(
     color: Color = Color.DarkGray
 ) {
     Text(
-        text = stringResource(text),
-        style = MaterialTheme.typography.body2.copy(
-            fontWeight = FontWeight.Light,
-            color = if (link) MaterialTheme.colors.primary else color
-        ),
-        modifier = modifier
+        text = stringResource(text), style = MaterialTheme.typography.body2.copy(
+            fontWeight = FontWeight.Light, color = if (link) MaterialTheme.colors.primary else color
+        ), modifier = modifier
     )
 }
 

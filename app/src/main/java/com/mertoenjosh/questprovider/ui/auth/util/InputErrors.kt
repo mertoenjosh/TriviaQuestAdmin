@@ -1,6 +1,6 @@
-package com.mertoenjosh.questprovider.util.inputValidations
+package com.mertoenjosh.questprovider.ui.auth.util
 
-class InputErrors (
+class InputErrors(
     val firstNameError: Int?,
     val lastNameError: Int?,
     val emailErrorId: Int?,

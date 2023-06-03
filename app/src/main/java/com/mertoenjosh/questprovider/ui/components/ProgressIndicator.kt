@@ -10,8 +10,7 @@ import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 @Composable
 fun ProgressIndicator() {
     CircularProgressIndicator(
-        color = MaterialTheme.colors.primary,
-        strokeWidth = 5.dp
+        color = MaterialTheme.colors.primary, strokeWidth = 5.dp
     )
 }
 

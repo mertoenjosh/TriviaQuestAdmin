@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.paging.ExperimentalPagingApi
-import com.mertoenjosh.questprovider.ui.auth.SignInScreen
-import com.mertoenjosh.questprovider.ui.auth.SignUpScreen
+import com.mertoenjosh.questprovider.ui.auth.login.SignInScreen
+import com.mertoenjosh.questprovider.ui.auth.signup.SignUpScreen
 import com.mertoenjosh.questprovider.ui.details.AddQuestionScreen
 import com.mertoenjosh.questprovider.ui.details.QuestionDetailsScreen
 import com.mertoenjosh.questprovider.ui.home.QuestionsScreen

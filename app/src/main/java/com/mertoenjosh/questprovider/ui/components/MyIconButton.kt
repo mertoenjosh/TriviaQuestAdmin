@@ -19,7 +19,7 @@ fun MyIconButton(
     onIconClicked: () -> Unit
 ) {
     IconButton(
-        modifier =  modifier,
+        modifier = modifier,
         onClick = onIconClicked
     ) {
         Icon(

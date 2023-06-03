@@ -5,7 +5,13 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -17,7 +23,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -80,7 +85,7 @@ fun DialogTitlePreview() {
         DialogTitle(
             icon = Icons.Default.Close,
             title = R.string.trivia_quest
-        ){}
+        ) {}
     }
 }
 
@@ -128,6 +133,7 @@ fun AccountImageAndEmail(
         }
     }
 }
+
 @Preview(
     name = "dark",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -141,7 +147,7 @@ fun AccountImageAndEmailPreview() {
         AccountImageAndEmail(
             name = "Martin Thuo",
             email = "mnthuo254@gmail.com"
-        ){}
+        ) {}
     }
 }
 
@@ -149,7 +155,7 @@ fun AccountImageAndEmailPreview() {
 fun CustomDialogItem(
     icon: ImageVector,
     @StringRes label: Int,
-    onClick: ()->Unit
+    onClick: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.Start,
@@ -176,6 +182,7 @@ fun CustomDialogItem(
         )
     }
 }
+
 @Preview(
     name = "dark",
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -197,7 +204,7 @@ fun CustomDialogItemPreview() {
 @Composable
 fun CustomMenuDialog(
     @StringRes title: Int,
-    onDismiss: ()->Unit,
+    onDismiss: () -> Unit,
     name: String = "Martin Thuo",
     email: String = "martinthuo@gmail.com",
     onAccountImageAndEmailClicked: () -> Unit,
@@ -241,6 +248,7 @@ fun CustomMenuDialog(
         }
     }
 }
+
 @Preview(
     name = "dark",
     uiMode = Configuration.UI_MODE_NIGHT_YES,

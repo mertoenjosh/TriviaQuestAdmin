@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     repository: Repository
-): ViewModel() {
+) : ViewModel() {
     private val _events = Channel<ScreenEvent>()
     val events = _events.receiveAsFlow()
     val getAllQuestion = repository.getAllQuestions()

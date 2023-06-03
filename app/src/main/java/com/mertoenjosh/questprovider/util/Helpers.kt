@@ -9,7 +9,7 @@ import okhttp3.ResponseBody
 import timber.log.Timber
 import java.net.SocketTimeoutException
 
-object Utils {
+object Helpers {
     private val serverErrorOccurred = MutableLiveData<Boolean>()
 
     val handler = CoroutineExceptionHandler { _, exception ->

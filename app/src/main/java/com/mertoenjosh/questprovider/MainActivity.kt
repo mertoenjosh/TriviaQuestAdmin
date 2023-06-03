@@ -8,7 +8,6 @@ import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.navigation.SetupNavGraph
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

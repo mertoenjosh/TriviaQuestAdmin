@@ -2,7 +2,12 @@ package com.mertoenjosh.questprovider.ui.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,18 +20,16 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.HeadingText
 import com.mertoenjosh.questprovider.ui.components.MainActionButton
 import com.mertoenjosh.questprovider.ui.components.SmallText
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 
 @Composable
 fun WelcomeScreen(navHostController: NavHostController) {
-    Scaffold (
-        content = { paddingValues ->
-            WelcomeScreenContent(modifier = Modifier.padding(paddingValues), navHostController)
-        }
-    )
+    Scaffold(content = { paddingValues ->
+        WelcomeScreenContent(modifier = Modifier.padding(paddingValues), navHostController)
+    })
 }
 
 @Composable
@@ -37,23 +40,21 @@ fun WelcomeScreenContent(modifier: Modifier = Modifier, navHostController: NavHo
     ) {
         // Welcome heading
         HeadingText(
-            text = R.string.welcome,
-            modifier = Modifier
-                .padding(top = 16.dp)
+            text = R.string.welcome, modifier = Modifier.padding(top = 16.dp)
         )
 
         // Image slot
         AsyncImage(
-            model = R.drawable.abc,
-            modifier = Modifier.padding(8.dp),
-            contentDescription = null
+            model = R.drawable.abc, modifier = Modifier.padding(8.dp), contentDescription = null
         )
 
         // terms of service
         SmallText(text = R.string.terms_of_service, modifier = Modifier.padding(8.dp))
 
         // sign up button
-        MainActionButton(text = R.string.sign_up, modifier = Modifier.padding(top = 48.dp), enabled = true) {
+        MainActionButton(
+            text = R.string.sign_up, modifier = Modifier.padding(top = 48.dp), enabled = true
+        ) {
             // TODO: Sign up first
             navHostController.navigate(route = Screen.SignUp.route)
         }
@@ -70,25 +71,22 @@ fun WelcomeScreenContent(modifier: Modifier = Modifier, navHostController: NavHo
         Row {
             SmallText(
                 text = R.string.already_have_an_account,
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
+                modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
             )
             Spacer(modifier = Modifier.size(4.dp))
-            SmallText(
-                text = R.string.sign_in,
-                link = true, modifier = Modifier
+            SmallText(text = R.string.sign_in,
+                link = true,
+                modifier = Modifier
                     .padding(end = 8.dp, top = 8.dp, bottom = 8.dp)
                     .clickable {
                         navHostController.navigate(Screen.SignIn.route)
-                    }
-            )
+                    })
         }
     }
 }
 
 @Preview(
-    showBackground = true,
-    name = "Welcome screen"
+    showBackground = true, name = "Welcome screen"
 )
 @Composable
 fun WelcomeScreenPreview() {

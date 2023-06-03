@@ -49,8 +49,7 @@ fun ProfileIcon(
 fun ProfileIconPreview() {
     QuestProviderTheme {
         ProfileIcon(
-            imageIcon = Icons.Default.AccountCircle,
-            size = 56.dp
+            imageIcon = Icons.Default.AccountCircle, size = 56.dp
         )
     }
 }

@@ -1,10 +1,10 @@
-package com.mertoenjosh.questprovider.util.inputValidations
+package com.mertoenjosh.questprovider.util
 
 import com.mertoenjosh.questprovider.R
 import java.util.regex.Pattern
 
 
-object CustomValidator {
+object InputValidator {
     fun isNameValid(name: String): Int? {
         val special = Pattern.compile("[!@#$%&*()_+=|<>?{}\\[\\]~-]")
 

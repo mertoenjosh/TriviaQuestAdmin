@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,41 +18,30 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.domain.models.Question
-import com.mertoenjosh.questprovider.ui.components.MainActionButton
-import com.mertoenjosh.questprovider.ui.components.MyOutlinedTextField
 import com.mertoenjosh.questprovider.ui.components.MyRadioGroup
 import com.mertoenjosh.questprovider.ui.components.MySpinnerDropdown
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import com.mertoenjosh.questprovider.util.capitalize
 import timber.log.Timber
 
 @Composable
 fun QuestionDetailsScreen(navHostController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                showBackIcon = true,
-                title = R.string.question_details,
-                onProfileOrBackIconClick = {
-                    navHostController.popBackStack()
-                }
-            )
-        },
-        content = { paddingValues ->
-            QuestionDetailsScreenContent(
-                modifier = Modifier.padding(paddingValues),
-                detailsViewModel = hiltViewModel()
-            )
-        }
-    )
+    Scaffold(topBar = {
+        TopAppBar(showBackIcon = true,
+            title = R.string.question_details,
+            onProfileOrBackIconClick = {
+                navHostController.popBackStack()
+            })
+    }, content = { paddingValues ->
+        QuestionDetailsScreenContent(
+            modifier = Modifier.padding(paddingValues), detailsViewModel = hiltViewModel()
+        )
+    })
 }
 
 @Composable
 fun QuestionDetailsScreenContent(
-    modifier: Modifier = Modifier,
-    detailsViewModel: DetailsViewModel
+    modifier: Modifier = Modifier, detailsViewModel: DetailsViewModel
 ) {
     val questionId by detailsViewModel.questionId.collectAsStateWithLifecycle()
     detailsViewModel.fetchQuestion(questionId)
@@ -66,8 +54,7 @@ fun QuestionDetailsScreenContent(
         // Question
         Text(text = stringResource(R.string.question))
         Text(
-            text = detailsViewModel.quiz.question,
-            modifier = Modifier
+            text = detailsViewModel.quiz.question, modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
         )
@@ -75,17 +62,16 @@ fun QuestionDetailsScreenContent(
         // Category spinner
         Row {
             // Todo: Spinner validation
-            val categories = listOf("Science", "General Knowledge", "Film", "Fashion") // FIXME: Cache
-            MySpinnerDropdown(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+            val categories =
+                listOf("Science", "General Knowledge", "Film", "Fashion") // FIXME: Cache
+            MySpinnerDropdown(modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
                 title = R.string.category,
                 list = categories,
                 onSelectionChanged = { selected ->
                     Timber.i("Selected item: %s", selected)
-                }
-            )
+                })
         }
 
         // Correct answer
@@ -133,8 +119,7 @@ fun QuestionDetailsScreenContent(
 }
 
 @Preview(
-    showBackground = true,
-    name = "Question details screen"
+    showBackground = true, name = "Question details screen"
 )
 @Composable
 fun QuestionDetailsScreenPreview() {

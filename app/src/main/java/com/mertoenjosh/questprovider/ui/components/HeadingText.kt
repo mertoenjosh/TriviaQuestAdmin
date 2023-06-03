@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import java.util.*
+import java.util.Locale
 
 @Composable
 fun HeadingText(@StringRes text: Int, modifier: Modifier = Modifier) {

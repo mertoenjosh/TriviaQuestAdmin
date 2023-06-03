@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.util.inputValidations
+package com.mertoenjosh.questprovider.util
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class InputWrapper(
     val value: String = "",
     val errorId: Int? = null
-): Parcelable
+) : Parcelable

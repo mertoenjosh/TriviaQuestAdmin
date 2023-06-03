@@ -30,19 +30,17 @@ import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
 import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.navigation.Screen
-import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.components.CustomMenuDialog
 import com.mertoenjosh.questprovider.ui.components.Question
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
+import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.util.ScreenEvent
-import timber.log.Timber
 
 
 @OptIn(ExperimentalPagingApi::class)
 @Composable
 fun QuestionsScreen(
-    navHostController: NavHostController,
-    homeViewModel: HomeViewModel = hiltViewModel()
+    navHostController: NavHostController, homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val getAllQuestions = homeViewModel.getAllQuestion.collectAsLazyPagingItems()
     val scaffoldState = rememberScaffoldState()
@@ -50,13 +48,12 @@ fun QuestionsScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val events = remember(homeViewModel.events) {
         homeViewModel.events.flowWithLifecycle(
-            lifecycleOwner.lifecycle,
-            Lifecycle.State.STARTED
+            lifecycleOwner.lifecycle, Lifecycle.State.STARTED
         )
     }
 
     LaunchedEffect(Unit) {
-        events.collect {event ->
+        events.collect { event ->
             when (event) {
                 is ScreenEvent.Navigate -> navHostController.navigate(event.destination)
 
@@ -68,13 +65,11 @@ fun QuestionsScreen(
     Scaffold(
         // TopBar
         topBar = {
-            TopAppBar(
-                title = R.string.trivia_quest,
+            TopAppBar(title = R.string.trivia_quest,
                 profileIcon = Icons.Filled.AccountCircle,
                 onProfileOrBackIconClick = {
                     showDialogMenu.value = true
-                }
-            )
+                })
         },
 
         // scaffold state
@@ -87,61 +82,46 @@ fun QuestionsScreen(
                     .padding(padding)
                     .fillMaxSize()
             ) {
-                QuestionsList(
-                    questions = getAllQuestions,
-                    onQuestionClick = { question ->
-                        homeViewModel.onQuestionClick(question)
-                    }
-                )
+                QuestionsList(questions = getAllQuestions, onQuestionClick = { question ->
+                    homeViewModel.onQuestionClick(question)
+                })
 
                 if (showDialogMenu.value) {
-                    CustomMenuDialog(
-                        title = R.string.trivia_quest,
-                        onDismiss =  { showDialogMenu.value = !showDialogMenu.value },
+                    CustomMenuDialog(title = R.string.trivia_quest,
+                        onDismiss = { showDialogMenu.value = !showDialogMenu.value },
                         name = "Jordan Park",
                         email = "hello@jpark.com",
                         onAccountImageAndEmailClicked = {},
-                        onDialogItemClicked = {}
-                    )
+                        onDialogItemClicked = {})
                 }
             }
         },
         // FAB
-        floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navHostController.navigate(Screen.AddQuestion.route)
-                },
-                contentColor = MaterialTheme.colors.onSecondary,
-                content = {
-                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                }
-            )
-        }
-    )
+        floatingActionButtonPosition = FabPosition.End, floatingActionButton = {
+            FloatingActionButton(onClick = {
+                navHostController.navigate(Screen.AddQuestion.route)
+            }, contentColor = MaterialTheme.colors.onSecondary, content = {
+                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+            })
+        })
 }
 
 @Composable
 fun QuestionsList(
-    questions: LazyPagingItems<QuestionEntity>,
-    onQuestionClick: (Question)->Unit
+    questions: LazyPagingItems<QuestionEntity>, onQuestionClick: (Question) -> Unit
 ) {
-    LazyColumn{
-        items(items = questions, key = { question -> question.id}) { question ->
+    LazyColumn {
+        items(items = questions, key = { question -> question.id }) { question ->
             question?.let {
-                Question(
-                    question = it.toDomain(),
-                    onQuestionClick = { onQuestionClick(question.toDomain()) }
-                )
+                Question(question = it.toDomain(),
+                    onQuestionClick = { onQuestionClick(question.toDomain()) })
             }
         }
     }
 }
 
-@Preview (
-    showBackground = true,
-    widthDp = 320
+@Preview(
+    showBackground = true, widthDp = 320
 )
 @Composable
 fun QuestionsListPreview() {
@@ -152,18 +132,14 @@ fun QuestionsListPreview() {
 
 @OptIn(ExperimentalPagingApi::class)
 @Preview(
-    showBackground = true,
-    widthDp = 320,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Dark"
+    showBackground = true, widthDp = 320, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark"
 )
-@Preview (
-    showBackground = true,
-    widthDp = 320
+@Preview(
+    showBackground = true, widthDp = 320
 )
 @Composable
 fun QuestionsScreenPreview() {
     QuestProviderTheme {
-         QuestionsScreen(navHostController = rememberNavController())
+        QuestionsScreen(navHostController = rememberNavController())
     }
 }

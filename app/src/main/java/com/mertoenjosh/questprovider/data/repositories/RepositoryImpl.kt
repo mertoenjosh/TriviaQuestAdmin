@@ -18,7 +18,7 @@ import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
-import com.mertoenjosh.questprovider.util.Utils.getErrorResponse
+import com.mertoenjosh.questprovider.util.Helpers.getErrorResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
