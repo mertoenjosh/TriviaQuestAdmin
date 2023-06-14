@@ -55,10 +55,20 @@ class LoginViewModel @Inject constructor(
 
     private fun updateLoginInputErrors(inputErrors: InputErrors) {
         loginState.update {
-            it.copy(email = InputWrapper(errorId = inputErrors.emailErrorId))
+            it.copy(
+                email = InputWrapper(
+                    value = it.email.value,
+                    errorId = inputErrors.emailErrorId
+                )
+            )
         }
         loginState.update {
-            it.copy(password = InputWrapper(errorId = inputErrors.passwordErrorId))
+            it.copy(
+                password = InputWrapper(
+                    value = it.password.value,
+                    errorId = inputErrors.passwordErrorId
+                )
+            )
         }
     }
 

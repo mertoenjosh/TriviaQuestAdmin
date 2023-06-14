@@ -73,19 +73,44 @@ class SignupViewModel @Inject constructor(
 
     private fun updateSignupInputErrors(inputErrors: InputErrors) {
         signupState.update {
-            it.copy(firstName = InputWrapper(errorId = inputErrors.firstNameError))
+            it.copy(
+                firstName = InputWrapper(
+                    value = it.firstName.value,
+                    errorId = inputErrors.firstNameError
+                )
+            )
         }
         signupState.update {
-            it.copy(lastName = InputWrapper(errorId = inputErrors.lastNameError))
+            it.copy(
+                lastName = InputWrapper(
+                    value = it.lastName.value,
+                    errorId = inputErrors.lastNameError
+                )
+            )
         }
         signupState.update {
-            it.copy(email = InputWrapper(errorId = inputErrors.emailErrorId))
+            it.copy(
+                email = InputWrapper(
+                    value = it.email.value,
+                    errorId = inputErrors.emailErrorId
+                )
+            )
         }
         signupState.update {
-            it.copy(password = InputWrapper(errorId = inputErrors.passwordErrorId))
+            it.copy(
+                password = InputWrapper(
+                    value = it.password.value,
+                    errorId = inputErrors.passwordErrorId
+                )
+            )
         }
         signupState.update {
-            it.copy(confirmPassword = InputWrapper(errorId = inputErrors.confirmPasswordErrorId))
+            it.copy(
+                confirmPassword = InputWrapper(
+                    value = it.confirmPassword.value,
+                    errorId = inputErrors.confirmPasswordErrorId
+                )
+            )
         }
     }
 
