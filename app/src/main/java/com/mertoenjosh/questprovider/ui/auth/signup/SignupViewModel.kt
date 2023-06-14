@@ -2,7 +2,7 @@ package com.mertoenjosh.questprovider.ui.auth.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo
+import com.mertoenjosh.questprovider.domain.repositories.AuthRepo
 import com.mertoenjosh.questprovider.ui.auth.util.InputErrors
 import com.mertoenjosh.questprovider.util.InputValidator
 import com.mertoenjosh.questprovider.util.InputWrapper
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
-    val repository: QuestionRepo
+    val authRepo: AuthRepo
 ) : ViewModel() {
     val signupState = MutableStateFlow(SignupState())
 
