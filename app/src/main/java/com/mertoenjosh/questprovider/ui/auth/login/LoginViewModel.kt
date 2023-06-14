@@ -2,8 +2,8 @@ package com.mertoenjosh.questprovider.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
-import com.mertoenjosh.questprovider.domain.repositories.Repository
+import com.mertoenjosh.questprovider.data.network.models.payload.Login
+import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo
 import com.mertoenjosh.questprovider.ui.auth.util.InputErrors
 import com.mertoenjosh.questprovider.ui.util.UiState
 import com.mertoenjosh.questprovider.util.InputValidator
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: Repository,
+    private val repository: QuestionRepo,
 ) : ViewModel() {
     private val _loginState = MutableStateFlow(LoginState())
     val loginState get() = _loginState.asStateFlow()
@@ -51,7 +51,7 @@ class LoginViewModel @Inject constructor(
             when (val inputErrors = getLoginInputErrorsOrNull()) {
                 null -> {
                     // TODO: clear fields, close keyboard
-                    val loginPayload = LoginRequest(
+                    val loginPayload = Login(
                         email = loginState.value.email.value,
                         password = loginState.value.password.value
                     )
@@ -97,7 +97,7 @@ class LoginViewModel @Inject constructor(
     }
 
     // test@mnt.dev pass1234
-    private fun login(user: LoginRequest) {
+    private fun login(user: Login) {
         _loginState.update { it.copy(uiState = UiState.Loading()) }
         viewModelScope.launch {
             try {

@@ -2,10 +2,13 @@ package com.mertoenjosh.questprovider.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mertoenjosh.questprovider.data.database.QpDatabase
+import com.mertoenjosh.questprovider.data.database.dao.AuthDao
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
-import com.mertoenjosh.questprovider.data.repositories.RepositoryImpl
-import com.mertoenjosh.questprovider.domain.repositories.Repository
+import com.mertoenjosh.questprovider.data.repositories.AuthRepoImpl
+import com.mertoenjosh.questprovider.data.repositories.QuestionRepoImpl
+import com.mertoenjosh.questprovider.domain.repositories.AuthRepo
+import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo
 import com.mertoenjosh.questprovider.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -64,14 +67,21 @@ class NetworkModule {
     fun provideAuthApi(retrofit: Retrofit) : AuthApi {
         return retrofit.create(AuthApi::class.java)
     }
+    @Provides
+    @Singleton
+    fun providesAuthRepo(
+        authApi: AuthApi,
+        authDao: AuthDao
+    ): AuthRepo {
+        return AuthRepoImpl(authApi, authDao)
+    }
 
     @Provides
     @Singleton
-    fun providesRepo(
+    fun providesQuestionRepo(
         questionApi: QuestionApi,
-        authApi: AuthApi,
         qpDatabase: QpDatabase
-    ): Repository {
-        return RepositoryImpl(questionApi, authApi, qpDatabase)
+    ): QuestionRepo {
+        return QuestionRepoImpl(questionApi, qpDatabase)
     }
 }

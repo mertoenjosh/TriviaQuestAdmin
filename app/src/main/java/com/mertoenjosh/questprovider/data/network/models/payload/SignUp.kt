@@ -1,10 +1,10 @@
-package com.mertoenjosh.questprovider.data.network.models.request
+package com.mertoenjosh.questprovider.data.network.models.payload
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserRequest(
+data class SignUp(
     @SerialName("firstName")
     val firstName: String,
     @SerialName("lastName")

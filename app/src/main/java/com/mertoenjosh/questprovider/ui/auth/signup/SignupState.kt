@@ -1,5 +1,7 @@
 package com.mertoenjosh.questprovider.ui.auth.signup
 
+import com.mertoenjosh.questprovider.domain.models.User
+import com.mertoenjosh.questprovider.ui.util.UiState
 import com.mertoenjosh.questprovider.util.InputWrapper
 
 data class SignupState(
@@ -7,7 +9,8 @@ data class SignupState(
     val lastName: InputWrapper = InputWrapper(),
     val email: InputWrapper = InputWrapper(),
     val password: InputWrapper = InputWrapper(),
-    val confirmPassword: InputWrapper = InputWrapper()
+    val confirmPassword: InputWrapper = InputWrapper(),
+    val uiState: UiState<User?>? = null
 )
 
 sealed class SignupEvents {

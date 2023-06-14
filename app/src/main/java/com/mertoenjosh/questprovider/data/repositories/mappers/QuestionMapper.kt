@@ -1,9 +1,19 @@
 package com.mertoenjosh.questprovider.data.repositories.mappers
 
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
-import com.mertoenjosh.questprovider.data.database.models.UserEntity
 import com.mertoenjosh.questprovider.data.network.models.response.QuestionDTO
-import com.mertoenjosh.questprovider.data.network.models.response.UserDTO
+import com.mertoenjosh.questprovider.domain.models.Question
+
+fun QuestionEntity.toDomain() = Question (
+    id= id,
+    question = question,
+    correctAnswer = correctAnswer,
+    choices = choices,
+    difficulty = difficulty,
+    category = category,
+    tags = tags,
+    author = author
+)
 
 fun QuestionDTO.toEntity() = QuestionEntity(
     id = id,
@@ -14,12 +24,4 @@ fun QuestionDTO.toEntity() = QuestionEntity(
     tags = tags,
     difficulty = difficulty,
     author = author
-)
-
-fun UserDTO.toEntity() = UserEntity(
-    id = id,
-    email = email,
-    name = name,
-    role = role,
-    token = token
 )

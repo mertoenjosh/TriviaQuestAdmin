@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import com.mertoenjosh.questprovider.domain.models.Question
-import com.mertoenjosh.questprovider.domain.repositories.Repository
+import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.util.ScreenEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @ExperimentalPagingApi
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    repository: Repository
+    repository: QuestionRepo
 ) : ViewModel() {
     private val _events = Channel<ScreenEvent>()
     val events = _events.receiveAsFlow()

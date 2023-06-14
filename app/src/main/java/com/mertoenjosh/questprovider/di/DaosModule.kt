@@ -1,7 +1,6 @@
 package com.mertoenjosh.questprovider.di
 
 import com.mertoenjosh.questprovider.data.database.QpDatabase
-import com.mertoenjosh.questprovider.data.database.dao.QuestionDao
 import com.mertoenjosh.questprovider.data.database.dao.AuthDao
 import dagger.Module
 import dagger.Provides
@@ -15,8 +14,4 @@ class DaosModule {
     @Singleton
     @Provides
     fun providesAuthDao(qpDatabase: QpDatabase): AuthDao = qpDatabase.authDao()
-
-    @Singleton
-    @Provides
-    fun providesQuestionDao(qpDatabase: QpDatabase): QuestionDao = qpDatabase.questionDao()
 }

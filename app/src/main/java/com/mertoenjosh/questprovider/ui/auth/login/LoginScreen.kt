@@ -20,10 +20,6 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,7 +34,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.navigation.Screen
 import com.mertoenjosh.questprovider.ui.components.DialogBoxLoading
 import com.mertoenjosh.questprovider.ui.components.HeadingText
@@ -95,11 +90,11 @@ fun SignInScreenContent(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         when (loginState.uiState) {
             is UiState.Loading -> {
                 DialogBoxLoading()
             }
+
             is UiState.Success -> {
                 navHostController.navigate(route = Screen.Home.route) {
                     popUpTo(Screen.Home.route) {
@@ -107,6 +102,7 @@ fun SignInScreenContent(
                     }
                 }
             }
+
             else -> {
                 LaunchedEffect(key1 = loginState.uiState?.error) {
                     loginState.uiState?.error?.let { context.toast(it) }
