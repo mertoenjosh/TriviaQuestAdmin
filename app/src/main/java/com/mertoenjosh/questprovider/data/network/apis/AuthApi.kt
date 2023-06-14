@@ -1,7 +1,7 @@
 package com.mertoenjosh.questprovider.data.network.apis
 
 import com.mertoenjosh.questprovider.data.network.models.payload.Login
-import com.mertoenjosh.questprovider.data.network.models.payload.SignUp
+import com.mertoenjosh.questprovider.data.network.models.payload.Signup
 import com.mertoenjosh.questprovider.data.network.models.response.BaseResponse
 import com.mertoenjosh.questprovider.data.network.models.response.UserDTO
 import retrofit2.Response
@@ -16,7 +16,7 @@ interface AuthApi {
     ): Response<BaseResponse<UserDTO>>
 
     @POST("users/signup")
-    fun createUser(
-        @Body userObj: SignUp
+    suspend fun createUser(
+        @Body userObj: Signup
     ): Response<BaseResponse<UserDTO>>
 }

@@ -4,7 +4,8 @@ import com.mertoenjosh.questprovider.data.database.dao.AuthDao
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.models.response.UserDTO
 import com.mertoenjosh.questprovider.data.repositories.mappers.toEntity
-import com.mertoenjosh.questprovider.data.repositories.mappers.toPayload
+import com.mertoenjosh.questprovider.data.repositories.mappers.toLoginPayload
+import com.mertoenjosh.questprovider.data.repositories.mappers.toSignupPayload
 import com.mertoenjosh.questprovider.data.repositories.mappers.toUser
 import com.mertoenjosh.questprovider.domain.models.BaseDomainModel
 import com.mertoenjosh.questprovider.domain.models.User
@@ -17,7 +18,7 @@ class AuthRepoImpl @Inject constructor(
     private val authDao: AuthDao,
 ) : AuthRepo {
     override suspend fun loginUser(user: User): BaseDomainModel<User> {
-        val response = authApi.login(user.toPayload())
+        val response = authApi.login(user.toLoginPayload())
 
         return if (response.isSuccessful) {
             val userResponse = response.body()!!
@@ -34,6 +35,29 @@ class AuthRepoImpl @Inject constructor(
             BaseDomainModel(
                 error = true,
                 message = errorResponse.message,
+                data = null
+            )
+        }
+    }
+
+    override suspend fun registerUser(user: User): BaseDomainModel<User> {
+        val response = authApi.createUser(user.toSignupPayload())
+
+        return if (response.isSuccessful) {
+            val userResponse = response.body()!!
+            cacheUser(userResponse.data)
+
+            BaseDomainModel(
+                error = false,
+                message = userResponse.message,
+                data = userResponse.data.toUser()
+            )
+        } else {
+            val errRes = Helpers.getErrorResponse(response.errorBody())
+
+            BaseDomainModel(
+                error = true,
+                message = errRes.message,
                 data = null
             )
         }

@@ -1,5 +1,6 @@
 package com.mertoenjosh.questprovider.ui.auth.signup
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,9 +19,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,23 +34,28 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.navigation.Screen
+import com.mertoenjosh.questprovider.ui.components.DialogBoxLoading
 import com.mertoenjosh.questprovider.ui.components.HeadingText
 import com.mertoenjosh.questprovider.ui.components.MainActionButton
 import com.mertoenjosh.questprovider.ui.components.MyIconButton
 import com.mertoenjosh.questprovider.ui.components.MyOutlinedTextField
 import com.mertoenjosh.questprovider.ui.components.SmallText
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.util.UiState
+import com.mertoenjosh.questprovider.util.toast
 
 @Composable
 fun SignUpScreen(navHostController: NavHostController) {
     val signupViewModel: SignupViewModel = hiltViewModel()
     val signupState = signupViewModel.signupState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Scaffold(
         content = { paddingValues ->
             SignUpScreenContent(
                 modifier = Modifier.padding(paddingValues),
-                navHostController,
+                navHostController = navHostController,
+                context = context,
                 signupState = signupState.value,
                 onFirstNameChanged = { firstName ->
                     signupViewModel.handleSignupEvents(SignupEvents.FirstNameChanged(firstName))
@@ -80,6 +88,7 @@ fun SignUpScreen(navHostController: NavHostController) {
 fun SignUpScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
+    context: Context,
     signupState: SignupState,
     onFirstNameChanged: (String) -> Unit,
     onLastNameChanged: (String) -> Unit,
@@ -94,6 +103,25 @@ fun SignUpScreenContent(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        when (signupState.uiState) {
+            is UiState.Loading -> {
+                DialogBoxLoading()
+            }
+
+            is UiState.Success -> {
+                navHostController.navigate(Screen.Home.route) {
+                    popUpTo(Screen.Home.route) {
+                        inclusive = true
+                    }
+                }
+            }
+
+            else -> {
+                LaunchedEffect(key1 = signupState.uiState?.error) {
+                    signupState.uiState?.error?.let { context.toast(it) }
+                }
+            }
+        }
         // Back icon
         MyIconButton(
             modifier = Modifier.align(Alignment.Start),

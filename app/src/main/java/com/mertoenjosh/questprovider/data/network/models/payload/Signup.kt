@@ -4,15 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignUp(
-    @SerialName("firstName")
-    val firstName: String,
-    @SerialName("lastName")
-    val lastName: String,
+data class Signup(
+    @SerialName("name")
+    val name: String,
     @SerialName("email")
     val email: String,
     @SerialName("password")
     val password: String,
-    @SerialName("confirmPassword")
+    @SerialName("passwordConfirm")
     val confirmPassword: String
 )
