@@ -11,7 +11,7 @@ plugins {
 
 android {
     namespace = "com.mertoenjosh.questprovider"
-    compileSdk= 33
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.mertoenjosh.questprovider"
@@ -69,12 +69,12 @@ dependencies {
     implementation(Dependencies.composePaging)
     implementation(Dependencies.navigation)
     // kotlin
-    implementation(Dependencies.kotlinCoroutines)
+    implementation(Dependencies.kotlinCoroutinesAndroid)
     implementation(Dependencies.kotlinSerialization)
     implementation(Dependencies.kotlinSerializationConverter)
     implementation(Dependencies.coil)
     // retrofit
-    implementation (Dependencies.retrofit) // retrofit
+    implementation(Dependencies.retrofit) // retrofit
     implementation(Dependencies.gsonConverter) // retrofit->gson
     implementation(Dependencies.okHttp) // logging
     // room

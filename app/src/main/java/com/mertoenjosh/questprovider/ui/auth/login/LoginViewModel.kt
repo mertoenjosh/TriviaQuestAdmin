@@ -2,13 +2,16 @@ package com.mertoenjosh.questprovider.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mertoenjosh.questprovider.data.network.models.request.LoginRequest
 import com.mertoenjosh.questprovider.domain.repositories.Repository
 import com.mertoenjosh.questprovider.ui.auth.util.InputErrors
+import com.mertoenjosh.questprovider.ui.util.UiState
 import com.mertoenjosh.questprovider.util.InputValidator
 import com.mertoenjosh.questprovider.util.InputWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,19 +20,21 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel() {
-    val loginState = MutableStateFlow(LoginState())
+    private val _loginState = MutableStateFlow(LoginState())
+    val loginState get() = _loginState.asStateFlow()
+
 
     fun handleLoginEvents(loginEvents: LoginEvents) {
         when (loginEvents) {
             is LoginEvents.EmailChanged -> {
-                loginState.update {
+                _loginState.update {
 //                    val errorId = CustomValidator.isEmailValid(loginEvents.email)
                     it.copy(email = InputWrapper(loginEvents.email))
                 }
             }
 
             is LoginEvents.PasswordChanged -> {
-                loginState.update {
+                _loginState.update {
 //                    val errorId = CustomValidator.isPasswordValid(loginEvents.password)
                     it.copy(password = InputWrapper(loginEvents.password))
                 }
@@ -45,7 +50,12 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Default) {
             when (val inputErrors = getLoginInputErrorsOrNull()) {
                 null -> {
-                    // TODO: clear focus
+                    // TODO: clear fields, close keyboard
+                    val loginPayload = LoginRequest(
+                        email = loginState.value.email.value,
+                        password = loginState.value.password.value
+                    )
+                    login(loginPayload)
                 }
 
                 else -> updateLoginInputErrors(inputErrors)
@@ -54,19 +64,17 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun updateLoginInputErrors(inputErrors: InputErrors) {
-        loginState.update {
+        _loginState.update {
             it.copy(
                 email = InputWrapper(
-                    value = it.email.value,
-                    errorId = inputErrors.emailErrorId
+                    value = it.email.value, errorId = inputErrors.emailErrorId
                 )
             )
         }
-        loginState.update {
+        _loginState.update {
             it.copy(
                 password = InputWrapper(
-                    value = it.password.value,
-                    errorId = inputErrors.passwordErrorId
+                    value = it.password.value, errorId = inputErrors.passwordErrorId
                 )
             )
         }
@@ -89,7 +97,23 @@ class LoginViewModel @Inject constructor(
     }
 
     // test@mnt.dev pass1234
-    private fun login() {
-
+    private fun login(user: LoginRequest) {
+        _loginState.update { it.copy(uiState = UiState.Loading()) }
+        viewModelScope.launch {
+            try {
+                val loginResponse = repository.loginUser(user)
+                if (loginResponse.error) {
+                    _loginState.update { it.copy(uiState = UiState.Error(loginResponse.message)) }
+                } else {
+                    _loginState.update { it.copy(uiState = UiState.Success(loginResponse.data)) }
+                }
+            } catch (e: Exception) {
+                _loginState.update {
+                    it.copy(uiState = e.localizedMessage?.let { errorMessage ->
+                        UiState.Error(errorMessage)
+                    })
+                }
+            }
+        }
     }
 }

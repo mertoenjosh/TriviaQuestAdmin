@@ -1,5 +1,6 @@
 package com.mertoenjosh.questprovider.ui.auth.login
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,9 +19,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,13 +38,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
+import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.navigation.Screen
+import com.mertoenjosh.questprovider.ui.components.DialogBoxLoading
 import com.mertoenjosh.questprovider.ui.components.HeadingText
 import com.mertoenjosh.questprovider.ui.components.MainActionButton
 import com.mertoenjosh.questprovider.ui.components.MyIconButton
 import com.mertoenjosh.questprovider.ui.components.MyOutlinedTextField
 import com.mertoenjosh.questprovider.ui.components.SmallText
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
+import com.mertoenjosh.questprovider.ui.util.UiState
+import com.mertoenjosh.questprovider.util.toast
 
 @Composable
 fun SignInScreen(
@@ -45,11 +56,13 @@ fun SignInScreen(
 ) {
     val loginViewModel: LoginViewModel = hiltViewModel()
     val loginState = loginViewModel.loginState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Scaffold(
         content = { paddingValues ->
             SignInScreenContent(
                 modifier = Modifier.padding(paddingValues),
+                context = context,
                 navHostController,
                 loginState = loginState.value,
                 onEmailChange = { email ->
@@ -69,6 +82,7 @@ fun SignInScreen(
 @Composable
 fun SignInScreenContent(
     modifier: Modifier = Modifier,
+    context: Context,
     navHostController: NavHostController,
     loginState: LoginState,
     onEmailChange: (String) -> Unit,
@@ -81,6 +95,24 @@ fun SignInScreenContent(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        when (loginState.uiState) {
+            is UiState.Loading -> {
+                DialogBoxLoading()
+            }
+            is UiState.Success -> {
+                navHostController.navigate(route = Screen.Home.route) {
+                    popUpTo(Screen.Home.route) {
+                        inclusive = true
+                    }
+                }
+            }
+            else -> {
+                LaunchedEffect(key1 = loginState.uiState?.error) {
+                    loginState.uiState?.error?.let { context.toast(it) }
+                }
+            }
+        }
         // Back icon
         MyIconButton(
             modifier = Modifier.align(Alignment.Start),
