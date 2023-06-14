@@ -21,7 +21,7 @@ import com.mertoenjosh.questprovider.ui.components.MyRadioGroup
 import com.mertoenjosh.questprovider.ui.components.MySpinnerDropdown
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import com.mertoenjosh.questprovider.util.InputWrapper
+import com.mertoenjosh.questprovider.ui.util.InputWrapper
 import timber.log.Timber
 
 

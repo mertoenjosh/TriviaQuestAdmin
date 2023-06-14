@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.navigation
+package com.mertoenjosh.questprovider.ui.navigation
 
 import com.mertoenjosh.questprovider.util.Constants.ARG_QUESTION_ID
 

@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.util
+package com.mertoenjosh.questprovider.ui.util
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

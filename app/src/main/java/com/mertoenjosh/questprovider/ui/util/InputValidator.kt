@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.util
+package com.mertoenjosh.questprovider.ui.util
 
 import com.mertoenjosh.questprovider.R
 import java.util.regex.Pattern

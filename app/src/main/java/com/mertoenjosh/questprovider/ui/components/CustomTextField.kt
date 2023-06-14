@@ -26,8 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
-import com.mertoenjosh.questprovider.util.InputWrapper
-import com.mertoenjosh.questprovider.util.OnValueChange
+import com.mertoenjosh.questprovider.ui.util.InputWrapper
+import com.mertoenjosh.questprovider.ui.util.OnValueChange
 
 @Composable
 fun MyOutlinedTextField(

@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.di
+package com.mertoenjosh.questprovider.data.di
 
 import android.content.Context
 import androidx.room.Room

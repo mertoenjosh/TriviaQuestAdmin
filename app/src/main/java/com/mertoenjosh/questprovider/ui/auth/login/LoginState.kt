@@ -2,7 +2,7 @@ package com.mertoenjosh.questprovider.ui.auth.login
 
 import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.ui.util.UiState
-import com.mertoenjosh.questprovider.util.InputWrapper
+import com.mertoenjosh.questprovider.ui.util.InputWrapper
 
 data class LoginState(
     val email: InputWrapper = InputWrapper(),

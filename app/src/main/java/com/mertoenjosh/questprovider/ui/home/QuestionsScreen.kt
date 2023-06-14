@@ -40,7 +40,7 @@ import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
 import com.mertoenjosh.questprovider.domain.models.Question
-import com.mertoenjosh.questprovider.navigation.Screen
+import com.mertoenjosh.questprovider.ui.navigation.Screen
 import com.mertoenjosh.questprovider.ui.components.CustomMenuDialog
 import com.mertoenjosh.questprovider.ui.components.Question
 import com.mertoenjosh.questprovider.ui.components.TopAppBar

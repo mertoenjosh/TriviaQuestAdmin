@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.di
+package com.mertoenjosh.questprovider.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mertoenjosh.questprovider.data.database.QpDatabase

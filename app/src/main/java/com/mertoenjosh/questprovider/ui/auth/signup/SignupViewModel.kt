@@ -6,15 +6,14 @@ import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.domain.repositories.AuthRepo
 import com.mertoenjosh.questprovider.ui.auth.util.InputErrors
 import com.mertoenjosh.questprovider.ui.util.UiState
-import com.mertoenjosh.questprovider.util.InputValidator
-import com.mertoenjosh.questprovider.util.InputWrapper
+import com.mertoenjosh.questprovider.ui.util.InputValidator
+import com.mertoenjosh.questprovider.ui.util.InputWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

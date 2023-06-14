@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.di
+package com.mertoenjosh.questprovider.data.di
 
 import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.dao.AuthDao

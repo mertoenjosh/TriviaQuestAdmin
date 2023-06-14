@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.navigation
+package com.mertoenjosh.questprovider.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

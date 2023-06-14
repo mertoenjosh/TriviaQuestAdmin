@@ -33,7 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mertoenjosh.questprovider.R
-import com.mertoenjosh.questprovider.navigation.Screen
+import com.mertoenjosh.questprovider.ui.navigation.Screen
 import com.mertoenjosh.questprovider.ui.components.DialogBoxLoading
 import com.mertoenjosh.questprovider.ui.components.HeadingText
 import com.mertoenjosh.questprovider.ui.components.MainActionButton
