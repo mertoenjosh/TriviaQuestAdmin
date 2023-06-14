@@ -96,9 +96,11 @@ fun SignInScreenContent(
             }
 
             is UiState.Success -> {
-                navHostController.navigate(route = Screen.Home.route) {
-                    popUpTo(Screen.Home.route) {
-                        inclusive = true
+                LaunchedEffect(key1 = Unit) {
+                    navHostController.navigate(route = Screen.Home.route) {
+                        popUpTo(Screen.Home.route) {
+                            inclusive = true
+                        }
                     }
                 }
             }

@@ -109,9 +109,12 @@ fun SignUpScreenContent(
             }
 
             is UiState.Success -> {
-                navHostController.navigate(Screen.Home.route) {
-                    popUpTo(Screen.Home.route) {
-                        inclusive = true
+                // Ensures loading questions is not infinite
+                LaunchedEffect(key1 = Unit) {
+                    navHostController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Home.route) {
+                            inclusive = true
+                        }
                     }
                 }
             }

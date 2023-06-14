@@ -6,7 +6,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.paging.ExperimentalPagingApi
 import com.mertoenjosh.questprovider.ui.auth.login.SignInScreen
 import com.mertoenjosh.questprovider.ui.auth.signup.SignUpScreen
 import com.mertoenjosh.questprovider.ui.details.AddQuestionScreen
@@ -15,7 +14,6 @@ import com.mertoenjosh.questprovider.ui.home.QuestionsScreen
 import com.mertoenjosh.questprovider.ui.onboarding.WelcomeScreen
 import com.mertoenjosh.questprovider.util.Constants.ARG_QUESTION_ID
 
-@OptIn(ExperimentalPagingApi::class)
 @Composable
 fun SetupNavGraph(
     navHostController: NavHostController
