@@ -27,14 +27,13 @@ import androidx.compose.ui.unit.dp
 import com.mertoenjosh.questprovider.R
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import com.mertoenjosh.questprovider.ui.util.InputWrapper
-import com.mertoenjosh.questprovider.ui.util.OnValueChange
 
 @Composable
 fun MyOutlinedTextField(
     modifier: Modifier = Modifier,
     value: InputWrapper,
     @StringRes label: Int,
-    onValueChange: OnValueChange,
+    onValueChange: (value: String) -> Unit,
     isPassword: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
