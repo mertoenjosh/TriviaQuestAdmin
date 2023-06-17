@@ -2,9 +2,9 @@ package com.mertoenjosh.questprovider.data.database.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.mertoenjosh.questprovider.util.Constants
+import com.mertoenjosh.questprovider.data.util.Constants.USERS_TABLE
 
-@Entity(Constants.USERS_TABLE)
+@Entity(USERS_TABLE)
 class UserEntity (
     @PrimaryKey
     val id: String, // 637c82a52064d5546ed1ee2e

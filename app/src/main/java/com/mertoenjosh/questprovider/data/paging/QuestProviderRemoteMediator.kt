@@ -10,7 +10,7 @@ import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.database.models.QuestionRemoteKeysEntity
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.repositories.mappers.toEntity
-import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
+import com.mertoenjosh.questprovider.data.util.Constants.QUESTIONS_PER_PAGE
 
 @OptIn(ExperimentalPagingApi::class)
 class QuestProviderRemoteMediator(

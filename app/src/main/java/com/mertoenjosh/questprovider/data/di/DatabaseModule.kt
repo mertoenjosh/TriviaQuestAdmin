@@ -3,7 +3,7 @@ package com.mertoenjosh.questprovider.data.di
 import android.content.Context
 import androidx.room.Room
 import com.mertoenjosh.questprovider.data.database.QpDatabase
-import com.mertoenjosh.questprovider.util.Constants
+import com.mertoenjosh.questprovider.data.util.Constants.QUEST_PROVIDER_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +20,7 @@ class DatabaseModule {
         return Room.databaseBuilder(
             context,
             QpDatabase::class.java,
-            Constants.QUEST_PROVIDER_DATABASE
+            QUEST_PROVIDER_DATABASE
         ).build()
     }
 }

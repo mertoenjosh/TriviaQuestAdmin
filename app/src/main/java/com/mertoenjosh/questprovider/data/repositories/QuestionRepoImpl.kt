@@ -9,9 +9,9 @@ import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.paging.QuestProviderRemoteMediator
 import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
+import com.mertoenjosh.questprovider.data.util.Constants.QUESTIONS_PER_PAGE
 import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo
-import com.mertoenjosh.questprovider.util.Constants.QUESTIONS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

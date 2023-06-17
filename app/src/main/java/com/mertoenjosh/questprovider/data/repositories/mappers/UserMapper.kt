@@ -19,7 +19,7 @@ fun User.toSignupPayload(): Signup = Signup(
 )
 
 fun UserDTO.toEntity(): UserEntity = UserEntity(
-    id = id,
+    id = "1",
     email = email,
     name = name,
     role = role,
@@ -28,7 +28,7 @@ fun UserDTO.toEntity(): UserEntity = UserEntity(
 
 fun UserDTO.toUser(): User = User(
     firstName = name.split(" ")[0],
-    lastName = name.split(" ")[1],
+    lastName = if (name.split(" ").size < 2) name.split(" ")[0] else "",
     email = email,
     role = role,
     password = ""

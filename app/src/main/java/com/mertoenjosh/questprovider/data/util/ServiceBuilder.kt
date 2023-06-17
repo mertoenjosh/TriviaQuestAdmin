@@ -1,6 +1,6 @@
-package com.mertoenjosh.questprovider.util
+package com.mertoenjosh.questprovider.data.util
 
-import com.mertoenjosh.questprovider.util.Constants.BASE_URL
+import com.mertoenjosh.questprovider.data.util.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

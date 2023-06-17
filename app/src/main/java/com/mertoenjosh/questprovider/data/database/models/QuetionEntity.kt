@@ -1,9 +1,9 @@
 package com.mertoenjosh.questprovider.data.database.models
 
 import androidx.room.*
-import com.mertoenjosh.questprovider.util.Constants
+import com.mertoenjosh.questprovider.data.util.Constants.QUESTIONS_TABLE
 
-@Entity(tableName = Constants.QUESTIONS_TABLE)
+@Entity(tableName = QUESTIONS_TABLE)
 data class QuestionEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,

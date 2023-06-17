@@ -7,9 +7,9 @@ import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.repositories.AuthRepoImpl
 import com.mertoenjosh.questprovider.data.repositories.QuestionRepoImpl
+import com.mertoenjosh.questprovider.data.util.Constants.BASE_URL
 import com.mertoenjosh.questprovider.domain.repositories.AuthRepo
 import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo
-import com.mertoenjosh.questprovider.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +50,7 @@ class NetworkModule {
         }
 
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
