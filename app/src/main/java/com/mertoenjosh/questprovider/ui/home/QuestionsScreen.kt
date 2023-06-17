@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
@@ -37,13 +38,14 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.mertoenjosh.questprovider.R
+import com.mertoenjosh.questprovider.data.data_source.mappers.toDomain
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
-import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
 import com.mertoenjosh.questprovider.domain.models.Question
-import com.mertoenjosh.questprovider.ui.navigation.Screen
+import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.ui.components.CustomMenuDialog
 import com.mertoenjosh.questprovider.ui.components.Question
 import com.mertoenjosh.questprovider.ui.components.TopAppBar
+import com.mertoenjosh.questprovider.ui.navigation.Screen
 import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 
 
@@ -61,7 +63,10 @@ fun QuestionsScreen(
             TopAppBar(
                 title = R.string.trivia_quest,
                 profileIcon = Icons.Filled.AccountCircle,
-                onProfileOrBackIconClick = { showDialogMenu.value = true }
+                onProfileOrBackIconClick = {
+                    homeViewModel.handleHomeScreenEvents(HomeScreenEvents.ProfileClicked)
+                    showDialogMenu.value = true
+                }
             )
         },
 
@@ -95,6 +100,7 @@ fun QuestionsScreenContent(
     showDialogMenu: MutableState<Boolean>
 ) {
     val questions = homeViewModel.getAllQuestion().collectAsLazyPagingItems()
+    val homeScreenState = homeViewModel.homeScreenState.collectAsStateWithLifecycle().value
 
     Column(
         modifier = modifier
@@ -104,15 +110,19 @@ fun QuestionsScreenContent(
             questions = questions,
             onQuestionClick = { question ->
                 navHostController.navigate(Screen.Details.passQuestion(question.id))
-            })
+            }
+        )
 
         if (showDialogMenu.value) {
-            CustomMenuDialog(title = R.string.trivia_quest,
+            CustomMenuDialog(
+                title = R.string.trivia_quest,
                 onDismiss = { showDialogMenu.value = !showDialogMenu.value },
-                name = "Jordan Park",
-                email = "hello@jpark.com",
+                firstName = homeScreenState.uiState?.data?.firstName ?: "null",
+                lastName = homeScreenState.uiState?.data?.lastName ?: "null",
+                email = homeScreenState.uiState?.data?.email ?: "null",
                 onAccountImageAndEmailClicked = {},
-                onDialogItemClicked = {})
+                onDialogItemClicked = {}
+            )
         }
     }
 }

@@ -9,7 +9,7 @@ import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.database.models.QuestionRemoteKeysEntity
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
-import com.mertoenjosh.questprovider.data.repositories.mappers.toEntity
+import com.mertoenjosh.questprovider.data.data_source.mappers.toEntity
 import com.mertoenjosh.questprovider.data.util.Constants.QUESTIONS_PER_PAGE
 
 @OptIn(ExperimentalPagingApi::class)

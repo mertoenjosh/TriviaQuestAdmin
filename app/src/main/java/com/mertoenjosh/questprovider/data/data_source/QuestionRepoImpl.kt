@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.data.repositories
+package com.mertoenjosh.questprovider.data.data_source
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
@@ -8,7 +8,7 @@ import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.models.QuestionEntity
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
 import com.mertoenjosh.questprovider.data.paging.QuestProviderRemoteMediator
-import com.mertoenjosh.questprovider.data.repositories.mappers.toDomain
+import com.mertoenjosh.questprovider.data.data_source.mappers.toDomain
 import com.mertoenjosh.questprovider.data.util.Constants.QUESTIONS_PER_PAGE
 import com.mertoenjosh.questprovider.domain.models.Question
 import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo

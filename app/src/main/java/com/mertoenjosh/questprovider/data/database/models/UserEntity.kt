@@ -7,9 +7,10 @@ import com.mertoenjosh.questprovider.data.util.Constants.USERS_TABLE
 @Entity(USERS_TABLE)
 class UserEntity (
     @PrimaryKey
-    val id: String, // 637c82a52064d5546ed1ee2e
+    val id: String,
     val token: String,
-    val email: String, // test@mnt.dev
-    val name: String, // test
-    val role: String, // user
+    val email: String,
+    val firstName: String,
+    val lastName: String,
+    val role: String,
 )

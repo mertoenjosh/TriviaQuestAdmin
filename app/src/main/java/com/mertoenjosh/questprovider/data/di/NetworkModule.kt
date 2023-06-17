@@ -5,8 +5,8 @@ import com.mertoenjosh.questprovider.data.database.QpDatabase
 import com.mertoenjosh.questprovider.data.database.dao.AuthDao
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.apis.QuestionApi
-import com.mertoenjosh.questprovider.data.repositories.AuthRepoImpl
-import com.mertoenjosh.questprovider.data.repositories.QuestionRepoImpl
+import com.mertoenjosh.questprovider.data.data_source.AuthRepoImpl
+import com.mertoenjosh.questprovider.data.data_source.QuestionRepoImpl
 import com.mertoenjosh.questprovider.data.util.Constants.BASE_URL
 import com.mertoenjosh.questprovider.domain.repositories.AuthRepo
 import com.mertoenjosh.questprovider.domain.repositories.QuestionRepo

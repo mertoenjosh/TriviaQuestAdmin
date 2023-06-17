@@ -91,7 +91,8 @@ fun DialogTitlePreview() {
 
 @Composable
 fun AccountImageAndEmail(
-    name: String,
+    firstName: String,
+    lastName: String,
     email: String,
     onClick: () -> Unit
 ) {
@@ -117,13 +118,22 @@ fun AccountImageAndEmail(
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
-            Text(
-                text = name,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colors.onBackground
-            )
+            Row (
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ){
+                Text(
+                    text = firstName,
+                    textAlign = TextAlign.Start,
+                    color = MaterialTheme.colors.onBackground
+                )
 
+                Text(
+                    text = lastName,
+                    textAlign = TextAlign.Start,
+                    color = MaterialTheme.colors.onBackground
+                )
+
+            }
             Text(
                 text = email,
                 textAlign = TextAlign.Start,
@@ -145,7 +155,8 @@ fun AccountImageAndEmail(
 fun AccountImageAndEmailPreview() {
     QuestProviderTheme() {
         AccountImageAndEmail(
-            name = "Martin Thuo",
+            firstName = "Martin",
+            lastName = "Thuo",
             email = "mnthuo254@gmail.com"
         ) {}
     }
@@ -205,7 +216,8 @@ fun CustomDialogItemPreview() {
 fun CustomMenuDialog(
     @StringRes title: Int,
     onDismiss: () -> Unit,
-    name: String = "Martin Thuo",
+    firstName: String = "Martin",
+    lastName: String = "Thuo",
     email: String = "martinthuo@gmail.com",
     onAccountImageAndEmailClicked: () -> Unit,
     onDialogItemClicked: () -> Unit,
@@ -226,7 +238,8 @@ fun CustomMenuDialog(
 
                 AccountImageAndEmail(
                     onClick = onAccountImageAndEmailClicked,
-                    name = name,
+                    firstName = firstName,
+                    lastName = lastName,
                     email = email
                 )
 
