@@ -1,5 +1,6 @@
 package com.mertoenjosh.questprovider.ui.onboarding
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -86,7 +87,12 @@ fun WelcomeScreenContent(modifier: Modifier = Modifier, navHostController: NavHo
 }
 
 @Preview(
-    showBackground = true, name = "Welcome screen"
+    showBackground = true,
+    name = "Welcome screen"
+)
+@Preview(
+    name = "dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 fun WelcomeScreenPreview() {

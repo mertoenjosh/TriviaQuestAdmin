@@ -99,7 +99,7 @@ fun QuestionsScreenContent(
     context: Context,
     showDialogMenu: MutableState<Boolean>
 ) {
-    val questions = homeViewModel.getAllQuestion().collectAsLazyPagingItems()
+    val questions = homeViewModel.allQuestions.collectAsLazyPagingItems()
     val homeScreenState = homeViewModel.homeScreenState.collectAsStateWithLifecycle().value
 
     Column(
@@ -117,7 +117,7 @@ fun QuestionsScreenContent(
             CustomMenuDialog(
                 title = R.string.trivia_quest,
                 onDismiss = { showDialogMenu.value = !showDialogMenu.value },
-                firstName = homeScreenState.uiState?.data?.firstName ?: "null",
+                firstName = (homeScreenState.uiState?.data as User?)?.firstName ?: "null",
                 lastName = homeScreenState.uiState?.data?.lastName ?: "null",
                 email = homeScreenState.uiState?.data?.email ?: "null",
                 onAccountImageAndEmailClicked = {},

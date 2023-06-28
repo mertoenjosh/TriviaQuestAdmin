@@ -6,6 +6,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +17,11 @@ import com.mertoenjosh.questprovider.ui.theme.QuestProviderTheme
 import java.util.Locale
 
 @Composable
-fun HeadingText(@StringRes text: Int, modifier: Modifier = Modifier) {
+fun HeadingText(
+    @StringRes text: Int,
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colors.primary
+) {
     Text(
         text = stringResource(id = text).replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
@@ -25,7 +30,7 @@ fun HeadingText(@StringRes text: Int, modifier: Modifier = Modifier) {
         },
         style = MaterialTheme.typography.h3.copy(
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.primary,
+            color = color,
             fontSize = 45.sp
         ), // 48.sp
         modifier = modifier.padding(8.dp)
