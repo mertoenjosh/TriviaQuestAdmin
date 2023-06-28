@@ -8,10 +8,10 @@ import com.mertoenjosh.questprovider.data.database.dao.AuthDao
 import com.mertoenjosh.questprovider.data.network.apis.AuthApi
 import com.mertoenjosh.questprovider.data.network.models.response.UserDTO
 import com.mertoenjosh.questprovider.data.util.Constants.USER_ID
+import com.mertoenjosh.questprovider.data.util.Helpers
 import com.mertoenjosh.questprovider.domain.models.BaseDomainModel
 import com.mertoenjosh.questprovider.domain.models.User
 import com.mertoenjosh.questprovider.domain.repositories.AuthRepo
-import com.mertoenjosh.questprovider.util.Helpers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -49,7 +49,6 @@ class AuthRepoImpl @Inject constructor(
         return if (response.isSuccessful) {
             val userResponse = response.body()!!
             cacheUser(userResponse.data)
-
             BaseDomainModel(
                 error = false,
                 message = userResponse.message,

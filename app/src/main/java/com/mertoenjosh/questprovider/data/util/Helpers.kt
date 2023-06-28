@@ -1,4 +1,4 @@
-package com.mertoenjosh.questprovider.util
+package com.mertoenjosh.questprovider.data.util
 
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
